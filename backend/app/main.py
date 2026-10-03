@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from .classifier import classify
 from .evidence import check_evidence
 from .explainer import explain
@@ -17,6 +18,12 @@ from .simulator import build_sim
 from .voice import stub_audio_url
 
 app = FastAPI(title="Sangyan C+E API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # demo hackathon build; tighten in production
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # in-memory history, no PII stored. replaced by SQLite in later stage.
 _history: list[HistoryItem] = []

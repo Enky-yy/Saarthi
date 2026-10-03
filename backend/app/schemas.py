@@ -10,6 +10,12 @@ class Lang(str, Enum):
     en = "en"
     mr = "mr"
     ta = "ta"
+    bn = "bn"
+    te = "te"
+    kn = "kn"
+    ml = "ml"
+    gu = "gu"
+    pa = "pa"
 
 
 class ClaimType(str, Enum):
