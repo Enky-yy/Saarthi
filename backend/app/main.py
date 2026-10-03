@@ -3,21 +3,20 @@ import uuid
 from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException
+from .classifier import classify
+from .evidence import check_evidence
+from .explainer import explain
 from .schemas import (
     AnalyzeRequest,
     AnalyzeResponse,
     Claim,
     ClaimType,
-    Evidence,
-    EvidenceLevel,
-    Explainer,
-    PromoLabel,
-    Simulator,
     HistoryItem,
-    Lang,
 )
+from .simulator import build_sim
+from .voice import stub_audio_url
 
-app = FastAPI(title="Sangyan C+E Stage-1 Stub")
+app = FastAPI(title="Sangyan C+E API")
 
 # in-memory history, no PII stored. replaced by SQLite in later stage.
 _history: list[HistoryItem] = []
@@ -29,31 +28,28 @@ def _input_hash(req: AnalyzeRequest) -> str:
 
 
 def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
-    # Stage-1 stub: deterministic placeholder. Real LLM/OCR plugs in stage 2-4.
-    has_guarantee = "guarantee" in (req.input_text or "").lower() or "गारंटी" in (req.input_text or "")
-    promo_label = PromoLabel.mixed if has_guarantee else PromoLabel.education
+    # Stage-5: full pipeline classroom stub. LLM/OCR/Bhashini plug into same signatures.
+    text = req.input_text or req.youtube_url or req.image_url or ""
+    promo_label, promo_score, promo_signals = classify(text)
+    has_guarantee = any("guarantee" in s for s in promo_signals)
+    claims = [
+        Claim(text=(req.input_text or "")[:200] or "empty input", type=ClaimType.guarantee if has_guarantee else ClaimType.product, jargon=["NAV"] if not has_guarantee else ["guaranteed returns"])
+    ]
+    evidence = check_evidence(text, claims)
+    explainer = explain(text, claims, req.lang)
+    simulator = build_sim(text)
+    audio_url = stub_audio_url(job_id, req.voice, req.lang, explainer.plain_text)
     return AnalyzeResponse(
         job_id=job_id,
         lang=req.lang,
-        claims=[
-            Claim(text=(req.input_text or "")[:200] or "empty input", type=ClaimType.guarantee if has_guarantee else ClaimType.product, jargon=["NAV"] if not has_guarantee else ["guaranteed returns"])
-        ],
+        claims=claims,
         promo_label=promo_label,
-        promo_score=0.65 if has_guarantee else 0.2,
-        promo_signals=["guarantee keyword"] if has_guarantee else [],
-        evidence=Evidence(
-            level=EvidenceLevel.none,
-            summary="No verifiable evidence provided in stub.",
-            sources=[],
-            uncertainty="Stub cannot verify. Check SEBI / NSE / SCORES before acting.",
-        ),
-        explainer=Explainer(
-            plain_text="Stub explanation in grade-6 language.",
-            analogy="Like monsoon promise: no one can guarantee rain.",
-            terms=[{"term": "NAV", "meaning": "per-share value of a mutual fund"}],
-        ),
-        simulator=Simulator(type="sip-vs-hype", inputs={"pmt": 5000, "n": 12}, projection=[5000.0 * (i + 1) for i in range(12)]),
-        audio_url=None,
+        promo_score=promo_score,
+        promo_signals=promo_signals,
+        evidence=evidence,
+        explainer=explainer,
+        simulator=simulator,
+        audio_url=audio_url,
     )
 
 
