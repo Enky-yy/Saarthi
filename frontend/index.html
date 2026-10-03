@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SANGYAN — Investor Resilience Portal | SEBI · NSDL · IIT (BHU)</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to main content</a>
+<div class="tricolor" aria-hidden="true"></div>
+
+<div class="utilbar">
+  <div class="wrap utilbar-in">
+    <span>भारत सरकार · Government of India</span>
+    <span class="sp"></span>
+    <span data-i18n="sra">Screen Reader Access</span>
+    <span class="acc" role="group" aria-label="Text size">
+      <button id="f-dec">A-</button><button id="f-reset">A</button><button id="f-inc">A+</button>
+    </span>
+    <span class="langs" role="group" aria-label="Language">
+      <button data-lang="en" aria-pressed="true">English</button>
+      <button data-lang="hinglish" aria-pressed="false">Hinglish</button>
+      <button data-lang="hi" aria-pressed="false">हिन्दी</button>
+      <button data-lang="mr" aria-pressed="false">मराठी</button>
+      <button data-lang="ta" aria-pressed="false">தமிழ்</button>
+    </span>
+  </div>
+</div>
+
+<header class="dept">
+  <div class="wrap dept-in">
+    <div class="emblem" aria-hidden="true">स</div>
+    <div>
+      <div class="dept-name">SANGYAN — Investor Resilience Portal</div>
+      <div class="dept-sub">Securities and Exchange Board of India (SEBI) · National Securities Depository Limited (NSDL) · IIT (BHU) Varanasi</div>
+      <div class="dept-sub2">Investor Protection, Awareness and Resilience · 1–4 October 2026 Build Sprint · Track C + E</div>
+    </div>
+  </div>
+</header>
+
+<nav class="mainnav" aria-label="Primary">
+  <div class="wrap mainnav-in">
+    <a href="#" class="active" data-i18n="nav_home">Home</a>
+    <a href="#check-sec" data-i18n="nav_check">Check a Claim</a>
+    <a href="#result" data-i18n="nav_report">Assessment Report</a>
+    <a href="#learn" data-i18n="nav_learn">Investor Education</a>
+    <a href="#help" data-i18n="nav_help">Helpline</a>
+  </div>
+</nav>
+
+<div class="ticker" role="status">
+  <div class="wrap" data-i18n="ticker"><strong>Notice:</strong> No one can guarantee market returns. Verify registration on SEBI / SCORES / NSE before transferring money. This portal gives education only — never investment advice.</div>
+</div>
+
+<main class="wrap layout" id="main">
+  <div class="content">
+    <nav class="crumb" aria-label="Breadcrumb" data-i18n="crumb">Home / Investor Resilience / Claim Assessment</nav>
+    <h1 data-i18n="h1">Online Claim Assessment Facility</h1>
+    <p class="intro" data-i18n="intro">Paste the text of any investment tip, message, or video caption received on WhatsApp, Telegram, YouTube or Instagram. The facility examines whether the content is <strong>educating</strong> you or <strong>selling</strong> to you, states what evidence supports it, and explains the concept in plain words with a steady-vs-hype illustration.</p>
+
+    <section class="panel" id="check-sec" aria-labelledby="in-h">
+      <h2 id="in-h"><span class="hnum">1</span> <span data-i18n="form_title">Application Form — Claim Details</span></h2>
+      <label for="claim"><span data-i18n="form_label">Text of claim / tip / caption</span> <span class="req" data-i18n="req">(required)</span></label>
+      <p class="hint" data-i18n="form_hint">Do not enter OTPs, bank passwords, or full account numbers. Only the claim text is needed.</p>
+      <textarea id="claim">Guaranteed 5% monthly returns, join telegram now</textarea>
+      <div class="row">
+        <button class="btn" id="check" data-i18n="btn_check">Submit for assessment</button>
+        <button class="btn-ghost" id="speak" disabled data-i18n="btn_speak">Listen to explanation</button>
+        <button class="btn-ghost" id="clear" data-i18n="btn_clear">Reset form</button>
+      </div>
+      <div id="form-err" class="err" hidden></div>
+    </section>
+
+    <section class="panel" id="result" aria-live="polite" aria-labelledby="res-h">
+      <h2 id="res-h"><span class="hnum">2</span> <span data-i18n="rep_title">Assessment Report</span></h2>
+      <div id="empty"><p class="muted" data-i18n="empty">No assessment generated yet. Acknowledgement number will appear here after submission.</p></div>
+      <div id="loading" hidden><div class="skel"></div><p class="muted" data-i18n="loading">Assessment in progress…</p></div>
+      <div id="out" hidden>
+        <table class="report">
+          <tr><th data-i18n="th_class">Classification</th><td><span id="promo" class="badge b-edu">education</span> <span class="muted" id="score"></span></td></tr>
+          <tr><th data-i18n="th_ev">Evidence level</th><td><div class="meter" aria-hidden="true"><span></span><span></span><span></span></div><p id="ev"></p><p class="muted" id="ev-u"></p><ul id="src"></ul></td></tr>
+          <tr><th data-i18n="th_mean">Plain-language meaning</th><td><p id="plain"></p><p class="muted" id="analogy"></p><ul id="terms"></ul></td></tr>
+          <tr><th data-i18n="th_sim">Consequence illustration (₹5,000/month × 12)</th><td><canvas id="chart" width="640" height="220"></canvas><p class="muted" id="sim-note"></p></td></tr>
+          <tr><th data-i18n="th_sig">Detected signals</th><td><ul id="sig"></ul></td></tr>
+        </table>
+        <p class="muted" data-i18n="disclaimer">Disclaimer: computer-generated educational assessment, not investment advice or a legal finding. Verify independently on SEBI / SCORES / NSE before acting.</p>
+      </div>
+    </section>
+
+    <section class="panel" id="learn" aria-labelledby="learn-h">
+      <h2 id="learn-h"><span class="hnum">3</span> <span data-i18n="learn_title">Investor education</span></h2>
+      <ul class="links">
+        <li data-i18n="learn1">What is NAV — per-share value of a mutual fund, changes daily.</li>
+        <li data-i18n="learn2">SIP — a fixed monthly habit; compounding rewards patience, not tips.</li>
+        <li data-i18n="learn3">Volatility — prices move up and down; guaranteed returns do not exist.</li>
+        <li data-i18n="learn4">Grievance — lodge complaints on SCORES; check nominee and IEPF status.</li>
+      </ul>
+    </section>
+  </div>
+
+  <aside class="side" aria-label="Related information">
+    <section class="sidebox" id="help">
+      <h2 data-i18n="help_title">Helpline</h2>
+      <p><strong>SEBI Toll Free:</strong> 1800 266 7575<br><strong>SCORES:</strong> scores.sebi.gov.in<br><strong>Cyber fraud:</strong> 1930</p>
+    </section>
+    <section class="sidebox">
+      <h2 data-i18n="news_title">What is new</h2>
+      <ul>
+        <li data-i18n="news1">Check tip-group screenshots before forwarding.</li>
+        <li data-i18n="news2">Nominee registration now mandatory for demat.</li>
+        <li data-i18n="news3">Unclaimed dividends recoverable via IEPF.</li>
+      </ul>
+    </section>
+    <section class="sidebox">
+      <h2 data-i18n="links_title">Related links</h2>
+      <ul class="links">
+        <li><a href="https://www.sebi.gov.in" target="_blank" rel="noopener">sebi.gov.in</a></li>
+        <li><a href="https://scores.sebi.gov.in" target="_blank" rel="noopener">SCORES grievance portal</a></li>
+        <li><a href="https://www.nseindia.com" target="_blank" rel="noopener">NSE India</a></li>
+      </ul>
+    </section>
+    <section class="sidebox">
+      <h2 data-i18n="hist_title">Previous assessments</h2>
+      <div id="hist" class="hist" data-i18n="hist_empty">None on this device yet.</div>
+    </section>
+  </aside>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <div data-i18n="footer">Content owned and maintained by SANGYAN hackathon team for demonstration. Source registries: SEBI · NSE · SCORES.</div>
+    <div class="flinks"><span data-i18n="f_acc">Accessibility</span><span data-i18n="f_terms">Terms of Use</span><span data-i18n="f_priv">Privacy (no PII collected)</span><span data-i18n="f_upd">Last updated: Oct 2026</span></div>
+  </div>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>
