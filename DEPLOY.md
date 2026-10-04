@@ -9,7 +9,8 @@ Minimum: 2 vCPU / 8 GB RAM (holds MuRIL + e5 + Qwen-1.5B + whisper-tiny).
 GPU optional (faster RAG answers; everything works on CPU).
 
 ```bash
-# 1. code + python deps
+# 1. code + python deps (CPU-only torch on CPU boxes — default requirements
+#    pull CUDA wheels; swap with: pip install torch --index-url https://download.pytorch.org/whl/cpu)
 git clone <repo> && cd sangyan-sebi/backend
 pip install -r requirements.txt
 sudo apt install -y tesseract-ocr tesseract-ocr-hin  # screenshot OCR (+Hindi)
@@ -28,13 +29,19 @@ python kb_sync.py                    # refresh SEBI corpus
 Serve `frontend/` with nginx/caddy and proxy `/api/*` → `127.0.0.1:8001`
 (or set the `API` base in `app.js`). Enable HTTPS — mic + service worker need it.
 
-## Option B — Railway / PaaS
+## Option B — free split (no paid plan anywhere)
 
-- Backend: Dockerfile below; set start command
-  `uvicorn app.main:app --host 0.0.0.0 --port $PORT` (root dir `backend/`).
-- Free tiers fit rules + templates + TF-IDF only: skip model downloads and
-  the app still fully works (providers endpoint says so honestly).
-- For full ML: a paid CPU box per Option A; keep static frontend on the free tier.
+**Verified Oct 2026: Hugging Face Docker/Gradio Spaces need a paid plan.**
+Free accounts get Static Spaces + ZeroGPU demos only — so:
+
+- Frontend → **Hugging Face Static Space** or Cloudflare Pages (free, fast,
+  offline-capable). Point the `API` base in `app.js` at your backend URL.
+- Backend → **Oracle Cloud Always-Free VPS** (4 ARM cores + 24GB RAM, free
+  forever, persistent disk) following Option A. Full ML stack at ₹0.
+- Free-tier PaaS (Railway/Render 512MB) runs rules+templates mode only —
+  an honest fallback demo (see `/api/providers`).
+
+The root `Dockerfile` stays for VPS/PaaS Docker deploys.
 
 ```dockerfile
 FROM python:3.12-slim
