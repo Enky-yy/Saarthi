@@ -8,7 +8,7 @@ _PATTERNS: list[tuple[str, float, str, str]] = [
     # urgency / FOMO
     (r"hurry|act now|last chance|limited (offer|seats|slots)|only \d+ left|जल्दी\s*करो|सीमित\s*ऑफर|मर्यादित\s*ऑफर|அவசரம்", 0.25, "urgency/FOMO pressure", "urgency"),
     # CTA to closed group / link
-    (r"join (telegram|whatsapp|group)|click (here|link)|link in bio|\bDM\b|whatsapp (pe|par|number)|टेलीग्राम\s*(जॉइन|ज्वाइन)|लिंक\s*(पर\s*क्लिक|इन\s*बायो)", 0.25, "closed-group/link CTA", "group_cta"),
+    (r"join[\w\s]{0,25}(telegram|whatsapp|group)|(telegram|whatsapp)\s+(group|channel|link)|click (here|link)|link in bio|\bDM\b|whatsapp (pe|par|number)|टेलीग्राम\s*(जॉइन|ज्वाइन)|लिंक\s*(पर\s*क्लिक|इन\s*बायो)", 0.25, "closed-group/link CTA", "group_cta"),
     # selling / referral funnel
     (r"open demat|use my code|referral|discount|buy now|subscribe|affiliate|मेरा\s*कोड|डीमैट\s*खोलो", 0.20, "selling/referral funnel", "referral"),
     # fake authority + tip language
@@ -38,7 +38,7 @@ def classify(text: str) -> tuple[PromoLabel, float, list[str], list[str]]:
         signals.append("has educational phrasing (mixed)")
     score = min(1.0, round(score, 2))
     if score < 0.35:
-        return PromoLabel.education, score, signals, ["educational"] + tags
+        return PromoLabel.education, score, signals, ([] if tags else ["educational"]) + tags
     if score <= 0.65:
         return PromoLabel.mixed, score, signals, tags
     return PromoLabel.promotion, score, signals, ["selling"] + tags

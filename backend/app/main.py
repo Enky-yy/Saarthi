@@ -73,6 +73,15 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
     evidence = check_evidence(text, claims)
     ev_tag = "official_source" if evidence.level.value == "strong" else ("no_evidence" if evidence.level.value == "none" else "has_numbers")
     tags = rule_tags + [ev_tag]
+    # Decisive action call: stop (danger) / verify (unclear) / learn (safe teaching).
+    # A group invite, tip line, referral, or hurry tactic alone is never "safe".
+    pressure = set(rule_tags) & {"group_cta", "authority_tip", "referral", "urgency"}
+    if promo_label.value == "promotion" or "guarantee" in rule_tags:
+        action = "stop"
+    elif promo_label.value == "education" and not pressure:
+        action = "learn"
+    else:
+        action = "verify"
     if source_note:
         evidence = evidence.model_copy(update={"uncertainty": evidence.uncertainty + " " + source_note})
     # Evidence strings are authored in English; Gemini translates them when keyed.
@@ -108,6 +117,7 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
         promo_score=promo_score,
         promo_signals=promo_signals,
         tags=tags,
+        action=action,
         evidence=evidence,
         explainer=explainer,
         simulator=simulator,

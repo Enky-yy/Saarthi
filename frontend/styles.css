@@ -64,6 +64,12 @@ table.report th{width:32%;background:#F0F4F8;color:var(--navy)}
 .meter span.on-weak{background:#7FA0C0}
 .meter span.on-none{background:#C62828}
 .verdict-line{font-size:1.15rem;font-weight:700;color:var(--navy);margin:.1rem 0}
+.stamp{border-radius:4px;padding:.9rem 1.1rem;margin:0 0 .8rem;font-size:1.25rem;font-weight:700}
+.stamp-stop{background:#B71C1C;color:#fff;border:2px solid #7F0000}
+.stamp-learn{background:#1B5E20;color:#fff;border:2px solid #0D3B12}
+.stamp-verify{background:#FFF8E1;color:#7A5B00;border:2px solid #956400}
+.acts{margin:.2rem 0;padding-left:1.4rem}
+.acts li{margin:.35rem 0}
 .tagrow{display:flex;gap:.45rem;flex-wrap:wrap}
 .tagrow .badge{font-size:.88rem;padding:.3rem .85rem}
 canvas#chart{width:100%;height:220px;border:1px solid var(--line);background:#fff}

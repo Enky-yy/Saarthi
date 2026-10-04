@@ -88,6 +88,7 @@ class AnalyzeResponse(BaseModel):
     promo_score: float = Field(ge=0, le=1)
     promo_signals: list[str] = Field(default_factory=list)
     tags: list[str] = Field(default_factory=list)
+    action: str = Field(examples=["stop", "verify", "learn"])
     evidence: Evidence
     explainer: Explainer
     simulator: Simulator

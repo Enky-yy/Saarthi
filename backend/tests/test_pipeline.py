@@ -62,6 +62,16 @@ def test_explainer_all_langs_native():
         assert ex.plain_text and ex.analogy and len(ex.terms) >= 1
 
 
+def test_action_calls():
+    from app.main import app
+    from fastapi.testclient import TestClient
+    c = TestClient(app)
+    scam = c.post("/api/analyze", json={"input_text": "Guaranteed 5% monthly, join telegram", "lang": "en"}).json()
+    assert scam["action"] == "stop" and "guarantee" in scam["tags"]
+    safe = c.post("/api/analyze", json={"input_text": "What is NAV? NAV means per-share value, explained", "lang": "en"}).json()
+    assert safe["action"] == "learn" and "educational" in safe["tags"]
+
+
 def test_calcs_math():
     from app.calcs import TOOL_FN
     sip, _ = TOOL_FN["sip"]({"pmt": 5000, "rate": 12, "years": 10})
