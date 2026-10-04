@@ -24,6 +24,10 @@ python kb_sync.py                    # refresh SEBI corpus
 # 3. run behind systemd (port 8001) + any static server for frontend/
 # env (all optional): SANGYAN_DB, GNANI_API_KEY, MURIL_MODEL_DIR,
 #   EMBED_MODEL, LOCAL_GEN_MODEL (blank = disable that engine)
+#
+# Rules-only mode (512MB boxes, free PaaS): disable every model —
+#   MURIL_MODEL_DIR=/none EMBED_MODEL=/none LOCAL_GEN_MODEL=
+# The app stays fully functional on rules + templates + TF-IDF.
 ```
 
 Serve `frontend/` with nginx/caddy and proxy `/api/*` → `127.0.0.1:8001`
