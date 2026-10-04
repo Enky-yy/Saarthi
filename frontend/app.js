@@ -1,4 +1,4 @@
-const API = location.port === "8001" ? "" : "http://127.0.0.1:8001";
+const API = location.port === "8001" ? "" : ((location.hostname === "127.0.0.1" || location.hostname === "localhost") ? "http://127.0.0.1:8001" : "");
 let LANG = "en", LAST = null;
 const $ = (id) => document.getElementById(id);
 

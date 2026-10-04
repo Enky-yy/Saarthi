@@ -330,7 +330,6 @@ def wall_get():
     from .store import wall_read
     return wall_read()
 
-
 @app.post("/api/wall")
 def wall_post(req: WallRequest):
     from .store import wall_add
@@ -338,3 +337,13 @@ def wall_post(req: WallRequest):
     if not saved:
         raise HTTPException(status_code=422, detail="bad report fields")
     return {"ok": True}
+
+
+# Single-container deploy (Hugging Face Spaces): serve the static frontend
+# from the same origin. Mounted LAST so /api/* and /docs keep priority.
+# Local dev is unaffected (FRONTEND_DIR unset).
+import os as _os
+_front = _os.environ.get("FRONTEND_DIR", "")
+if _front and _os.path.isdir(_front):
+    from fastapi.staticfiles import StaticFiles
+    app.mount("/", StaticFiles(directory=_front, html=True), name="static")
