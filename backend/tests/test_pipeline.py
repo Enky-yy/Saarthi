@@ -57,3 +57,19 @@ def test_explainer_all_langs_native():
     for lang in Lang:
         ex = explain("What is SIP?", [], lang)
         assert ex.plain_text and ex.analogy and len(ex.terms) >= 1
+
+
+def test_calcs_math():
+    from app.calcs import TOOL_FN
+    sip, _ = TOOL_FN["sip"]({"pmt": 5000, "rate": 12, "years": 10})
+    assert abs(sip["final_value"] - 1150193.45) < 1.0  # standard SIP formula
+    from app.main import app
+    from fastapi.testclient import TestClient
+    c = TestClient(app)
+    assert c.post("/api/calc", json={"tool": "nope", "inputs": {}}).status_code == 422
+    r = c.post("/api/calc", json={"tool": "emi", "inputs": {"principal": 500000, "rate": 9, "years": 5}, "lang": "en"}).json()
+    assert abs(r["results"]["emi"] - 10379.18) < 1.0
+    r = c.post("/api/calc", json={"tool": "ror", "inputs": {"start": 100000, "end": 200000, "years": 5}, "lang": "en"}).json()
+    assert abs(r["results"]["cagr_pct"] - 14.87) < 0.01
+    r = c.post("/api/calc", json={"tool": "sip", "inputs": {"pmt": 1e12, "rate": 99, "years": 99}, "lang": "en"}).json()
+    assert r["results"]["final_value"] > 0  # clamped, never crashes

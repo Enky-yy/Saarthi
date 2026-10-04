@@ -120,3 +120,17 @@ class SimRequest(BaseModel):
     months: int = 12
     claimed_monthly_pct: Optional[float] = None
     crash_pct: float = 0.0
+
+
+class CalcRequest(BaseModel):
+    tool: str
+    inputs: dict
+    lang: Lang = Lang.hinglish
+
+
+class CalcResponse(BaseModel):
+    tool: str
+    results: dict
+    series: list[float] = Field(default_factory=list)
+    explain: str
+    disclaimer: str = "Education only, not investment advice."

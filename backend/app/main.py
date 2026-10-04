@@ -14,6 +14,8 @@ from .youtube import extract_youtube_text
 from .schemas import (
     AnalyzeRequest,
     AnalyzeResponse,
+    CalcRequest,
+    CalcResponse,
     Claim,
     ClaimType,
     LearnRequest,
@@ -154,6 +156,29 @@ def learn(req: LearnRequest):
 @app.post("/api/simulate", response_model=Simulator)
 def simulate(req: SimRequest):
     return run_simulation(req.pmt, req.months, req.claimed_monthly_pct, req.crash_pct)
+
+
+@app.get("/api/calcs")
+def calc_specs():
+    from .calcs import SPECS
+    return SPECS
+
+
+@app.post("/api/calc", response_model=CalcResponse)
+def calc(req: CalcRequest):
+    from .calcs import SPECS, TOOL_FN, describe
+    if req.tool not in TOOL_FN:
+        raise HTTPException(status_code=422, detail="unknown tool")
+    spec = {name: (lo, hi) for name, _, lo, hi, _ in SPECS[req.tool]["fields"]}
+    clean: dict = {}
+    for name, _, lo, hi, default in SPECS[req.tool]["fields"]:
+        try:
+            v = float(req.inputs.get(name, default))
+        except Exception:
+            v = float(default)
+        clean[name] = min(max(v, lo), hi)
+    results, series = TOOL_FN[req.tool](clean)
+    return CalcResponse(tool=req.tool, results=results, series=[float(x) for x in series], explain=describe(req.tool, req.lang))
 
 
 @app.get("/api/audio/{job_id}")

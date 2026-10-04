@@ -37,6 +37,11 @@ for (const [k, m] of Object.entries(EXTRA2)) for (const [l, v] of Object.entries
 const EXTRA3 = {
 sim_verdict: {en: "Promise: {hype} (×{mult} of what you paid). Steady habit: {real} (₹{realterms} in today's money). Gap ₹{gap} ≈ {months} months of your savings.", hinglish: "Vaada: {hype} (jama ka ×{mult}). Sabr wali aadat: {real} (aaj ke paise me ₹{realterms}). Antar ₹{gap} ≈ {months} mahine ki bachat.", hi: "वादा: {hype} (जमा का ×{mult})। धैर्य वाली आदत: {real} (आज के पैसे में ₹{realterms})। अंतर ₹{gap} ≈ {months} माह की बचत।", mr: "आश्वासन: {hype} (भरलेल्याच्या ×{mult})। संयमी सवय: {real} (आजच्या पैशांत ₹{realterms})। तफावत ₹{gap} ≈ {months} महिन्यांची बचत।", ta: "வாக்குறுதி: {hype} (செலுத்தியதில் ×{mult}). நிதானப் பழக்கம்: {real} (இன்றைய பணத்தில் ₹{realterms}). இடைவெளி ₹{gap} ≈ {months} மாத சேமிப்பு.", bn: "প্রতিশ্রুতি: {hype} (জমার ×{mult})। ধৈর্যের অভ্যাস: {real} (আজকের টাকায় ₹{realterms})। ফারাক ₹{gap} ≈ {months} মাসের সঞ্চয়।", te: "హామీ: {hype} (చెల్లించినదానికి ×{mult}). ఓర్పు అలవాటు: {real} (నేటి డబ్బులో ₹{realterms}). తేడా ₹{gap} ≈ {months} నెలల పొదుపు.", kn: "ಭರವಸೆ: {hype} (ಪಾವತಿಸಿದ್ದರ ×{mult}). ತಾಳ್ಮೆಯ ಅಭ್ಯಾಸ: {real} (ಇಂದಿನ ಹಣದಲ್ಲಿ ₹{realterms}). ಅಂತರ ₹{gap} ≈ {months} ತಿಂಗಳ ಉಳಿತಾಯ.", ml: "വാഗ്ദാനം: {hype} (അടച്ചതിന്റെ ×{mult}). ക്ഷമാശീലം: {real} (ഇന്നത്തെ പണത്തിൽ ₹{realterms}). വിടവ് ₹{gap} ≈ {months} മാസത്തെ സമ്പാദ്യം.", gu: "વચન: {hype} (ભરેલાના ×{mult}). ધીરજની ટેવ: {real} (આજના પૈસામાં ₹{realterms}). તફાવત ₹{gap} ≈ {months} મહિનાની બચત.", pa: "ਵਾਅਦਾ: {hype} (ਭਰੇ ਦੇ ×{mult})। ਧੀਰਜ ਵਾਲੀ ਆਦਤ: {real} (ਅੱਜ ਦੇ ਪੈਸੇ ਵਿੱਚ ₹{realterms})। ਫ਼ਰਕ ₹{gap} ≈ {months} ਮਹੀਨਿਆਂ ਦੀ ਬਚਤ।"}};
 for (const [k, m] of Object.entries(EXTRA3)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
+
+const EXTRA4 = {
+calc_title: {en: "Money calculators — learn by doing", hinglish: "Paise ke calculator — karke seekho", hi: "पैसे के कैलकुलेटर — करके सीखें", mr: "पैसे गणक — करून शिका", ta: "பணக் கணக்கீடுகள் — செய்து கற்க", bn: "টাকার ক্যালকুলেটর — করে শিখুন", te: "డబ్బు కాలిక్యులేటర్లు — చేసి నేర్చుకోండి", kn: "ಹಣದ ಕ್ಯಾಲ್ಕುಲೇಟರ್‌ಗಳು — ಮಾಡಿ ಕಲಿಯಿರಿ", ml: "പണ കാൽക്കുലേറ്ററുകൾ — ചെയ്ത് പഠിക്കൂ", gu: "પૈસાના કેલ્ક્યુલેટર — કરીને શીખો", pa: "ਪੈਸੇ ਦੇ ਕੈਲਕੁਲੇਟਰ — ਕਰਕੇ ਸਿੱਖੋ"},
+calc_go: {en: "Calculate", hinglish: "Ginti karo", hi: "गणना करें", mr: "मोजा", ta: "கணக்கிடு", bn: "হিসাব করুন", te: "లెక్కించు", kn: "ಲೆಕ್ಕ ಹಾಕಿ", ml: "കണക്കാക്കൂ", gu: "ગણતરી કરો", pa: "ਹਿਸਾਬ ਲਾਓ"}};
+for (const [k, m] of Object.entries(EXTRA4)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
 const SPEECH_LANG = {hi: "hi-IN", mr: "mr-IN", ta: "ta-IN", bn: "bn-IN", te: "te-IN", kn: "kn-IN", ml: "ml-IN", gu: "gu-IN", pa: "pa-IN"};
 
 function applyLang() {
@@ -226,8 +231,7 @@ for (const [id, out] of [["sim-pmt", "sim-pmt-v"], ["sim-yrs", "sim-yrs-v"], ["s
 document.querySelectorAll(".preset").forEach((b) =>
   b.addEventListener("click", () => { $("sim-hype").value = b.dataset.hype; $("sim-hype-v").textContent = b.dataset.hype; $("sim-go").click(); }));
 
-$("sim-go").addEventListener("click", async () => {
-  const body = {
+$("sim-go").addEventListener("click", async () => {  const body = {
     pmt: parseFloat($("sim-pmt").value),
     months: parseInt($("sim-yrs").value, 10) * 12,
     claimed_monthly_pct: parseFloat($("sim-hype").value),
@@ -250,3 +254,63 @@ $("sim-go").addEventListener("click", async () => {
     $("sim-note2").textContent = sim.inputs.note || "";
   } catch { $("sim-note2").textContent = "Could not simulate. Is the backend on :8001?"; }
 });
+
+// ---- Track C: money calculator suite ----
+const CALC_NAMES = {sip: "SIP", compound: "Compound", inflation: "Inflation", emi: "EMI", ror: "Returns %", bond: "Bond yield", retire: "Retirement"};
+let CALC_SPECS = {}, CALC_TOOL = "sip";
+fetch(`${API}/api/calcs`).then((r) => r.json()).then((specs) => {
+  CALC_SPECS = specs;
+  $("calc-chips").innerHTML = Object.keys(specs).map((t) => `<button data-tool="${t}" aria-pressed="${t === "sip"}">${CALC_NAMES[t] || t}</button>`).join("");
+  document.querySelectorAll("#calc-chips button").forEach((b) =>
+    b.addEventListener("click", () => {
+      document.querySelectorAll("#calc-chips button").forEach((x) => x.setAttribute("aria-pressed", "false"));
+      b.setAttribute("aria-pressed", "true");
+      CALC_TOOL = b.dataset.tool;
+      renderCalcForm();
+    }));
+  renderCalcForm();
+}).catch(() => { $("calc-form").innerHTML = "<span class='muted'>Calculators need the backend on :8001.</span>"; });
+
+function renderCalcForm() {
+  const spec = CALC_SPECS[CALC_TOOL];
+  if (!spec) return;
+  $("calc-form").innerHTML = spec.fields.map(([name, label, lo, hi, def]) =>
+    `<div><label for="cf-${name}">${label} <output id="cf-${name}-v">${def}</output></label>` +
+    `<input type="range" id="cf-${name}" min="${lo}" max="${hi}" step="${(hi - lo) > 1000 ? 100 : ((hi - lo) > 30 ? 1 : 0.5)}" value="${def}"></div>`).join("");
+  spec.fields.forEach(([name]) => $(`cf-${name}`).addEventListener("input", (e) => $(`cf-${name}-v`).textContent = e.target.value));
+}
+
+$("calc-go").addEventListener("click", async () => {
+  const spec = CALC_SPECS[CALC_TOOL];
+  if (!spec) return;
+  const inputs = {};
+  spec.fields.forEach(([name]) => inputs[name] = parseFloat($(`cf-${name}`).value));
+  try {
+    const r = await fetch(`${API}/api/calc`, {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({tool: CALC_TOOL, inputs, lang: LANG}),
+    });
+    const d = await r.json();
+    $("calc-out").hidden = false;
+    const f = (v) => (typeof v === "number" ? (v % 1 ? v.toLocaleString("en-IN", {maximumFractionDigits: 2}) : Math.round(v).toLocaleString("en-IN")) : v);
+    $("calc-rows").innerHTML = Object.entries(d.results).map(([k, v]) =>
+      `<tr><th>${k.replace(/_/g, " ")}</th><td>${typeof v === "number" && v > 100 ? "₹" : ""}${f(v)}${k.endsWith("_pct") ? "%" : ""}</td></tr>`).join("");
+    drawSeries("chart3", d.series);
+    $("calc-explain").textContent = d.explain;
+  } catch { $("calc-out").hidden = true; }
+});
+
+function drawSeries(cvId, series) {
+  const cv = $(cvId), ctx = cv.getContext("2d");
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  if (!series || !series.length) return;
+  const max = Math.max(...series) || 1, min = Math.min(...series, 0);
+  const X = (i) => 34 + (i / Math.max(1, series.length - 1)) * (cv.width - 54);
+  const Y = (v) => cv.height - 24 - ((v - min) / (max - min || 1)) * (cv.height - 58);
+  ctx.strokeStyle = "#D5D5D5"; ctx.beginPath(); ctx.moveTo(34, 10); ctx.lineTo(34, cv.height - 24); ctx.lineTo(cv.width - 10, cv.height - 24); ctx.stroke();
+  ctx.strokeStyle = "#0B3C5D"; ctx.lineWidth = 2.5; ctx.beginPath();
+  series.forEach((v, i) => i ? ctx.lineTo(X(i), Y(v)) : ctx.moveTo(X(0), Y(v)));
+  ctx.stroke();
+  ctx.fillStyle = "#0B3C5D"; ctx.font = "12px sans-serif";
+  ctx.fillText("₹" + Math.round(series[series.length - 1]).toLocaleString("en-IN"), 38, 24);
+}
