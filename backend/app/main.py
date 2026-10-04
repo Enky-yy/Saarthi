@@ -33,7 +33,7 @@ from .store import recent as history_recent
 from .store import save as history_save
 from .voice import stub_audio_url
 
-app = FastAPI(title="Sangyan C+E API")
+app = FastAPI(title="Saarthi Investor Resilience API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # demo hackathon build; tighten in production

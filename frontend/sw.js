@@ -1,5 +1,5 @@
-/* Sangyan offline shell: app chrome + lesson/calc specs work with zero network. */
-const CACHE = "sangyan-v1";
+/* Saarthi offline shell: app chrome + lesson/calc specs work with zero network. */
+const CACHE = "saarthi-v1";
 const CORE = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.json"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
