@@ -150,6 +150,24 @@
   </div>
 
   <aside class="side" aria-label="Related information">
+    <section class="sidebox gamebox" id="game">
+      <h2 data-i18n="game_title">Spot the scam — play &amp; learn</h2>
+      <p class="muted" data-i18n="game_sub">6 real-style messages. Tap Scam or Safe — we show the red flags instantly.</p>
+      <div class="game-progress"><span id="game-q">1 / 6</span><span class="sp"></span><span><span data-i18n="game_score">Score</span>: <strong id="game-s">0</strong></span></div>
+      <div class="game-card" id="game-card" aria-live="polite"></div>
+      <div class="row game-btns">
+        <button class="btn-danger" id="game-scam" data-i18n="btn_scam">Scam</button>
+        <button class="btn-safe" id="game-safe" data-i18n="btn_safe">Safe</button>
+      </div>
+      <div id="game-why" class="game-why" hidden></div>
+      <div class="row"><button class="btn-ghost" id="game-next" hidden data-i18n="game_next">Next →</button></div>
+      <div id="game-end" hidden>
+        <p id="game-tier"></p>
+        <p class="muted"><span data-i18n="game_best">Best on this device</span>: <strong id="game-b">0</strong> / 6</p>
+        <div class="row"><button class="btn-ghost" id="game-again" data-i18n="game_again">Play again</button>
+        <a class="btn-ghost game-link" href="#check-sec" data-i18n="game_real">Check a real message →</a></div>
+      </div>
+    </section>
     <section class="sidebox" id="help">
       <h2 data-i18n="help_title">Helpline</h2>
       <p><strong>SEBI Toll Free:</strong> 1800 266 7575<br><strong>SCORES:</strong> scores.sebi.gov.in<br><strong>Cyber fraud:</strong> 1930</p>

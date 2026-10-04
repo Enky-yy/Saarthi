@@ -42,6 +42,21 @@ const EXTRA4 = {
 calc_title: {en: "Money calculators — learn by doing", hinglish: "Paise ke calculator — karke seekho", hi: "पैसे के कैलकुलेटर — करके सीखें", mr: "पैसे गणक — करून शिका", ta: "பணக் கணக்கீடுகள் — செய்து கற்க", bn: "টাকার ক্যালকুলেটর — করে শিখুন", te: "డబ్బు కాలిక్యులేటర్లు — చేసి నేర్చుకోండి", kn: "ಹಣದ ಕ್ಯಾಲ್ಕುಲೇಟರ್‌ಗಳು — ಮಾಡಿ ಕಲಿಯಿರಿ", ml: "പണ കാൽക്കുലേറ്ററുകൾ — ചെയ്ത് പഠിക്കൂ", gu: "પૈસાના કેલ્ક્યુલેટર — કરીને શીખો", pa: "ਪੈਸੇ ਦੇ ਕੈਲਕੁਲੇਟਰ — ਕਰਕੇ ਸਿੱਖੋ"},
 calc_go: {en: "Calculate", hinglish: "Ginti karo", hi: "गणना करें", mr: "मोजा", ta: "கணக்கிடு", bn: "হিসাব করুন", te: "లెక్కించు", kn: "ಲೆಕ್ಕ ಹಾಕಿ", ml: "കണക്കാക്കൂ", gu: "ગણતરી કરો", pa: "ਹਿਸਾਬ ਲਾਓ"}};
 for (const [k, m] of Object.entries(EXTRA4)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
+
+const EXTRA5 = {
+game_title: {en: "Spot the scam — play & learn", hinglish: "Scam pehchano — khelo aur seekho", hi: "ठगी पहचानो — खेलो और सीखो", mr: "फसवणूक ओळखा — खेळा आणि शिका", ta: "மோசடியைக் கண்டுபிடி — விளையாடு கற்றுக்கொள்", bn: "প্রতারণা চিনুন — খেলুন ও শিখুন", te: "స్కామ్ గుర్తించండి — ఆడండి నేర్చుకోండి", kn: "ವಂಚನೆ ಗುರುತಿಸಿ — ಆಡಿ ಕಲಿಯಿರಿ", ml: "തട്ടിപ്പ് കണ്ടെത്തൂ — കളിച്ച് പഠിക്കൂ", gu: "છેતરપિંડી ઓળખો — રમો અને શીખો", pa: "ਠੱਗੀ ਪਛਾਣੋ — ਖੇਡੋ ਤੇ ਸਿੱਖੋ"},
+game_sub: {en: "6 real-style messages. Tap Scam or Safe — we show the red flags instantly.", hinglish: "6 asli-jaise message. Scam ya Safe dabao — red flags turant dikhenge.", hi: "6 असली जैसे संदेश। Scam या Safe दबाएं — रेड फ्लैग तुरंत दिखेंगे।", mr: "6 खऱ्यांसारखे संदेश. Scam की Safe दाबा — रेड फ्लॅग लगेच दिसतील.", ta: "6 உண்மை போன்ற செய்திகள். Scam அல்லது Safe — சிவப்புக் கொடிகள் உடனே.", bn: "6টি আসলের মতো বার্তা। Scam বা Safe চাপুন — রেড ফ্ল্যাগ সঙ্গে সঙ্গে।", te: "6 నిజమైన-లాంటి సందేశాలు. Scam లేదా Safe నొక్కండి — రెడ్ ఫ్లాగ్‌లు వెంటనే.", kn: "6 ನೈಜ-ಶೈಲಿಯ ಸಂದೇಶಗಳು. Scam ಅಥವಾ Safe ಒತ್ತಿ — ಕೆಂಪು ಚಿಹ್ನೆಗಳು ತಕ್ಷಣ.", ml: "6 യഥാർത്ഥ ശൈലി സന്ദേശങ്ങൾ. Scam അല്ലെങ്കിൽ Safe അമർത്തൂ — റെഡ് ഫ്ലാഗുകൾ ഉടൻ.", gu: "6 અસલી જેવા સંદેશ. Scam કે Safe દબાવો — રેડ ફ્લેગ તરત.", pa: "6 ਅਸਲੀ-ਵਰਗੇ ਸੁਨੇਹੇ। Scam ਜਾਂ Safe ਦਬਾਓ — ਰੈੱਡ ਫਲੈਗ ਤੁਰੰਤ।"},
+btn_scam: {en: "Scam", hinglish: "Scam / Thagi", hi: "ठगी", mr: "फसवणूक", ta: "மோசடி", bn: "প্রতারণা", te: "స్కామ్", kn: "ವಂಚನೆ", ml: "തട്ടിപ്പ്", gu: "છેતરપિંડી", pa: "ਠੱਗੀ"},
+btn_safe: {en: "Safe", hinglish: "Safe / Sahi", hi: "सही", mr: "सुरक्षित", ta: "பாதுகாப்பு", bn: "নিরাপদ", te: "సురక్షితం", kn: "ಸುರಕ್ಷಿತ", ml: "സുരക്ഷിതം", gu: "સલામત", pa: "ਸੁਰੱਖਿਅਤ"},
+game_next: {en: "Next →", hinglish: "Aage →", hi: "आगे →", mr: "पुढे →", ta: "அடுத்து →", bn: "পরের →", te: "తర్వాత →", kn: "ಮುಂದೆ →", ml: "അടുത്തത് →", gu: "આગળ →", pa: "ਅੱਗੇ →"},
+game_again: {en: "Play again", hinglish: "Phir khelo", hi: "फिर खेलें", mr: "पुन्हा खेळा", ta: "மீண்டும் விளையாடு", bn: "আবার খেলুন", te: "మళ్లీ ఆడండి", kn: "ಮತ್ತೆ ಆಡಿ", ml: "വീണ്ടും കളിക്കൂ", gu: "ફરી રમો", pa: "ਫਿਰ ਖੇਡੋ"},
+game_real: {en: "Check a real message →", hinglish: "Asli message check karo →", hi: "असली संदेश जांचें →", mr: "खरा संदेश तपासा →", ta: "உண்மைச் செய்தியைச் சரிபார் →", bn: "আসল বার্তা যাচাই করুন →", te: "నిజమైన సందేశం తనిఖీ →", kn: "ನಿಜ ಸಂದೇಶ ಪರಿಶೀಲಿಸಿ →", ml: "യഥാർത്ഥ സന്ദേശം പരിശോധിക്കൂ →", gu: "અસલી સંદેશ તપાસો →", pa: "ਅਸਲੀ ਸੁਨੇਹਾ ਜਾਂਚੋ →"},
+game_score: {en: "Score", hinglish: "Score", hi: "स्कोर", mr: "स्कोअर", ta: "மதிப்பெண்", bn: "স্কোর", te: "స్కోరు", kn: "ಸ್ಕೋರ್", ml: "സ്കോർ", gu: "સ્કોર", pa: "ਸਕੋਰ"},
+game_best: {en: "Best on this device", hinglish: "Is device par best", hi: "इस डिवाइस पर सर्वश्रेष्ठ", mr: "या डिव्हाइसवर सर्वोत्तम", ta: "இந்தச் சாதனத்தில் சிறந்தது", bn: "এই ডিভাইসে সেরা", te: "ఈ పరికరంలో అత్యుత్తమం", kn: "ಈ ಸಾಧನದಲ್ಲಿ ಅತ್ಯುತ್ತಮ", ml: "ഈ ഉപകരണത്തിലെ മികച്ചത്", gu: "આ ડિવાઇસ પર શ્રેષ્ઠ", pa: "ਇਸ ਡਿਵਾਈਸ ’ਤੇ ਸਭ ਤੋਂ ਵਧੀਆ"},
+game_win: {en: "Excellent — scam-proof instincts! You caught them all.", hinglish: "Shabaash — tumhe koi thag nahi sakta!", hi: "शाबाश — आपको कोई ठग नहीं सकता!", mr: "शाब्बास — तुम्हाला कोणी फसवू शकत नाही!", ta: "அருமை — உங்களை யாரும் ஏமாற்ற முடியாது!", bn: "সাবাশ — আপনাকে কেউ ঠকাতে পারবে না!", te: "భేష్ — మిమ్మల్ని ఎవరూ మోసం చేయలేరు!", kn: "ಶಹಬ್ಬಾಸ್ — ನಿಮ್ಮನ್ನು ಯಾರೂ ಮೋಸಗೊಳಿಸಲಾರರು!", ml: "കൊള്ളാം — നിങ്ങളെ ആർക്കും പറ്റിക്കാനാവില്ല!", gu: "શાબાશ — તમને કોઈ છેતરી શકે નહીં!", pa: "ਸ਼ਾਬਾਸ਼ — ਤੁਹਾਨੂੰ ਕੋਈ ਠੱਗ ਨਹੀਂ ਸਕਦਾ!"},
+game_mid: {en: "Good start — replay to sharpen your eye for red flags.", hinglish: "Achhi shuruaat — red flags ke liye phir khelo.", hi: "अच्छी शुरुआत — रेड फ्लैग हेतु फिर खेलें।", mr: "चांगली सुरुवात — रेड फ्लॅगसाठी पुन्हा खेळा.", ta: "நல்ல தொடக்கம் — மீண்டும் விளையாடுங்கள்.", bn: "ভালো শুরু — আবার খেলে চোখ ধারালো করুন।", te: "మంచి ఆరంభం — మళ్లీ ఆడి కన్ను పదును పెట్టండి.", kn: "ಒಳ್ಳೆಯ ಆರಂಭ — ಮತ್ತೆ ಆಡಿ ಕಣ್ಣು ಹರಿತಗೊಳಿಸಿ.", ml: "നല്ല തുടക്കം — വീണ്ടും കളിച്ച് കണ്ണ് മൂർച്ചയാക്കൂ.", gu: "સારી શરૂઆત — ફરી રમીને નજર તેજ કરો.", pa: "ਚੰਗੀ ਸ਼ੁਰੂਆਤ — ਫਿਰ ਖੇਡ ਕੇ ਨਜ਼ਰ ਤਿੱਖੀ ਕਰੋ।"},
+game_low: {en: "Scammers love beginners — play again, every round teaches the tricks.", hinglish: "Scammer naye logon ko phasate hain — phir khelo, har round trick sikhata hai.", hi: "ठग नए लोगों को फंसाते हैं — फिर खेलें, हर दौर तरकीब सिखाता है।", mr: "फसवणूकदार नवख्यांना फसवतात — पुन्हा खेळा.", ta: "மோசடிக்காரர்கள் புதியவர்களை ஏமாற்றுவர் — மீண்டும் விளையாடுங்கள்.", bn: "প্রতারকরা নতুনদের ফাঁসায় — আবার খেলুন।", te: "మోసగాళ్లు కొత్తవారిని మోసం చేస్తారు — మళ్లీ ఆడండి.", kn: "ವಂಚಕರು ಹೊಸಬರನ್ನು ಮೋಸಗೊಳಿಸುತ್ತಾರೆ — ಮತ್ತೆ ಆಡಿ.", ml: "തട്ടിപ്പുകാർ പുതിയവരെ പറ്റിക്കും — വീണ്ടും കളിക്കൂ.", gu: "છેતરનારા નવાઓને ફસાવે છે — ફરી રમો.", pa: "ਠੱਗ ਨਵਿਆਂ ਨੂੰ ਫਸਾਉਂਦੇ ਹਨ — ਫਿਰ ਖੇਡੋ।"}};
+for (const [k, m] of Object.entries(EXTRA5)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
 const SPEECH_LANG = {hi: "hi-IN", mr: "mr-IN", ta: "ta-IN", bn: "bn-IN", te: "te-IN", kn: "kn-IN", ml: "ml-IN", gu: "gu-IN", pa: "pa-IN"};
 
 function applyLang() {
@@ -299,6 +314,111 @@ $("calc-go").addEventListener("click", async () => {
     $("calc-explain").textContent = d.explain;
   } catch { $("calc-out").hidden = true; }
 });
+
+// ---- Spot-the-scam game (sidebar trainer) ----
+const DECK = [
+{answer: "scam",
+ en: "Guaranteed 5% monthly profit! Join our private Telegram group now — only 50 seats left.",
+ hi: "हर महीने 5% पक्का मुनाफा! अभी हमारा प्राइवेट टेलीग्राम ग्रुप जॉइन करें — सिर्फ़ 50 सीटें बचीं।",
+ hinglish: "Har mahine 5% pakka munafa! Abhi hamara private Telegram group join karo — sirf 50 seats bachi.",
+ fen: "Guaranteed returns + secret group + urgency — three classic scam signals.",
+ fhi: "पक्का मुनाफा + गुप्त ग्रुप + जल्दी का दबाव — तीन पुराने ठगी के संकेत।",
+ fhinglish: "Pakka munafa + secret group + jaldi ka dabav — teen classic scam sanket."},
+{answer: "safe",
+ en: "NAV is the per-share value of a mutual fund. It changes daily with the market — learn more on amfiindia.com.",
+ hi: "NAV म्यूचुअल फंड के एक हिस्से की कीमत है। यह बाज़ार के साथ रोज़ बदलती है — amfiindia.com पर और जानें।",
+ hinglish: "NAV mutual fund ke ek hisse ki keemat hai. Yeh bazaar ke saath roz badalti hai.",
+ fen: "Explains a concept, no promises, no pressure, points to an official source.",
+ fhi: "संकल्पना समझाता है — कोई वादा-दबाव नहीं, आधिकारिक स्रोत बताता है।",
+ fhinglish: "Concept samjhata hai — koi vaada-dabav nahi, official source batata hai."},
+{answer: "scam",
+ en: "I am a SEBI-registered advisor. Double your money in 6 months — DM me for the payment link.",
+ hi: "मैं SEBI-पंजीकृत सलाहकार हूँ। 6 महीने में पैसा दोगुना — पेमेंट लिंक हेतु DM करें।",
+ hinglish: "Main SEBI-registered advisor hoon. 6 mahine me paisa double — payment link ke liye DM karo.",
+ fen: "Real advisors never DM for payments or promise doubling. Registration claims are easy to fake.",
+ fhi: "असली सलाहकार DM पर पेमेंट नहीं मांगते, दोगुना करने का वादा नहीं करते।",
+ fhinglish: "Asli advisor DM par payment nahi mangte, double ka vaada nahi karte."},
+{answer: "safe",
+ en: "Faced a problem with your broker? File a free complaint on SCORES at scores.sebi.gov.in — keep your documents ready.",
+ hi: "ब्रोकर से दिक्कत? scores.sebi.gov.in पर SCORES में मुफ़्त शिकायत करें — दस्तावेज़ तैयार रखें।",
+ hinglish: "Broker se dikkat? scores.sebi.gov.in par SCORES me muft shikayat karo.",
+ fen: "Gives a process, names the official portal, asks for documents — not money.",
+ fhi: "प्रक्रिया बताता है, आधिकारिक पोर्टल का नाम — पैसे नहीं, दस्तावेज़ मांगता है।",
+ fhinglish: "Process batata hai, official portal ka naam — paise nahi, documents mangta hai."},
+{answer: "scam",
+ en: "Multibagger jackpot call! Pay ₹9,999 advance today to block your slot — offer ends tonight.",
+ hi: "मल्टीबैगर जैकपॉट कॉल! स्लॉट पक्का करने हेतु आज ही ₹9,999 एडवांस दें — ऑफर आज रात ख़त्म।",
+ hinglish: "Multibagger jackpot call! Slot pakka karne ke liye aaj hi ₹9,999 advance do — offer aaj raat khatm.",
+ fen: "Advance fee + jackpot language + midnight deadline. Legit services never work like this.",
+ fhi: "एडवांस फीस + जैकपॉट भाषा + आधी रात की डेडलाइन। असली सेवाएं ऐसे काम नहीं करतीं।",
+ fhinglish: "Advance fee + jackpot bhasha + midnight deadline. Asli services aise kaam nahi karti."},
+{answer: "safe",
+ en: "A ₹5,000 monthly SIP builds discipline. Markets will rise and fall — that is normal, not a signal to panic.",
+ hi: "₹5,000 मासिक SIP अनुशासन बनाती है। बाज़ार चढ़ेगा-उतरेगा — यह सामान्य है, घबराने का संकेत नहीं।",
+ hinglish: "₹5,000 monthly SIP discipline banati hai. Bazaar chadhega-utrega — yeh normal hai, panic ka signal nahi.",
+ fen: "Teaches a habit, admits ups and downs. No tip, no link, no hurry.",
+ fhi: "आदत सिखाता है, उतार-चढ़ाव स्वीकारता है — कोई टिप, लिंक, जल्दी नहीं।",
+ fhinglish: "Aadat sikhata hai, upar-neeche accept karta hai — koi tip, link, jaldi nahi."}];
+
+let G_ORDER = [], G_I = 0, G_S = 0;
+function deckLang() { return (LANG === "hi" || LANG === "hinglish") ? LANG : "en"; }
+function flagLang() { return deckLang() === "en" ? "fen" : (deckLang() === "hi" ? "fhi" : "fhinglish"); }
+
+function gameStart() {
+  G_ORDER = [...DECK.keys()].sort(() => Math.random() - 0.5);
+  G_I = 0; G_S = 0;
+  $("game-end").hidden = true;
+  gameShow();
+}
+
+function gameShow() {
+  const c = DECK[G_ORDER[G_I]], L = deckLang();
+  $("game-card").textContent = c[L];
+  $("game-q").textContent = `${G_I + 1} / ${DECK.length}`;
+  $("game-s").textContent = G_S;
+  $("game-why").hidden = true;
+  $("game-next").hidden = true;
+  $("game-scam").disabled = $("game-safe").disabled = false;
+}
+
+function gameAnswer(pick) {
+  const c = DECK[G_ORDER[G_I]];
+  const ok = pick === c.answer;
+  if (ok) G_S++;
+  $("game-s").textContent = G_S;
+  const w = $("game-why");
+  w.className = "game-why " + (ok ? "ok" : "no");
+  w.textContent = (ok ? "✓ " : "✗ ") + c[flagLang()];
+  w.hidden = false;
+  $("game-scam").disabled = $("game-safe").disabled = true;
+  const last = G_I === DECK.length - 1;
+  $("game-next").hidden = false;
+  $("game-next").textContent = last
+    ? ((I18N[LANG] && I18N[LANG].game_score) || "Score") + ` → ${G_S}/${DECK.length}`
+    : ((I18N[LANG] && I18N[LANG].game_next) || "Next →");
+  $("game-next").onclick = () => { if (last) gameEnd(); else { G_I++; gameShow(); } };
+}
+
+function gameEnd() {
+  $("game-end").hidden = false;
+  const t = G_S >= 5 ? "game_win" : (G_S >= 3 ? "game_mid" : "game_low");
+  $("game-tier").textContent = (I18N[LANG] && I18N[LANG][t]) || I18N.en[t];
+  let best = 0;
+  try {
+    best = Math.max(G_S, parseInt(localStorage.getItem("sangyan-best") || "0", 10));
+    localStorage.setItem("sangyan-best", String(best));
+  } catch { best = G_S; }
+  $("game-b").textContent = best;
+}
+
+$("game-scam").addEventListener("click", () => gameAnswer("scam"));
+$("game-safe").addEventListener("click", () => gameAnswer("safe"));
+$("game-again").addEventListener("click", gameStart);
+function gameLangRefresh() { if (!$("game-scam").disabled) gameShow(); }
+document.querySelectorAll(".langs button").forEach((b) => b.addEventListener("click", gameLangRefresh));
+$("lang-more").addEventListener("change", gameLangRefresh);
+try { $("game-b").textContent = localStorage.getItem("sangyan-best") || "0"; } catch {}
+gameStart();
 
 function drawSeries(cvId, series) {
   const cv = $(cvId), ctx = cv.getContext("2d");
