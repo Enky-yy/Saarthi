@@ -1,0 +1,8 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile.slim"
+
+[deploy]
+restartPolicyType = "on failure"
+healthcheckPath = "/health"
+healthcheckTimeout = 300

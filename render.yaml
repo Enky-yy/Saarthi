@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: saarthi
+    runtime: docker
+    dockerfilePath: ./Dockerfile.slim
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8001

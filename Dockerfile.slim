@@ -1,0 +1,26 @@
+# Rules-only image for free tiers (Railway/Render 512MB): no torch, no model
+# downloads. Rules + templates + TF-IDF + Tesseract OCR, fully functional.
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    tesseract-ocr tesseract-ocr-hin \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /srv
+COPY backend/requirements-slim.txt .
+RUN pip install --no-cache-dir -r requirements-slim.txt
+
+COPY backend/ ./backend/
+COPY frontend/ ./frontend/
+
+ENV FRONTEND_DIR=/srv/frontend \
+    SANGYAN_DB=/tmp/saarthi-history.db \
+    MURIL_MODEL_DIR=/none \
+    EMBED_MODEL=/none \
+    LOCAL_GEN_MODEL= \
+    PORT=8001
+
+RUN cd backend && python kb_sync.py
+
+EXPOSE 8001
+CMD ["sh", "-c", "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8001}"]

@@ -34,7 +34,6 @@ Serve `frontend/` with nginx/caddy and proxy `/api/*` → `127.0.0.1:8001`
 (or set the `API` base in `app.js`). Enable HTTPS — mic + service worker need it.
 
 ## Option B — free split (no paid plan anywhere)
-
 **Verified Oct 2026: Hugging Face Docker/Gradio Spaces need a paid plan.**
 Free accounts get Static Spaces + ZeroGPU demos only — so:
 
@@ -44,6 +43,22 @@ Free accounts get Static Spaces + ZeroGPU demos only — so:
   forever, persistent disk) following Option A. Full ML stack at ₹0.
 
 The root `Dockerfile` stays for VPS/PaaS Docker deploys.
+
+## Option C — Render / Railway free tier (rules-only, easiest permanent link)
+
+The repo ships a slim image + configs: `Dockerfile.slim`
+(~300MB, no torch), `railway.toml`, `render.yaml`. One container serves
+UI + API on `$PORT`, rules + templates + TF-IDF + OCR — no keys needed.
+
+**Render:** Dashboard → New → Web Service → point at the repo (it auto-reads
+`render.yaml`) → free plan → Deploy. Health check is `/health`.
+
+**Railway:** `railway up` in the repo (uses `railway.toml`) or New Project →
+Repo → variables are pre-set. Note: Railway free tier sleeps; first load
+wakes it in ~30s.
+
+Limits to know: 512MB RAM (ML engines stay off by env), disks are ephemeral
+(wall/history reset on redeploy — fine for demo), Tesseract Hindi included.
 
 ## Walkthrough — Oracle VPS + static frontend (do this together)
 
