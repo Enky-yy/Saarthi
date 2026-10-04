@@ -114,6 +114,39 @@ def gen(lang: str, n: int) -> list[dict]:
     return rows
 
 
+CHATTER = {
+    "en": ["Dinner is ready, come home soon.", "Did you take your medicines today?",
+           "The bus is late by 20 minutes.", "Happy birthday! Have a great day.",
+           "Please bring milk on your way back.", "Meeting moved to 4pm tomorrow.",
+           "Doctor appointment is at 9, don't eat after midnight.", "Kids reached school safely."],
+    "hi": ["खाना तैयार है, जल्दी घर आओ।", "क्या तुमने आज दवाई ली?",
+           "बस 20 मिनट लेट है।", "जन्मदिन मुबारक! अच्छा दिन हो।",
+           "आते समय दूध लेते आना।", "मीटिंग कल 4 बजे होगी।"],
+    "hinglish": ["Khana ready hai, jaldi ghar aao.", "Dawai li aaj?",
+                 "Bus 20 minute late hai.", "Doodh lete aana.",
+                 "Kal meeting 4 baje hai.", "Bacche school pahunch gaye."],
+    "mr": ["जेवण तयार आहे, लवकर घरी ये.", "आज औषध घेतलंस का?",
+           "बस 20 मिनिटे उशिरा आहे.", "वाढदिवसाच्या शुभेच्छा!"],
+    "ta": ["சாப்பாடு தயார், சீக்கிரம் வா.", "இன்று மாத்திரை சாப்பிட்டாயா?",
+           "பஸ் 20 நிமிடம் தாமதம்.", "பிறந்தநாள் வாழ்த்துக்கள்!"],
+}
+
+
+def ham_rows() -> list[dict]:
+    """Benign personal chatter -> 'other'. Real ham where available."""
+    rows = []
+    try:
+        with open(os.path.join(DATA, "real_ham_eval.jsonl"), encoding="utf-8") as f:
+            for l in f:
+                rows.append({"text": json.loads(l)["text"][:400], "label": "other"})
+    except Exception:
+        pass
+    for lang, texts in CHATTER.items():
+        for _ in range(120):
+            rows.append({"text": typo(random.choice(texts)), "label": "other"})
+    return rows
+
+
 def wall_rows() -> list[dict]:
     """Real reports become promotion examples — the flywheel hook."""
     db = os.path.join(DATA, "history.db")
@@ -144,6 +177,9 @@ def main() -> None:
     rest = [r for r in rows if r["label"] != "promotion"]
     keep = 4200 - len(real)
     rows = rest + random.sample(synth_promo, max(0, min(len(synth_promo), keep))) + real
+    # Benign chatter is its own class ("other"): personal SMS + family calls
+    # must never read as promotion. Synthetic small-talk covers English/Hindi.
+    rows += ham_rows()
     random.shuffle(rows)
     path = os.path.join(DATA, "train.jsonl")
     with open(path, "w", encoding="utf-8") as f:

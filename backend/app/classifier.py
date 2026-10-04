@@ -22,7 +22,7 @@ _EDU_MARKERS = r"what is|means|explained|learn|understand|how .* works|क्य
 
 _ML = None  # lazy MuRIL classifier: None=untried, False=absent, model=ready
 _ML_TOK = None
-_ML_LABELS = ["education", "mixed", "promotion"]
+_ML_LABELS = ["education", "mixed", "promotion", "other"]
 
 
 def _ml_model_dir() -> str | None:
@@ -60,7 +60,7 @@ def _ml_predict(text: str):
             if next(_ML.parameters()).is_cuda:
                 b = {k: v.cuda() for k, v in b.items()}
             probs = torch.softmax(_ML(**b).logits[0], dim=0).tolist()
-        i = max(range(3), key=lambda k: probs[k])
+        i = max(range(len(_ML_LABELS)), key=lambda k: probs[k])
         return PromoLabel(_ML_LABELS[i]), round(min(0.99, max(0.01, probs[i])), 2)
     except Exception:
         return None

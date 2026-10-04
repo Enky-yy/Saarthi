@@ -9,7 +9,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "..", "data", "train.jsonl")
 OUT = os.environ.get("MURIL_MODEL_DIR", os.path.join(HERE, "..", "models", "muril-clf"))
-LABELS = {"education": 0, "mixed": 1, "promotion": 2}
+LABELS = {"education": 0, "mixed": 1, "promotion": 2, "other": 3}
 
 
 def main() -> None:
@@ -25,7 +25,7 @@ def main() -> None:
     print(f"train {len(tr_x)} / eval {len(ev_x)}")
 
     tok = AutoTokenizer.from_pretrained("google/muril-base-cased")
-    model = AutoModelForSequenceClassification.from_pretrained("google/muril-base-cased", num_labels=3)
+    model = AutoModelForSequenceClassification.from_pretrained("google/muril-base-cased", num_labels=4, ignore_mismatched_sizes=True)
     # LoRA: train ~1% of weights so training fits beside the live server on 6GB VRAM.
     from peft import LoraConfig, TaskType, get_peft_model
     model = get_peft_model(model, LoraConfig(task_type=TaskType.SEQ_CLS, r=32, lora_alpha=64, lora_dropout=0.05,

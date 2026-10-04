@@ -78,6 +78,8 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
     funnel = {"authority_tip", "referral"} <= set(rule_tags) or {"authority_tip", "group_cta"} <= set(rule_tags)
     if promo_label.value == "promotion" or "guarantee" in rule_tags or funnel:
         action = "stop"
+    elif promo_label.value == "other":
+        action = "other"
     elif promo_label.value == "education" and not pressure:
         action = "learn"
     else:

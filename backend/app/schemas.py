@@ -35,6 +35,7 @@ class PromoLabel(str, Enum):
     education = "education"
     promotion = "promotion"
     mixed = "mixed"
+    other = "other"
 
 
 class EvidenceLevel(str, Enum):

@@ -50,12 +50,18 @@ def main() -> None:
             scam_ok += label == want
     print(f"tricky accuracy: {ok}/{total} | scam recall: {scam_ok}/{scam_total}")
     stops = 0
-    for text in ham_regression():
+    other_ok = 0
+    ham = ham_regression()
+    for text in ham:
         got = _ml_predict(text)
-        if got and got[0].value == "promotion":
+        if not got:
+            continue
+        if got[0].value == "promotion":
             stops += 1
             print(f"FALSE-STOP :: {text[:70]}")
-    print(f"ham false-stop rate: {stops}/{len(ham_regression())} (personal chatter must never read promotion)")
+        if got[0].value == "other":
+            other_ok += 1
+    print(f"ham: {other_ok}/{len(ham)} read as chatter (other), {stops} false stops")
 
 
 if __name__ == "__main__":

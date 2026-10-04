@@ -81,9 +81,11 @@ table.report th{width:32%;background:#F0F4F8;color:var(--navy)}
 .stamp-stop{background:#B71C1C;color:#fff;border:2px solid #7F0000}
 .stamp-learn{background:#1B5E20;color:#fff;border:2px solid #0D3B12}
 .stamp-verify{background:#FFF8E1;color:#7A5B00;border:2px solid #956400}
+.stamp-other{background:#E9E9E9;color:#424242;border:2px solid #9E9E9E}
 .stamp-stop::before{content:"✕ ";font-weight:700}
 .stamp-learn::before{content:"✓ ";font-weight:700}
 .stamp-verify::before{content:"! ";font-weight:700}
+.stamp-other::before{content:"○ ";font-weight:700}
 .acts{margin:.2rem 0;padding-left:1.4rem}
 .acts li{margin:.35rem 0}
 .tagrow{display:flex;gap:.45rem;flex-wrap:wrap}

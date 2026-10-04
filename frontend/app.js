@@ -96,6 +96,13 @@ step_learn1: {en: "Safe to learn from. Explore the lessons below.", hinglish: "S
 step_learn2: {en: "Still, never share OTPs or bank passwords with anyone.", hinglish: "Phir bhi OTP ya bank password kisi se share mat karo.", hi: "फिर भी OTP या बैंक पासवर्ड किसी से साझा न करें।", mr: "तरी OTP किंवा बँक पासवर्ड कोणालाही देऊ नका.", ta: "ஆனாலும் OTP/வங்கி கடவுச்சொல்லை யாரிடமும் பகிர வேண்டாம்.", bn: "তবু OTP বা ব্যাংক পাসওয়ার্ড কাউকে দেবেন না।", te: "అయినా OTP/బ్యాంక్ పాస్‌వర్డ్ ఎవరికీ ఇవ్వవద్దు.", kn: "ಆದರೂ OTP/ಬ್ಯಾಂಕ್ ಪಾಸ್‌ವರ್ಡ್ ಯಾರಿಗೂ ನೀಡಬೇಡಿ.", ml: "എന്നാലും OTP/ബാങ്ക് പാസ്‌വേഡ് ആർക്കും നൽകരുത്.", gu: "છતાં OTP/બેંક પાસવર્ડ કોઈને ન આપો.", pa: "ਫਿਰ ਵੀ OTP/ਬੈਂਕ ਪਾਸਵਰਡ ਕਿਸੇ ਨੂੰ ਨਾ ਦਿਓ।"}};
 for (const [k, m] of Object.entries(EXTRA7)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
 
+const EXTRA10 = {
+stamp_other: {en: "NOT A MONEY MESSAGE — nothing to check here", hinglish: "Paise ka message nahi — check karne ko kuch nahi", hi: "पैसे का संदेश नहीं — जांचने को कुछ नहीं", mr: "पैशांचा संदेश नाही — तपासण्यासारखे काही नाही", ta: "பணச் செய்தி அல்ல — சரிபார்க்க ஒன்றுமில்லை", bn: "টাকার বার্তা নয় — যাচাইয়ের কিছু নেই", te: "డబ్బు సందేశం కాదు — తనిఖీ చేయడానికేమీ లేదు", kn: "ಹಣದ ಸಂದೇಶವಲ್ಲ — ಪರಿಶೀಲಿಸಲು ಏನೂ ಇಲ್ಲ", ml: "പണ സന്ദേശമല്ല — പരിശോധിക്കാൻ ഒന്നുമില്ല", gu: "પૈસાનો સંદેશ નથી — ચકાસવા જેવું કંઈ નથી", pa: "ਪੈਸੇ ਦਾ ਸੁਨੇਹਾ ਨਹੀਂ — ਜਾਂਚਣ ਨੂੰ ਕੁਝ ਨਹੀਂ"},
+v_other: {en: "This looks like everyday chatter, not an investment message.", hinglish: "Yeh rozmarra ki baat lagti hai, nivesh message nahi.", hi: "यह रोज़मर्रा की बातचीत लगती है, निवेश संदेश नहीं।", mr: "हे रोजची गप्पा वाटते, गुंतवणूक संदेश नव्हे.", ta: "இது அன்றாட உரையாடல், முதலீட்டுச் செய்தி அல்ல.", bn: "এটা রোজকার কথা মনে হচ্ছে, বিনিয়োগ বার্তা নয়।", te: "ఇది రోజువారీ మాటలా ఉంది, పెట్టుబడి సందేశం కాదు.", kn: "ಇದು ದಿನನಿತ್ಯದ ಮಾತಿನಂತಿದೆ, ಹೂಡಿಕೆ ಸಂದೇಶವಲ್ಲ.", ml: "ഇത് ദൈനംദിന സംസാരം പോലെ, നിക്ഷേപ സന്ദേശമല്ല.", gu: "આ રોજિંદી વાત લાગે છે, રોકાણ સંદેશ નહીં.", pa: "ਇਹ ਰੋਜ਼ਮੱਰਾ ਦੀ ਗੱਲ ਲੱਗਦੀ ਹੈ, ਨਿਵੇਸ਼ ਸੁਨੇਹਾ ਨਹੀਂ।"},
+step_other1: {en: "No money ask, no link, no hurry found — nothing dangerous here.", hinglish: "Na paise ki maang, na link, na jaldi — yahan kuch khatarnak nahi.", hi: "न पैसे की मांग, न लिंक, न जल्दी — यहां कुछ खतरनाक नहीं।", mr: "ना पैशांची मागणी, ना लिंक, ना घाई — इथे धोकादायक काही नाही.", ta: "பணம் கேட்கவில்லை, இணைப்பு இல்லை, அவசரம் இல்லை — ஆபத்து இல்லை.", bn: "টাকা চাওয়া হয়নি, লিংক নেই, তাড়া নেই — বিপজ্জনক কিছু নেই।", te: "డబ్బు అడగలేదు, లింక్ లేదు, తొందర లేదు — ప్రమాదం లేదు.", kn: "ಹಣ ಕೇಳಿಲ್ಲ, ಲಿಂಕ್ ಇಲ್ಲ, ಅವಸರವಿಲ್ಲ — ಅಪಾಯವಿಲ್ಲ.", ml: "പണം ചോദിച്ചില്ല, ലിങ്കില്ല, ധൃതിയില്ല — അപകടമില്ല.", gu: "પૈસા માંગ્યા નથી, લિંક નથી, ઉતાવળ નથી — ખતરો નથી.", pa: "ਪੈਸੇ ਨਹੀਂ ਮੰਗੇ, ਲਿੰਕ ਨਹੀਂ, ਕਾਹਲੀ ਨਹੀਂ — ਖ਼ਤਰਾ ਨਹੀਂ।"},
+step_other2: {en: "To check a tip or offer, paste that message instead.", hinglish: "Tip ya offer check karne hetu woh message chipkao.", hi: "टिप या ऑफर जांचने हेतु वह संदेश चिपकाएं।", mr: "टीप वा ऑफर तपासण्यासाठी तो संदेश चिकटवा.", ta: "குறிப்பைச் சரிபார்க்க அந்தச் செய்தியை ஒட்டவும்.", bn: "টিপ বা অফার যাচাই করতে সেই বার্তা পেস্ট করুন।", te: "టిప్ లేదా ఆఫర్ తనిఖీకి ఆ సందేశం అతికించండి.", kn: "ಟಿಪ್ ಅಥವಾ ಆಫರ್ ಪರಿಶೀಲಿಸಲು ಆ ಸಂದೇಶವನ್ನು ಅಂಟಿಸಿ.", ml: "ടിപ്പോ ഓഫറോ പരിശോധിക്കാൻ ആ സന്ദേശം ഒട്ടിക്കൂ.", gu: "ટિપ કે ઑફર તપાસવા તે સંદેશ ચોંટાડો.", pa: "ਟਿਪ ਜਾਂ ਆਫ਼ਰ ਜਾਂਚਣ ਲਈ ਉਹ ਸੁਨੇਹਾ ਚਿਪਕਾਓ।"}};
+for (const [k, m] of Object.entries(EXTRA10)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
+
 const EXTRA8 = {
 mic_btn: {en: "Speak instead", hinglish: "Bolkar likho", hi: "बोलकर लिखें", mr: "बोलून लिहा", ta: "பேசி எழுது", bn: "বলে লিখুন", te: "మాట్లాడి రాయండి", kn: "ಮಾತನಾಡಿ ಬರೆಯಿರಿ", ml: "പറഞ്ഞ് എഴുതൂ", gu: "બોલીને લખો", pa: "ਬੋਲ ਕੇ ਲਿਖੋ"},
 file_label: {en: "Attach screenshot", hinglish: "Screenshot lagao", hi: "स्क्रीनशॉट लगाएं", mr: "स्क्रीनशॉट जोडा", ta: "ஸ்கிரீன்ஷாட் இணை", bn: "স্ক্রিনশট লাগান", te: "స్క్రీన్‌షాట్ జోడించండి", kn: "ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಲಗತ್ತಿಸಿ", ml: "സ്ക്രീൻഷോട്ട് ചേർക്കൂ", gu: "સ્ક્રીનશોટ જોડો", pa: "ਸਕ੍ਰੀਨਸ਼ਾਟ ਲਾਓ"},
@@ -215,7 +222,7 @@ $("check").addEventListener("click", doCheck);
 function render(d) {
   $("out").hidden = false; $("speak").disabled = false; $("share").disabled = false;
   const D = (I18N[LANG] && I18N[LANG].v_edu) ? I18N[LANG] : I18N.en;
-  const vlabel = d.promo_label === "education" ? D.v_edu : (d.promo_label === "mixed" ? D.v_mix : D.v_pro);
+  const vlabel = d.promo_label === "education" ? D.v_edu : (d.promo_label === "mixed" ? D.v_mix : (d.promo_label === "other" ? (D.v_other || I18N.en.v_other) : D.v_pro));
   const vev = d.evidence.level === "strong" ? D.v_strong : (d.evidence.level === "weak" ? D.v_weak : D.v_none);
   $("verdict").textContent = vlabel + " " + vev;
   const stamp = $("stamp");
@@ -223,7 +230,8 @@ function render(d) {
   stamp.textContent = D["stamp_" + d.action] || d.action.toUpperCase();
   const stepKeys = d.action === "stop"
     ? ["step_stop1", "step_stop2", "step_stop3", "step_stop4"]
-    : (d.action === "verify" ? ["step_verify1", "step_verify2", "step_verify3"] : ["step_learn1", "step_learn2"]);
+    : (d.action === "verify" ? ["step_verify1", "step_verify2", "step_verify3"]
+      : (d.action === "other" ? ["step_other1", "step_other2"] : ["step_learn1", "step_learn2"]));
   $("acts").innerHTML = stepKeys.map((k) => `<li>${(D[k] || I18N.en[k])}</li>`).join("");
   const GOOD = {educational: 1, official_source: 1}, MID = {has_numbers: 1, no_evidence: 1};
   const labelOf = (t) => (D["tag_" + t] ? D["tag_" + t] : (I18N.en["tag_" + t] || t));
