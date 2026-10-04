@@ -42,3 +42,48 @@ def recent(limit: int = 50) -> list[dict]:
         return [dict(zip(("job_id", "created_at", "lang", "input_hash", "promo_label", "evidence_level"), r)) for r in rows]
     except Exception:
         return []
+
+
+WALL_TYPES = ("telegram_tip", "fake_advisor", "upi_fraud", "kyc_phishing", "loan_app", "ponzi", "other")
+WALL_STATES = ("AP", "Bihar", "Delhi", "Gujarat", "Haryana", "HP", "Jharkhand", "Karnataka", "Kerala", "MP", "Maharashtra", "Odisha", "Punjab", "Rajasthan", "TN", "Telangana", "UP", "Uttarakhand", "WB", "Other")
+WALL_AMOUNTS = ("caught_in_time", "lt_1k", "1k_10k", "10k_1L", "gt_1L")
+
+import re as _re
+_DIGITS = _re.compile(r"\d{6,}")
+
+
+def scrub(text: str) -> str:
+    """Strip phone/account-like digit runs. Wall is anonymous by design."""
+    return _DIGITS.sub("[hidden]", (text or "")[:500]).strip()
+
+
+def wall_add(scam_type: str, state: str, amount: str, text: str) -> dict | None:
+    if scam_type not in WALL_TYPES or state not in WALL_STATES or amount not in WALL_AMOUNTS:
+        return None
+    try:
+        con = _connect()
+        con.execute("CREATE TABLE IF NOT EXISTS wall (id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT, scam_type TEXT, state TEXT, amount TEXT, text TEXT)")
+        cur = con.execute(
+            "INSERT INTO wall (created_at, scam_type, state, amount, text) VALUES (?,?,?,?,?)",
+            (datetime.now(timezone.utc).isoformat(), scam_type, state, amount, scrub(text)),
+        )
+        con.commit()
+        rowid = cur.lastrowid
+        con.close()
+        return {"id": rowid}
+    except Exception:
+        return None
+
+
+def wall_read(limit: int = 20) -> dict:
+    try:
+        con = _connect()
+        con.execute("CREATE TABLE IF NOT EXISTS wall (id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT, scam_type TEXT, state TEXT, amount TEXT, text TEXT)")
+        counts = dict(con.execute("SELECT scam_type, COUNT(*) FROM wall GROUP BY scam_type").fetchall())
+        total = con.execute("SELECT COUNT(*) FROM wall").fetchone()[0]
+        rows = con.execute("SELECT created_at, scam_type, state, amount, text FROM wall ORDER BY id DESC LIMIT ?", (limit,)).fetchall()
+        con.close()
+        return {"total": total, "counts": counts,
+                "recent": [dict(zip(("created_at", "scam_type", "state", "amount", "text"), r)) for r in rows]}
+    except Exception:
+        return {"total": 0, "counts": {}, "recent": []}

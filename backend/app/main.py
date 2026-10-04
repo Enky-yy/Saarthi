@@ -25,6 +25,7 @@ from .schemas import (
     SearchSource,
     SimRequest,
     Simulator,
+    WallRequest,
 )
 from .simulator import build_sim
 from .simulator import simulate as run_simulation
@@ -264,12 +265,12 @@ async def transcribe(file: UploadFile = File(...), language_hint: str = "auto"):
     data = await file.read(26 * 1024 * 1024)
     if not data:
         raise HTTPException(status_code=422, detail="empty file")
-    # 1) Gemini audio transcription when keyed
+    # 1) Gnani Prisma STT API when keyed (no Gemini for transcription)
     try:
-        from .llm import gemini_transcribe
-        text = gemini_transcribe(data, language_hint)
+        from .stt import gnani_transcribe
+        text, glang = gnani_transcribe(data, language_hint if language_hint != "auto" else "auto")
         if text:
-            return {"text": text, "engine": "gemini"}
+            return {"text": text, "engine": "gnani-prisma", "language": glang}
     except Exception:
         pass
     # 2) local faster-whisper (offline, multilingual incl. Hindi)
@@ -310,6 +311,22 @@ def providers():
     import os
     return {
         "gemini": bool(os.environ.get("GEMINI_API_KEY")),
+        "gnani_stt": bool(os.environ.get("GNANI_API_KEY")),
         "bhashini": bool(os.environ.get("BHASHINI_USER_ID") and os.environ.get("BHASHINI_API_KEY")),
-        "fallback": "rule-based + templates + device speech (always on)",
+        "fallback": "rules + templates + local-whisper + device speech (always on)",
     }
+
+
+@app.get("/api/wall")
+def wall_get():
+    from .store import wall_read
+    return wall_read()
+
+
+@app.post("/api/wall")
+def wall_post(req: WallRequest):
+    from .store import wall_add
+    saved = wall_add(req.scam_type, req.state, req.amount, req.text)
+    if not saved:
+        raise HTTPException(status_code=422, detail="bad report fields")
+    return {"ok": True}

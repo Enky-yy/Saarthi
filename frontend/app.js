@@ -106,6 +106,51 @@ ask_hint: {en: "Ask anything — NAV, SIP, UPI fraud, F&O risks, nomination — 
 ask_ph: {en: "e.g. how to avoid UPI fraud?", hinglish: "e.g. UPI thagi se kaise bache?", hi: "जैसे: UPI ठगी से कैसे बचें?", mr: "उदा: UPI फसवणूक कशी टाळावी?", ta: "எ.கா: UPI மோசடியைத் தவிர்ப்பது எப்படி?", bn: "যেমন: UPI প্রতারণা এড়াব কীভাবে?", te: "ఉదా: UPI మోసం నివారించడం ఎలా?", kn: "ಉದಾ: UPI ವಂಚನೆ ತಪ್ಪಿಸುವುದು ಹೇಗೆ?", ml: "ഉദാ: UPI തട്ടിപ്പ് എങ്ങനെ ഒഴിവാക്കാം?", gu: "દા.ત. UPI છેતરપિંડીથી કેવી રીતે બચવું?", pa: "ਜਿਵੇਂ: UPI ਠੱਗੀ ਤੋਂ ਕਿਵੇਂ ਬਚੀਏ?"},
 ask_go: {en: "Search", hinglish: "Khojo", hi: "खोजें", mr: "शोधा", ta: "தேடு", bn: "খুঁজুন", te: "వెతకండి", kn: "ಹುಡುಕಿ", ml: "തിരയൂ", gu: "શોધો", pa: "ਲੱਭੋ"}};
 for (const [k, m] of Object.entries(EXTRA8)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
+
+const EXTRA9 = {
+nav_sim: {en: "Simulator", hi: "सिम्युलेटर", hinglish: "Simulator"},
+nav_calc: {en: "Calculators", hi: "कैलकुलेटर", hinglish: "Calculator"},
+nav_ask: {en: "Ask & learn", hi: "पूछें व सीखें", hinglish: "Poocho aur seekho"},
+nav_recover: {en: "Already paid? Recover", hi: "पैसे दे चुके? वापसी", hinglish: "Paise de chuke? Vaapsi"},
+nav_wall: {en: "Fraud wall", hi: "ठगी दीवार", hinglish: "Thagi deewar"},
+rec_title: {en: "Already paid? Recover step by step", hi: "पैसे दे चुके? कदम-दर-कदम वापसी", hinglish: "Paise de chuke? Step-by-step vaapsi"},
+rec_sub: {en: "Do not feel ashamed — act fast. The first hour matters most.", hi: "शर्मिंदा न हों — तेज़ी से काम करें। पहला घंटा सबसे अहम है।", hinglish: "Sharminda mat ho — tez kaam karo. Pehla ghanta sabse aham hai."},
+rec_q: {en: "What happened?", hi: "क्या हुआ?", hinglish: "Kya hua?"},
+rec_lost: {en: "Paid money to fraud", hi: "ठग को पैसे दिए", hinglish: "Thag ko paise diye"},
+rec_upi: {en: "UPI fraud", hi: "UPI ठगी", hinglish: "UPI thagi"},
+rec_otp: {en: "Shared OTP/password", hi: "OTP/पासवर्ड साझा किया", hinglish: "OTP/password share kiya"},
+rec_scared: {en: "Just scared, no loss", hi: "बस डर, नुकसान नहीं", hinglish: "Bas darr, nuksaan nahi"},
+draft_title: {en: "SCORES complaint draft — copy & paste on scores.sebi.gov.in", hi: "SCORES शिकायत मसौदा — scores.sebi.gov.in पर कॉपी-पेस्ट करें", hinglish: "SCORES shikayat draft — scores.sebi.gov.in par copy-paste karo"},
+f_platform: {en: "Broker / platform / group name", hi: "ब्रोकर / प्लेटफॉर्म / ग्रुप का नाम", hinglish: "Broker / platform / group ka naam"},
+f_amount: {en: "Amount lost (₹)", hi: "गंवाई राशि (₹)", hinglish: "Gawayi rakam (₹)"},
+f_date: {en: "Date of payment", hi: "भुगतान की तारीख", hinglish: "Payment ki tareekh"},
+f_details: {en: "What happened (2-3 lines)", hi: "क्या हुआ (2-3 पंक्तियां)", hinglish: "Kya hua (2-3 line)"},
+draft_go: {en: "Make my draft", hi: "मसौदा बनाएं", hinglish: "Draft banao"},
+draft_copy: {en: "Copy draft", hi: "मसौदा कॉपी करें", hinglish: "Draft copy karo"},
+draft_copied: {en: "Draft copied — paste it on SCORES.", hi: "मसौदा कॉपी हुआ — SCORES पर चिपकाएं।", hinglish: "Draft copy hua — SCORES par chipkao."},
+wall_title: {en: "Fraud wall — learn from others, warn others", hi: "ठगी दीवार — औरों से सीखें, औरों को चेताएं", hinglish: "Thagi deewar — auron se seekho, auron ko chetao"},
+wall_sub: {en: "100% anonymous. No names, no phone numbers — numbers are auto-hidden. Your report teaches the next village.", hi: "100% गुमनाम। नाम नहीं, फोन नंबर नहीं — नंबर स्वतः छिपते हैं। आपकी रिपोर्ट अगले गांव को सिखाएगी।", hinglish: "100% gumnam. Naam nahi, phone number nahi — number auto-hide. Tumhari report agle gaon ko sikhayegi."},
+w_type: {en: "Scam type", hi: "ठगी का प्रकार", hinglish: "Thagi ka prakaar"},
+w_state: {en: "State", hi: "राज्य", hinglish: "Rajya"},
+w_amount: {en: "Money involved", hi: "शामिल राशि", hinglish: "Shamil rakam"},
+w_text: {en: "What happened (optional, no names/numbers)", hi: "क्या हुआ (वैकल्पिक, नाम/नंबर नहीं)", hinglish: "Kya hua (optional, naam/number nahi)"},
+w_go: {en: "Post anonymously", hi: "गुमनाम पोस्ट करें", hinglish: "Gumnam post karo"},
+w_thanks: {en: "Posted. Thank you — you may save someone today.", hi: "पोस्ट हुआ। धन्यवाद — आज आप किसी को बचा सकते हैं।", hinglish: "Post hua. Dhanyavaad — aaj tum kisi ko bacha sakte ho."},
+w_counts: {en: "Reports so far", hi: "अब तक की रिपोर्ट", hinglish: "Ab tak ki report"},
+wt_telegram: {en: "Telegram/WhatsApp tips group", hi: "टेलीग्राम/WhatsApp टिप ग्रुप", hinglish: "Telegram/WhatsApp tip group"},
+wt_advisor: {en: "Fake SEBI advisor", hi: "नकली SEBI सलाहकार", hinglish: "Nakli SEBI advisor"},
+wt_upi: {en: "UPI fraud", hi: "UPI ठगी", hinglish: "UPI thagi"},
+wt_kyc: {en: "Fake KYC message", hi: "नकली KYC संदेश", hinglish: "Nakli KYC message"},
+wt_loan: {en: "Loan app trap", hi: "लोन ऐप जाल", hinglish: "Loan app jaal"},
+wt_ponzi: {en: "Ponzi / double-money scheme", hi: "पोंजी / दोगुना-पैसा योजना", hinglish: "Ponzi / double-paise scheme"},
+wt_other: {en: "Other", hi: "अन्य", hinglish: "Anya"},
+wa_none: {en: "Caught in time — no loss", hi: "समय पर पकड़ा — नुकसान नहीं", hinglish: "Time par pakda — nuksaan nahi"},
+wa_1: {en: "Below ₹1,000", hi: "₹1,000 से कम", hinglish: "₹1,000 se kam"},
+wa_2: {en: "₹1,000 – ₹10,000", hi: "₹1,000 – ₹10,000", hinglish: "₹1,000 – ₹10,000"},
+wa_3: {en: "₹10,000 – ₹1 lakh", hi: "₹10,000 – ₹1 लाख", hinglish: "₹10,000 – ₹1 lakh"},
+wa_4: {en: "Above ₹1 lakh", hi: "₹1 लाख से ऊपर", hinglish: "₹1 lakh se upar"}};
+for (const [k, m] of Object.entries(EXTRA9)) for (const [l, v] of Object.entries(m)) { if (!I18N[l]) I18N[l] = {...I18N.en}; if (I18N[l][k] === undefined) I18N[l][k] = v; }
+for (const [k, m] of Object.entries(EXTRA9)) { if (I18N.en[k] === undefined) I18N.en[k] = m.en; }
 const SPEECH_LANG = {hi: "hi-IN", mr: "mr-IN", ta: "ta-IN", bn: "bn-IN", te: "te-IN", kn: "kn-IN", ml: "ml-IN", gu: "gu-IN", pa: "pa-IN"};
 
 function applyLang() {
@@ -190,12 +235,10 @@ function render(d) {
   $("plain").textContent = d.explainer.plain_text;
   $("analogy").textContent = d.explainer.analogy;
   $("terms").innerHTML = (d.explainer.terms || []).map((t) => `<li><strong>${t.term}:</strong> ${t.meaning}</li>`).join("");
-  drawChart(d.simulator);
-  $("sim-note").textContent = d.simulator.inputs.note || "";
 }
 
 function drawChart(sim, cvId) {
-  const cv = $(cvId || "chart"), ctx = cv.getContext("2d");
+  const cv = $(cvId || "chart2"), ctx = cv.getContext("2d");
   ctx.clearRect(0, 0, cv.width, cv.height);
   const real = sim.projection, hype = sim.inputs.hype_series || null;
   const terms = sim.inputs.real_terms_series || null;
@@ -552,3 +595,93 @@ async function doAsk() {
 }
 $("ask-go").addEventListener("click", doAsk);
 $("ask-q").addEventListener("keydown", (e) => { if (e.key === "Enter") doAsk(); });
+
+// ---- Hash routes: one section per page ----
+const ROUTES = {"": ["check-sec", "result"], "#/": ["check-sec", "result"], "#/learn": ["learn"], "#/simulate": ["simsec"], "#/calculators": ["calcsec"], "#/ask": ["asksec"], "#/recover": ["recsec"], "#/wall": ["wallsec"]};
+function showRoute() {
+  let h = location.hash;
+  if (h === "#help") {
+    h = "#/";
+    history.replaceState(null, "", h);
+    setTimeout(() => { const el = $("help"); if (el) el.scrollIntoView(); }, 50);
+  }
+  const ids = ROUTES[h] || ROUTES[""];
+  document.querySelectorAll("main .content > section.panel").forEach((s) => s.classList.toggle("route-hidden", !ids.includes(s.id)));
+  document.querySelectorAll(".mainnav a[href^='#/']").forEach((a) => a.classList.toggle("active", a.getAttribute("href") === (h || "#/")));
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", showRoute);
+
+// ---- Recovery wizard ----
+const REC = {
+lost: {en: ["Call 1930 NOW with your transaction ID — the first hour matters most.", "Call your bank: ask to freeze the transaction and recall the money.", "Save everything: screenshots, numbers, UPI IDs, receipts.", "Then make your SCORES draft below and file it today."],
+ hi: ["ट्रांजैक्शन ID के साथ अभी 1930 पर कॉल करें — पहला घंटा सबसे अहम है।", "बैंक को कॉल करें: लेनदेन रोकने व पैसा वापस मंगाने को कहें।", "सब सहेजें: स्क्रीनशॉट, नंबर, UPI ID, रसीदें।", "फिर नीचे SCORES मसौदा बनाकर आज ही दर्ज करें।"],
+ hinglish: ["Transaction ID ke saath abhi 1930 par call karo — pehla ghanta sabse aham hai.", "Bank ko call karo: transaction rokne aur paisa wapas mangane ko kaho.", "Sab sahejo: screenshot, number, UPI ID, raseedein.", "Phir neeche SCORES draft banakar aaj hi file karo."]},
+upi: {en: ["Call 1930 and report inside your UPI app (BHIM/GPay/PhonePe) too.", "Ask your bank to block the collect request and recall the payment.", "Change your UPI PIN today; never approve 'receive money' requests."],
+ hi: ["1930 पर कॉल करें और UPI ऐप में भी रिपोर्ट करें।", "बैंक से कलेक्ट-रिक्वेस्ट ब्लॉक व पेमेंट वापस मंगाने को कहें।", "आज ही UPI PIN बदलें; 'पैसे पाने' वाली मांग कभी अप्रूव न करें।"],
+ hinglish: ["1930 par call karo aur UPI app me bhi report karo.", "Bank se collect-request block aur payment wapas mangao.", "Aaj hi UPI PIN badlo; 'paise paane' wali maang kabhi approve mat karo."]},
+otp: {en: ["Call your bank NOW: freeze cards, netbanking and UPI.", "Change UPI PIN, ATM PIN and all passwords from a safe phone.", "Call 1930 with details; watch statements daily for 30 days."],
+ hi: ["बैंक को अभी कॉल करें: कार्ड, नेटबैंकिंग व UPI फ्रीज़ कराएं।", "सुरक्षित फोन से UPI PIN, ATM PIN व पासवर्ड बदलें।", "विवरण सहित 1930 पर कॉल करें; 30 दिन रोज़ स्टेटमेंट देखें।"],
+ hinglish: ["Bank ko abhi call karo: card, netbanking aur UPI freeze karao.", "Safe phone se UPI PIN, ATM PIN aur password badlo.", "Details ke saath 1930 par call karo; 30 din roz statement dekho."]},
+scared: {en: ["No money lost means you already won — well done for stopping.", "Block the sender and play the Spot-the-Scam game to learn the flags."],
+ hi: ["पैसा नहीं गया यानी आप जीत गए — रुकने हेतु शाबाश।", "भेजने वाले को ब्लॉक करें और झंडे सीखने हेतु गेम खेलें।"],
+ hinglish: ["Paisa nahi gaya matlab tum jeet gaye — rukne ke liye shabaash.", "Bhejne wale ko block karo aur flags seekhne ke liye game khelo."]}};
+let REC_KIND = "lost";
+function recLang() { return (LANG === "hi" || LANG === "hinglish") ? LANG : "en"; }
+function recShow() {
+  const L = recLang();
+  $("rec-steps").innerHTML = REC[REC_KIND][L].map((s) => `<li>${s}</li>`).join("");
+}
+document.querySelectorAll("#rec-chips button").forEach((b) =>
+  b.addEventListener("click", () => {
+    document.querySelectorAll("#rec-chips button").forEach((x) => x.setAttribute("aria-pressed", "false"));
+    b.setAttribute("aria-pressed", "true");
+    REC_KIND = b.dataset.rec;
+    recShow();
+  }));
+function draftLangRefresh() { recShow(); }
+document.querySelectorAll(".langs button").forEach((b) => b.addEventListener("click", draftLangRefresh));
+$("lang-more").addEventListener("change", draftLangRefresh);
+recShow();
+
+$("draft-go").addEventListener("click", () => {
+  const p = $("d-platform").value.trim() || "—", a = $("d-amount").value.trim() || "—";
+  const dt = $("d-date").value || "—", w = $("d-details").value.trim() || "—";
+  const L = recLang();
+  const T = {
+    en: `Subject: Fraud complaint — ${p}, Rs.${a}, ${dt}\n\nRespected Sir/Madam,\nOn ${dt}, I lost Rs.${a} to ${p}. What happened: ${w}. I have saved screenshots and transaction references and will attach them. I request investigation and refund of my money.\n\nI will file this on SCORES (scores.sebi.gov.in) with my contact details.`,
+    hi: `विषय: ठगी शिकायत — ${p}, ₹${a}, ${dt}\n\nआदरणीय महोदय/महोदया,\n${dt} को ${p} के कारण मेरे ₹${a} गए। क्या हुआ: ${w}। स्क्रीनशॉट व लेनदेन-संदर्भ सहेजे हैं, संलग्न करूंगा/करूंगी। जांच व राशि-वापसी का निवेदन है।\n\nइसे SCORES (scores.sebi.gov.in) पर अपनी संपर्क-जानकारी सहित दर्ज करूंगा/करूंगी।`,
+    hinglish: `Vishay: Thagi shikayat — ${p}, ₹${a}, ${dt}\n\nAadarniya Mahoday/Mahodaya,\n${dt} ko ${p} ke kaaran mere ₹${a} gaye. Kya hua: ${w}। Screenshot aur transaction reference saheje hain, attach karunga/karungi. Jaanch aur rashi-vaapsi ka nivedan hai.\n\nIse SCORES (scores.sebi.gov.in) par apni contact-details sahit file karunga/karungi.`}[L];
+  $("draft-out").value = T;
+});
+$("draft-copy").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText($("draft-out").value);
+    $("draft-copy").textContent = (I18N[LANG] && I18N[LANG].draft_copied) || I18N.en.draft_copied;
+    setTimeout(applyLang, 2500);
+  } catch {}
+});
+
+// ---- Fraud wall ----
+const WALL_STATES = ["AP", "Bihar", "Delhi", "Gujarat", "Haryana", "HP", "Jharkhand", "Karnataka", "Kerala", "MP", "Maharashtra", "Odisha", "Punjab", "Rajasthan", "TN", "Telangana", "UP", "Uttarakhand", "WB", "Other"];
+$("w-state").innerHTML = WALL_STATES.map((s) => `<option value="${s}">${s}</option>`).join("");
+async function wallLoad() {
+  try {
+    const w = await (await fetch(`${API}/api/wall`)).json();
+    $("wall-total").textContent = w.total || 0;
+    const names = {telegram_tip: "Tips group", fake_advisor: "Fake advisor", upi_fraud: "UPI fraud", kyc_phishing: "Fake KYC", loan_app: "Loan app", ponzi: "Ponzi", other: "Other"};
+    $("wall-list").innerHTML = (w.recent || []).map((r) =>
+      `<div class="wallrow"><strong>${names[r.scam_type] || r.scam_type}</strong> · ${r.state} · ${r.amount.replace(/_/g, " ")}${r.text ? `<br>${r.text}` : ""}</div>`).join("") || "<p class='muted'>—</p>";
+  } catch {}
+}
+$("wall-go").addEventListener("click", async () => {
+  const body = {scam_type: $("w-type").value, state: $("w-state").value, amount: $("w-amount").value, text: $("w-text").value.trim()};
+  const r = await fetch(`${API}/api/wall`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+  if (r.ok) {
+    $("w-text").value = "";
+    $("wall-msg").textContent = (I18N[LANG] && I18N[LANG].w_thanks) || I18N.en.w_thanks;
+    wallLoad();
+  }
+});
+wallLoad();
+showRoute();

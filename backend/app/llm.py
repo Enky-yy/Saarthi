@@ -120,26 +120,6 @@ def rag_answer(query: str, chunks: list[dict], lang: str) -> str | None:
 
 
 def gemini_transcribe(audio: bytes, language_hint: str = "auto") -> str | None:
-    """Transcribe a voice note via Gemini inline audio. None when unkeyed/failing."""
-    import base64
-    key = _key()
-    if not key or not audio:
-        return None
-    try:
-        body = json.dumps({
-            "contents": [{"parts": [
-                {"text": "Transcribe this audio exactly as spoken. Reply with ONLY JSON: {\"text\": \"...\"}"},
-                {"inline_data": {"mime_type": "audio/webm", "data": base64.b64encode(audio).decode()}},
-            ]}],
-            "generationConfig": {"responseMimeType": "application/json", "temperature": 0.0},
-        }).encode()
-        req = urllib.request.Request(
-            f"https://generativelanguage.googleapis.com/v1beta/models/{_MODEL}:generateContent?key={key}",
-            data=body, headers={"Content-Type": "application/json"},
-        )
-        with urllib.request.urlopen(req, timeout=60) as r:
-            data = json.load(r)
-        text = data["candidates"][0]["content"]["parts"][0]["text"]
-        return str(json.loads(text).get("text") or "")[:6000] or None
-    except Exception:
-        return None
+    """REMOVED from pipeline (Gnani Prisma is the transcription engine).
+    Kept for reference; not called anywhere."""
+    return None

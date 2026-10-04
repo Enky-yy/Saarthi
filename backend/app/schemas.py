@@ -154,3 +154,10 @@ class SearchResponse(BaseModel):
     sources: list[SearchSource] = Field(default_factory=list)
     grounded_ai: bool = False
     disclaimer: str = "Education only, not investment advice."
+
+
+class WallRequest(BaseModel):
+    scam_type: str
+    state: str
+    amount: str
+    text: str = ""

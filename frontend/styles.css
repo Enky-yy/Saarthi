@@ -83,6 +83,9 @@ canvas#chart3{width:100%;height:220px;border:1px solid var(--line);background:#f
 .presets{display:inline-flex;gap:.5rem;flex-wrap:wrap}
 .presets .preset{min-height:44px}
 .verdict{background:#FFF8E1;border:1px solid #956400;border-radius:4px;padding:.7rem .9rem;margin-top:.6rem;font-size:1.02rem}
+.route-hidden{display:none}
+.wallrow{border-top:1px solid var(--line);padding:.6rem 0;font-size:.92rem}
+#draft-out{width:100%;border:1px solid #999;border-radius:2px;padding:10px;font:inherit;margin-top:.6rem}
 .chips button[aria-pressed="true"]{background:var(--navy);color:#fff}
 .simgrid{display:grid;grid-template-columns:1fr;gap:.7rem;margin:.4rem 0}
 @media(min-width:700px){.simgrid{grid-template-columns:1fr 1fr}}
