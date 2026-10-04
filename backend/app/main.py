@@ -50,9 +50,28 @@ def _input_hash(req: AnalyzeRequest) -> str:
 
 def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
     # Rules run first (always available); the local model upgrades when loaded.
+    import re as _re
     source_note: str | None = None
     if req.input_text:
         text = req.input_text
+        if _re.fullmatch(r"https?://\S+", text.strip()):
+            # Bare link pasted as text: read what it points to, not the URL string.
+            from .ingest import extract_article_text, kind_of
+            from .ocr import extract_image_text as _ocr_url
+            from .youtube import extract_youtube_text as _yt_text
+            kind = kind_of(text.strip())
+            if kind == "youtube":
+                got, note = _yt_text(text.strip())
+            elif kind == "image":
+                got, note = _ocr_url(text.strip())
+            elif kind == "article":
+                got, note = extract_article_text(text.strip())
+            else:
+                got, note = None, None
+            if got:
+                text, source_note = got, "Link content was read automatically."
+            elif note:
+                source_note = note
     elif req.image_url:
         extracted, source_note = extract_image_text(req.image_url)
         text = extracted or req.image_url
