@@ -1,4 +1,6 @@
-const API = location.port === "8001" ? "" : ((location.hostname === "127.0.0.1" || location.hostname === "localhost") ? "http://127.0.0.1:8001" : "");
+const API = (window.SAARTHI_API_URL !== undefined && window.SAARTHI_API_URL)
+  ? window.SAARTHI_API_URL.replace(/\/$/, "")
+  : (location.port === "8001" ? "" : ((location.hostname === "127.0.0.1" || location.hostname === "localhost") ? "http://127.0.0.1:8001" : ""));
 let LANG = "en", LAST = null;
 const $ = (id) => document.getElementById(id);
 

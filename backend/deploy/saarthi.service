@@ -1,0 +1,14 @@
+[Unit]
+Description=Saarthi investor-resilience API
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=%h/sangyan-sebi/backend
+Environment=SANGYAN_DB=%h/sangyan-sebi/backend/data/history.db
+ExecStart=%h/sangyan-sebi/.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8001
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

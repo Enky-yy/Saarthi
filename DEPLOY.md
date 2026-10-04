@@ -38,10 +38,30 @@ Free accounts get Static Spaces + ZeroGPU demos only — so:
   offline-capable). Point the `API` base in `app.js` at your backend URL.
 - Backend → **Oracle Cloud Always-Free VPS** (4 ARM cores + 24GB RAM, free
   forever, persistent disk) following Option A. Full ML stack at ₹0.
-- Free-tier PaaS (Railway/Render 512MB) runs rules+templates mode only —
-  an honest fallback demo (see `/api/providers`).
 
 The root `Dockerfile` stays for VPS/PaaS Docker deploys.
+
+## Walkthrough — Oracle VPS + static frontend (do this together)
+
+1. **Oracle account** (free): cloud.oracle.com → Always Free → create an
+   Ampere A1 instance (4 OCPU / 24GB), Ubuntu 24.04. Open ingress for 80/443.
+2. **On the box:**
+   ```bash
+   git clone <repo> sangyan-sebi && cd sangyan-sebi
+   bash backend/deploy/setup.sh
+   scp -r <dev-machine>:sangyan-sebi/backend/models backend/models   # trained MuRIL weights
+   mkdir -p ~/.config/systemd/user
+   cp backend/deploy/saarthi.service ~/.config/systemd/user/
+   systemctl --user enable --now saarthi && loginctl enable-linger $USER
+   sudo cp backend/deploy/saarthi-api.conf /etc/nginx/sites-available/
+   # edit server_name, enable site, then:
+   sudo certbot --nginx -d api.yourdomain.in && sudo systemctl reload nginx
+   ```
+3. **Frontend** (Cloudflare Pages / HF Static Space / any static host):
+   upload `frontend/` as-is, then set your backend origin in
+   `frontend/config.js`: `window.SAARTHI_API_URL = "https://api.yourdomain.in";`
+4. Verify: `GET https://api.yourdomain.in/api/providers`, one Hindi check,
+   post 2–3 fraud-wall seeds.
 
 ```dockerfile
 FROM python:3.12-slim
