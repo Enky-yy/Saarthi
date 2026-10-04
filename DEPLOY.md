@@ -47,7 +47,7 @@ The root `Dockerfile` stays for VPS/PaaS Docker deploys.
 ## Option C — Render / Railway free tier (rules-only, easiest permanent link)
 
 The repo ships a slim image + configs: `Dockerfile.slim`
-(~300MB, no torch), `railway.toml`, `render.yaml`. One container serves
+(torch-free: no torch/transformers/whisper packages), `railway.toml`, `render.yaml`. One container serves
 UI + API on `$PORT`, rules + templates + TF-IDF + OCR — no keys needed.
 
 **Render:** Dashboard → New → Web Service → point at the repo (it auto-reads
