@@ -1,6 +1,5 @@
 import hashlib
 import uuid
-from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,14 +9,17 @@ from .classifier import classify
 from .evidence import check_evidence
 from .explainer import explain
 from .llm import llm_classify, llm_explain
+from .ocr import extract_image_text
+from .youtube import extract_youtube_text
 from .schemas import (
     AnalyzeRequest,
     AnalyzeResponse,
     Claim,
     ClaimType,
-    HistoryItem,
 )
 from .simulator import build_sim
+from .store import recent as history_recent
+from .store import save as history_save
 from .voice import stub_audio_url
 
 app = FastAPI(title="Sangyan C+E API")
@@ -28,8 +30,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# in-memory history, no PII stored. replaced by SQLite in later stage.
-_history: list[HistoryItem] = []
 # in-memory TTS cache: job_id -> audio bytes (Bhashini only; else Web Speech).
 _audio: dict[str, bytes] = {}
 
@@ -41,7 +41,17 @@ def _input_hash(req: AnalyzeRequest) -> str:
 
 def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
     # Rules run first (always available); Gemini upgrades when keyed + reachable.
-    text = req.input_text or req.youtube_url or req.image_url or ""
+    source_note: str | None = None
+    if req.input_text:
+        text = req.input_text
+    elif req.image_url:
+        extracted, source_note = extract_image_text(req.image_url)
+        text = extracted or req.image_url
+    elif req.youtube_url:
+        extracted, source_note = extract_youtube_text(req.youtube_url)
+        text = extracted or req.youtube_url
+    else:
+        text = ""
     promo_label, promo_score, promo_signals = classify(text)
     try:
         upgraded = llm_classify(text)
@@ -51,9 +61,11 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
         pass
     has_guarantee = any("guarantee" in s for s in promo_signals)
     claims = [
-        Claim(text=(req.input_text or "")[:200] or "empty input", type=ClaimType.guarantee if has_guarantee else ClaimType.product, jargon=["NAV"] if not has_guarantee else ["guaranteed returns"])
+        Claim(text=text[:200] or "empty input", type=ClaimType.guarantee if has_guarantee else ClaimType.product, jargon=["NAV"] if not has_guarantee else ["guaranteed returns"])
     ]
     evidence = check_evidence(text, claims)
+    if source_note:
+        evidence = evidence.model_copy(update={"uncertainty": evidence.uncertainty + " " + source_note})
     explainer = explain(text, claims, req.lang)
     try:
         upgraded_ex = llm_explain(text, req.lang.value)
@@ -96,22 +108,13 @@ def analyze(req: AnalyzeRequest):
         raise HTTPException(status_code=422, detail="provide input_text, image_url or youtube_url")
     job_id = str(uuid.uuid4())
     resp = _stub_pipeline(req, job_id)
-    _history.append(
-        HistoryItem(
-            job_id=job_id,
-            created_at=datetime.now(timezone.utc),
-            lang=req.lang,
-            input_hash=_input_hash(req),
-            promo_label=resp.promo_label,
-            evidence_level=resp.evidence.level,
-        )
-    )
+    history_save(job_id, req.lang.value, _input_hash(req), resp.promo_label.value, resp.evidence.level.value)
     return resp
 
 
 @app.get("/api/history")
 def history():
-    return _history
+    return history_recent()
 
 
 @app.get("/api/audio/{job_id}")
