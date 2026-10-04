@@ -63,6 +63,9 @@ table.report th{width:32%;background:#F0F4F8;color:var(--navy)}
 .meter span.on-strong{background:var(--navy)}
 .meter span.on-weak{background:#7FA0C0}
 .meter span.on-none{background:#C62828}
+.verdict-line{font-size:1.15rem;font-weight:700;color:var(--navy);margin:.1rem 0}
+.tagrow{display:flex;gap:.45rem;flex-wrap:wrap}
+.tagrow .badge{font-size:.88rem;padding:.3rem .85rem}
 canvas#chart{width:100%;height:220px;border:1px solid var(--line);background:#fff}
 canvas#chart2{width:100%;height:220px;border:1px solid var(--line);background:#fff;margin-top:.6rem}
 canvas#chart3{width:100%;height:220px;border:1px solid var(--line);background:#fff;margin-top:.6rem}

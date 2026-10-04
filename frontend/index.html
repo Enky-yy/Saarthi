@@ -92,11 +92,11 @@
       <div id="loading" hidden><div class="skel"></div><p class="muted" data-i18n="loading">Assessment in progress…</p></div>
       <div id="out" hidden>
         <table class="report">
-          <tr><th data-i18n="th_class">Classification</th><td><span id="promo" class="badge b-edu">education</span> <span class="muted" id="score"></span></td></tr>
-          <tr><th data-i18n="th_ev">Evidence level</th><td><div class="meter" aria-hidden="true"><span></span><span></span><span></span></div><p id="ev"></p><p class="muted" id="ev-u"></p><ul id="src"></ul></td></tr>
+          <tr><th data-i18n="th_verdict">Final word</th><td><p id="verdict" class="verdict-line"></p></td></tr>
+          <tr><th data-i18n="th_tags">Simple tags</th><td><div class="tagrow" id="tags"></div></td></tr>
+          <tr><th data-i18n="th_ev">Evidence level</th><td><p id="ev"></p><p class="muted" id="ev-u"></p><ul id="src"></ul></td></tr>
           <tr><th data-i18n="th_mean">Plain-language meaning</th><td><p id="plain"></p><p class="muted" id="analogy"></p><ul id="terms"></ul></td></tr>
           <tr><th data-i18n="th_sim">Consequence illustration (₹5,000/month × 12)</th><td><canvas id="chart" width="640" height="220"></canvas><p class="muted" id="sim-note"></p></td></tr>
-          <tr><th data-i18n="th_sig">Detected signals</th><td><ul id="sig"></ul></td></tr>
         </table>
         <p class="muted" data-i18n="disclaimer">Disclaimer: computer-generated educational assessment, not investment advice or a legal finding. Verify independently on SEBI / SCORES / NSE before acting.</p>
       </div>

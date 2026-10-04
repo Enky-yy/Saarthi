@@ -59,7 +59,7 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
         text = extracted or req.youtube_url
     else:
         text = ""
-    promo_label, promo_score, promo_signals = classify(text)
+    promo_label, promo_score, promo_signals, rule_tags = classify(text)
     try:
         upgraded = llm_classify(text)
         if upgraded:
@@ -71,6 +71,8 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
         Claim(text=text[:200] or "empty input", type=ClaimType.guarantee if has_guarantee else ClaimType.product, jargon=["NAV"] if not has_guarantee else ["guaranteed returns"])
     ]
     evidence = check_evidence(text, claims)
+    ev_tag = "official_source" if evidence.level.value == "strong" else ("no_evidence" if evidence.level.value == "none" else "has_numbers")
+    tags = rule_tags + [ev_tag]
     if source_note:
         evidence = evidence.model_copy(update={"uncertainty": evidence.uncertainty + " " + source_note})
     # Evidence strings are authored in English; Gemini translates them when keyed.
@@ -105,6 +107,7 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
         promo_label=promo_label,
         promo_score=promo_score,
         promo_signals=promo_signals,
+        tags=tags,
         evidence=evidence,
         explainer=explainer,
         simulator=simulator,

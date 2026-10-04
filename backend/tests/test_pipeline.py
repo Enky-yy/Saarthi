@@ -16,18 +16,21 @@ from app.simulator import build_sim  # noqa: E402
 
 
 def test_obvious_scam_is_promotion():
-    label, score, signals = classify("Guaranteed 5% monthly returns, join telegram now, hurry limited offer")
+    label, score, signals, tags = classify("Guaranteed 5% monthly returns, join telegram now, hurry limited offer")
     assert label == PromoLabel.promotion and score > 0.65 and len(signals) >= 2
+    assert "selling" in tags and "guarantee" in tags
 
 
 def test_plain_question_is_education():
-    label, score, _ = classify("What is NAV? NAV means per-share value, explained simply")
+    label, score, _, tags = classify("What is NAV? NAV means per-share value, explained simply")
     assert label == PromoLabel.education and score < 0.35
+    assert tags == ["educational"]
 
 
 def test_hindi_guarantee_caught():
-    label, _, _ = classify("गारंटी मुनाफा, जल्दी करो, टेलीग्राम जॉइन करो")
+    label, _, _, tags = classify("गारंटी मुनाफा, जल्दी करो, टेलीग्राम जॉइन करो")
     assert label == PromoLabel.promotion
+    assert "guarantee" in tags and "urgency" in tags
 
 
 def test_evidence_never_binary():
