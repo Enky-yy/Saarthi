@@ -20,6 +20,52 @@ _PATTERNS: list[tuple[str, float, str, str]] = [
 _EDU_MARKERS = r"what is|means|explained|learn|understand|how .* works|क्या\s*है|मतलब|समझो|म्हणजे\s*काय|என்றால்\s*என்ன"
 
 
+_ML = None  # lazy MuRIL classifier: None=untried, False=absent, model=ready
+_ML_TOK = None
+_ML_LABELS = ["education", "mixed", "promotion"]
+
+
+def _ml_model_dir() -> str | None:
+    import os
+    d = os.environ.get("MURIL_MODEL_DIR", os.path.join(os.path.dirname(__file__), "..", "models", "muril-clf"))
+    d = os.path.abspath(d)
+    return d if os.path.exists(os.path.join(d, "config.json")) else None
+
+
+def _ml_predict(text: str):
+    """Fine-tuned MuRIL verdict, or None. Rules + tags always stay rule-based."""
+    global _ML, _ML_TOK
+    if _ML is None:
+        d = _ml_model_dir()
+        if not d:
+            _ML = False
+            return None
+        try:
+            import torch
+            from transformers import AutoModelForSequenceClassification, AutoTokenizer
+            _ML_TOK = AutoTokenizer.from_pretrained(d)
+            _ML = AutoModelForSequenceClassification.from_pretrained(d)
+            _ML.eval()
+            if torch.cuda.is_available():
+                _ML = _ML.cuda()
+        except Exception:
+            _ML = False
+            return None
+    if _ML is False:
+        return None
+    try:
+        import torch
+        with torch.no_grad():
+            b = _ML_TOK([text[:512]], truncation=True, padding=True, max_length=128, return_tensors="pt")
+            if next(_ML.parameters()).is_cuda:
+                b = {k: v.cuda() for k, v in b.items()}
+            probs = torch.softmax(_ML(**b).logits[0], dim=0).tolist()
+        i = max(range(3), key=lambda k: probs[k])
+        return PromoLabel(_ML_LABELS[i]), round(min(0.99, max(0.01, probs[i])), 2)
+    except Exception:
+        return None
+
+
 def classify(text: str) -> tuple[PromoLabel, float, list[str], list[str]]:
     t = (text or "").lower()
     signals: list[str] = []
@@ -32,13 +78,24 @@ def classify(text: str) -> tuple[PromoLabel, float, list[str], list[str]]:
             tags.append(tag)
     # education markers slightly reduce score, never below 0
     if re.search(_EDU_MARKERS, t, re.IGNORECASE) and not signals:
-        return PromoLabel.education, 0.1, ["educational phrasing"], ["educational"]
-    if re.search(_EDU_MARKERS, t, re.IGNORECASE):
-        score = max(0.0, score - 0.15)
-        signals.append("has educational phrasing (mixed)")
-    score = min(1.0, round(score, 2))
-    if score < 0.35:
-        return PromoLabel.education, score, signals, ([] if tags else ["educational"]) + tags
-    if score <= 0.65:
-        return PromoLabel.mixed, score, signals, tags
-    return PromoLabel.promotion, score, signals, ["selling"] + tags
+        rule = (PromoLabel.education, 0.1, ["educational phrasing"], ["educational"])
+    else:
+        if re.search(_EDU_MARKERS, t, re.IGNORECASE):
+            score = max(0.0, score - 0.15)
+            signals.append("has educational phrasing (mixed)")
+        score = min(1.0, round(score, 2))
+        if score < 0.35:
+            rule = (PromoLabel.education, score, signals, ([] if tags else ["educational"]) + tags)
+        elif score <= 0.65:
+            rule = (PromoLabel.mixed, score, signals, tags)
+        else:
+            rule = (PromoLabel.promotion, score, signals, ["selling"] + tags)
+    # MuRIL upgrades label+score when trained; signals+tags stay rule-based
+    # so every verdict remains explainable in plain words.
+    try:
+        ml = _ml_predict(text)
+        if ml:
+            return ml[0], ml[1], rule[2], rule[3]
+    except Exception:
+        pass
+    return rule

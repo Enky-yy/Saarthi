@@ -4,7 +4,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-for v in ("GEMINI_API_KEY", "BHASHINI_USER_ID", "BHASHINI_API_KEY"):
+for v in ("GNANI_API_KEY",):
     os.environ.pop(v, None)
 os.environ["SANGYAN_DB"] = "/tmp/opencode/test-pytest.db"
 
@@ -23,7 +23,7 @@ def test_obvious_scam_is_promotion():
 
 def test_plain_question_is_education():
     label, score, _, tags = classify("What is NAV? NAV means per-share value, explained simply")
-    assert label == PromoLabel.education and score < 0.35
+    assert label == PromoLabel.education  # score is ML confidence now, not risk
     assert tags == ["educational"]
 
 
@@ -70,6 +70,10 @@ def test_action_calls():
     assert scam["action"] == "stop" and "guarantee" in scam["tags"]
     safe = c.post("/api/analyze", json={"input_text": "What is NAV? NAV means per-share value, explained", "lang": "en"}).json()
     assert safe["action"] == "learn" and "educational" in safe["tags"]
+    funnel = c.post("/api/analyze", json={"input_text": "SEBI registered jackpot multibagger, use my code", "lang": "en"}).json()
+    assert funnel["action"] == "stop"
+    invite = c.post("/api/analyze", json={"input_text": "Join our telegram for daily market updates", "lang": "en"}).json()
+    assert invite["action"] == "stop"  # stranger-group funnels are danger, not curiosity
 
 
 def test_search_rag():

@@ -4,11 +4,10 @@ import uuid
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
-from .bhashini import tts as bhashini_tts
 from .classifier import classify
 from .evidence import check_evidence
 from .explainer import explain
-from .llm import llm_classify, llm_explain, llm_translate
+from .llm import rag_answer  # grounded EN answers; extractive otherwise
 from .ocr import extract_image_text
 from .youtube import extract_youtube_text
 from .schemas import (
@@ -41,8 +40,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# in-memory TTS cache: job_id -> audio bytes (Bhashini only; else Web Speech).
-_audio: dict[str, bytes] = {}
+# History persists in SQLite (store.py); voice reads on-device (Web Speech).
 
 
 def _input_hash(req: AnalyzeRequest) -> str:
@@ -51,7 +49,7 @@ def _input_hash(req: AnalyzeRequest) -> str:
 
 
 def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
-    # Rules run first (always available); Gemini upgrades when keyed + reachable.
+    # Rules run first (always available); the local model upgrades when loaded.
     source_note: str | None = None
     if req.input_text:
         text = req.input_text
@@ -64,23 +62,21 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
     else:
         text = ""
     promo_label, promo_score, promo_signals, rule_tags = classify(text)
-    try:
-        upgraded = llm_classify(text)
-        if upgraded:
-            promo_label, promo_score, promo_signals = upgraded
-    except Exception:
-        pass
+    # (MuRIL upgrades label+score inside classify(); rules own signals+tags.)
     has_guarantee = any("guarantee" in s for s in promo_signals)
     claims = [
         Claim(text=text[:200] or "empty input", type=ClaimType.guarantee if has_guarantee else ClaimType.product, jargon=["NAV"] if not has_guarantee else ["guaranteed returns"])
     ]
-    evidence = check_evidence(text, claims)
+    evidence = check_evidence(text, claims, req.lang.value)
     ev_tag = "official_source" if evidence.level.value == "strong" else ("no_evidence" if evidence.level.value == "none" else "has_numbers")
     tags = rule_tags + [ev_tag]
     # Decisive action call: stop (danger) / verify (unclear) / learn (safe teaching).
     # A group invite, tip line, referral, or hurry tactic alone is never "safe".
+    # Fake authority COMBINED with a money funnel is danger even when the
+    # wording stays just soft enough to dodge a promotion label.
     pressure = set(rule_tags) & {"group_cta", "authority_tip", "referral", "urgency"}
-    if promo_label.value == "promotion" or "guarantee" in rule_tags:
+    funnel = {"authority_tip", "referral"} <= set(rule_tags) or {"authority_tip", "group_cta"} <= set(rule_tags)
+    if promo_label.value == "promotion" or "guarantee" in rule_tags or funnel:
         action = "stop"
     elif promo_label.value == "education" and not pressure:
         action = "learn"
@@ -88,31 +84,10 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
         action = "verify"
     if source_note:
         evidence = evidence.model_copy(update={"uncertainty": evidence.uncertainty + " " + source_note})
-    # Evidence strings are authored in English; Gemini translates them when keyed.
-    if req.lang.value not in ("en", "hinglish"):
-        try:
-            tr = llm_translate([evidence.summary, evidence.uncertainty], req.lang.value)
-            if tr and len(tr) == 2 and all(tr):
-                evidence = evidence.model_copy(update={"summary": tr[0], "uncertainty": tr[1]})
-        except Exception:
-            pass
+    # Evidence strings are natively translated in evidence.py (no MT).
     explainer = explain(text, claims, req.lang)
-    try:
-        upgraded_ex = llm_explain(text, req.lang.value)
-        if upgraded_ex:
-            explainer = upgraded_ex
-    except Exception:
-        pass
     simulator = build_sim(text)
     audio_url = stub_audio_url(job_id, req.voice, req.lang, explainer.plain_text)
-    if req.voice and audio_url is None:
-        try:
-            blob = bhashini_tts(explainer.plain_text, req.lang.value)
-            if blob:
-                _audio[job_id] = blob
-                audio_url = f"/api/audio/{job_id}"
-        except Exception:
-            pass
     return AnalyzeResponse(
         job_id=job_id,
         lang=req.lang,
@@ -199,29 +174,48 @@ def calc(req: CalcRequest):
 
 @app.post("/api/search", response_model=SearchResponse)
 def search(req: SearchRequest):
+    import hashlib
     from .llm import rag_answer
-    from .rag import count, search as rag_search
+    from .rag import search as rag_search
+    from .store import answer_cache_get, answer_cache_put
     if not (req.q or "").strip():
         raise HTTPException(status_code=422, detail="empty query")
-    docs = rag_search(req.q, req.lang.value if req.lang.value != "hinglish" else "hi")
+    lang = req.lang.value
+    qhash = hashlib.sha256(f"{lang}|{req.q.strip().lower()}".encode()).hexdigest()[:24]
+    hit = answer_cache_get(qhash)
+    if hit:
+        return SearchResponse(answer=hit["answer"],
+                              sources=[SearchSource(**s) for s in hit["sources"]],
+                              grounded_ai=hit["grounded_ai"])
+    docs = rag_search(req.q, lang if lang != "hinglish" else "hi")
     if not docs:
         docs = rag_search(req.q, "en")
+    try:
+        from .rag_embed import dense_search
+        dense = dense_search(req.q, lang if lang != "hinglish" else "hi")
+        if dense:
+            want = {d["id"] for d in dense}
+            docs = dense + [d for d in docs if d["id"] not in want]
+            docs = docs[:3]
+    except Exception:
+        pass
     if not docs:
         return SearchResponse(answer="", sources=[])
     grounded = False
     answer = None
-    try:
-        answer = rag_answer(req.q, docs, req.lang.value)
-        grounded = bool(answer)
-    except Exception:
-        pass
+    if lang == "en":
+        # Local-model grounding verified for English; other languages get
+        # native extractive passages (better than small-model translation).
+        try:
+            answer = rag_answer(req.q, docs, lang)
+            grounded = bool(answer)
+        except Exception:
+            pass
     if not answer:
         answer = " ".join(d["body"] for d in docs[:2])[:1200]
-    return SearchResponse(
-        answer=answer,
-        sources=[SearchSource(id=d["id"], title=d["title"], links=d["links"]) for d in docs],
-        grounded_ai=grounded,
-    )
+    sources = [SearchSource(id=d["id"], title=d["title"], links=d["links"]) for d in docs]
+    answer_cache_put(qhash, answer, [s.model_dump() for s in sources], grounded)
+    return SearchResponse(answer=answer, sources=sources, grounded_ai=grounded)
 
 
 @app.post("/api/ocr")
@@ -265,7 +259,7 @@ async def transcribe(file: UploadFile = File(...), language_hint: str = "auto"):
     data = await file.read(26 * 1024 * 1024)
     if not data:
         raise HTTPException(status_code=422, detail="empty file")
-    # 1) Gnani Prisma STT API when keyed (no Gemini for transcription)
+    # 1) Gnani Prisma STT API when keyed
     try:
         from .stt import gnani_transcribe
         text, glang = gnani_transcribe(data, language_hint if language_hint != "auto" else "auto")
@@ -298,22 +292,15 @@ async def transcribe(file: UploadFile = File(...), language_hint: str = "auto"):
     raise HTTPException(status_code=503, detail="no transcription engine available (use the mic button instead)")
 
 
-@app.get("/api/audio/{job_id}")
-def audio(job_id: str):
-    blob = _audio.get(job_id)
-    if not blob:
-        raise HTTPException(status_code=404, detail="no server audio for this job (uses device speech)")
-    return Response(content=blob, media_type="audio/mpeg")
-
-
 @app.get("/api/providers")
 def providers():
     import os
     return {
-        "gemini": bool(os.environ.get("GEMINI_API_KEY")),
+        "local_gen": bool(os.environ.get("LOCAL_GEN_MODEL", "Qwen/Qwen2.5-1.5B-Instruct")),
+        "muril_classifier": os.path.exists(os.environ.get("MURIL_MODEL_DIR", "models/muril-clf")),
         "gnani_stt": bool(os.environ.get("GNANI_API_KEY")),
-        "bhashini": bool(os.environ.get("BHASHINI_USER_ID") and os.environ.get("BHASHINI_API_KEY")),
-        "fallback": "rules + templates + local-whisper + device speech (always on)",
+        "local_whisper": True,
+        "fallback": "rules + templates + device speech (always on)",
     }
 
 

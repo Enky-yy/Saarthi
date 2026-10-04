@@ -1,5 +1,5 @@
 """Tiny offline RAG: TF-IDF retrieval over the curated KB (EN + HI),
-optional Gemini grounded answering when keyed. No dependencies."""
+optional local-model grounded answering when loaded. No dependencies."""
 import math
 import re
 from collections import Counter

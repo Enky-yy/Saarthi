@@ -2,7 +2,7 @@ import re
 from .schemas import Claim, Explainer, Lang, TermMeaning
 
 # Full native gloss pack for all 11 supported languages.
-# Prod path: replace `explain()` body with LLM + Bhashini; keep the signature.
+# Prod path: the local model upgrades `explain()` output; keep the signature.
 _JARGON: dict[str, dict[str, str]] = {
     "NAV": {"en": "per-share value of a mutual fund, changes daily", "hi": "म्यूचुअल फंड के एक हिस्से की कीमत, रोज़ बदलती है", "hinglish": "mutual fund ke ek hisse ki keemat, roz badalti hai", "mr": "म्युच्युअल फंडाच्या एका हिश्याची किंमत, रोज बदलते", "ta": "மியூச்சுவல் ஃபண்டின் ஒரு பங்கு விலை, தினமும் மாறும்", "bn": "মিউচুয়াল ফান্ডের এক ইউনিটের দাম, রোজ বদলায়", "te": "మ్యూచువల్ ఫండ్ ఒక యూనిట్ ధర, రోజూ మారుతుంది", "kn": "ಮ್ಯೂಚ್ಯುವಲ್ ಫಂಡ್‌ನ ಒಂದು ಯೂನಿಟ್ ಬೆಲೆ, ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ", "ml": "മ്യൂച്വൽ ഫണ്ടിന്റെ ഒരു യൂണിറ്റിന്റെ വില, ദിവസവും മാറും", "gu": "મ્યુચ્યુઅલ ફંડના એક યુનિટની કિંમત, રોજ બદલાય છે", "pa": "ਮਿਊਚੁਅਲ ਫੰਡ ਦੇ ਇੱਕ ਯੂਨਿਟ ਦੀ ਕੀਮਤ, ਰੋਜ਼ ਬਦਲਦੀ ਹੈ"},
     "SIP": {"en": "fixed small investment every month to build habit", "hi": "हर महीने थोड़ा-थोड़ा निवेश की आदत", "hinglish": "har mahine thodi-thodi nivesh ki aadat", "mr": "दरमहा ठराविक गुंतवणुकीची सवय", "ta": "மாதந்தோறும் தவறாமல் முதலீடு செய்யும் பழக்கம்", "bn": "প্রতি মাসে নির্দিষ্ট টাকা বিনিয়োগের অভ্যাস", "te": "ప్రతి నెలా నిర్ణీత మొత్తం పెట్టుబడి అలవాటు", "kn": "ಪ್ರತಿ ತಿಂಗಳು ನಿಗದಿತ ಹಣ ಹೂಡುವ ಅಭ್ಯಾಸ", "ml": "എല്ലാ മാസവും നിശ്ചിത തുക നിക്ഷേപിക്കുന്ന ശീലം", "gu": "દર મહિને નિશ્ચિત રકમ રોકાણ કરવાની ટેવ", "pa": "ਹਰ ਮਹੀਨੇ ਨਿਸ਼ਚਿਤ ਰਕਮ ਨਿਵੇਸ਼ ਕਰਨ ਦੀ ਆਦਤ"},

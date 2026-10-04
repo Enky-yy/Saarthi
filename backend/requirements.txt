@@ -1,3 +1,14 @@
 fastapi>=0.110
 uvicorn[standard]>=0.29
 pydantic>=2.6
+numpy>=1.24
+# ML track (all local, zero APIs): torch + transformers for embeddings
+# (multilingual-e5-small), MuRIL classifier fine-tune/serve, and the
+# Qwen2.5-1.5B local generator. faster-whisper for offline voice notes.
+torch>=2.0
+transformers>=4.40
+accelerate>=1.1.0
+datasets>=3.0
+scikit-learn>=1.3
+faster-whisper>=1.0
+python-multipart>=0.0.18

@@ -87,3 +87,30 @@ def wall_read(limit: int = 20) -> dict:
                 "recent": [dict(zip(("created_at", "scam_type", "state", "amount", "text"), r)) for r in rows]}
     except Exception:
         return {"total": 0, "counts": {}, "recent": []}
+
+
+def answer_cache_get(qhash: str) -> dict | None:
+    try:
+        con = _connect()
+        con.execute("CREATE TABLE IF NOT EXISTS answers (qhash TEXT PRIMARY KEY, answer TEXT, sources TEXT, grounded INTEGER)")
+        row = con.execute("SELECT answer, sources, grounded FROM answers WHERE qhash=?", (qhash,)).fetchone()
+        con.close()
+        if row:
+            import json
+            return {"answer": row[0], "sources": json.loads(row[1]), "grounded_ai": bool(row[2])}
+        return None
+    except Exception:
+        return None
+
+
+def answer_cache_put(qhash: str, answer: str, sources: list, grounded: bool) -> None:
+    try:
+        import json
+        con = _connect()
+        con.execute("CREATE TABLE IF NOT EXISTS answers (qhash TEXT PRIMARY KEY, answer TEXT, sources TEXT, grounded INTEGER)")
+        con.execute("INSERT OR REPLACE INTO answers VALUES (?,?,?,?)",
+                    (qhash, answer, json.dumps(sources), int(grounded)))
+        con.commit()
+        con.close()
+    except Exception:
+        pass

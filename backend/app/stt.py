@@ -1,5 +1,5 @@
 """Speech-to-text: Gnani Prisma v2.5 API first, local faster-whisper offline
-fallback. Gemini is NOT used for transcription. Returns None when neither
+fallback. Only Gnani + local whisper are used. Returns None when neither
 engine can run, so callers stay honest."""
 import io
 import json
