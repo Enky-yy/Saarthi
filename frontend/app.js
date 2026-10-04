@@ -103,10 +103,18 @@ function drawChart(sim) {
 
 $("speak").addEventListener("click", () => {
   if (!LAST) return;
+  if (LAST.audio_url) { // Bhashini server voice when keyed
+    new Audio(`${API}${LAST.audio_url}`).play().catch(() => deviceSpeech());
+    return;
+  }
+  deviceSpeech();
+});
+
+function deviceSpeech() {
   const u = new SpeechSynthesisUtterance(LAST.explainer.plain_text + " " + LAST.explainer.analogy);
   u.lang = SPEECH_LANG[LANG] || "en-IN";
   speechSynthesis.cancel(); speechSynthesis.speak(u);
-});
+}
 
 function saveHist(d) {
   const k = "sangyan-hist", arr = JSON.parse(localStorage.getItem(k) || "[]");
