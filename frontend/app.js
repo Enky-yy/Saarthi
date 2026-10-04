@@ -16,6 +16,12 @@ gu: {skip:"મુખ્ય સામગ્રી પર જાઓ",sra:"સ્�
 pa: {skip:"ਮੁੱਖ ਸਮੱਗਰੀ ’ਤੇ ਜਾਓ",sra:"ਸਕ੍ਰੀਨ ਰੀਡਰ ਪਹੁੰਚ",lang_more:"ਹੋਰ ਭਾਸ਼ਾਵਾਂ",nav_home:"ਮੁੱਖ ਪੰਨਾ",nav_check:"ਦਾਅਵਾ ਜਾਂਚੋ",nav_report:"ਮੁਲਾਂਕਣ ਰਿਪੋਰਟ",nav_learn:"ਨਿਵੇਸ਼ਕ ਸਿੱਖਿਆ",nav_help:"ਹੈਲਪਲਾਈਨ",ticker:"<strong>ਸੂਚਨਾ:</strong> ਬਾਜ਼ਾਰ ਵਿੱਚ ਪੱਕੇ ਮੁਨਾਫ਼ੇ ਦੀ ਗਾਰੰਟੀ ਕੋਈ ਨਹੀਂ ਦੇ ਸਕਦਾ। ਪੈਸੇ ਭੇਜਣ ਤੋਂ ਪਹਿਲਾਂ SEBI / SCORES / NSE ’ਤੇ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ। ਇਹ ਪੋਰਟਲ ਸਿਰਫ਼ ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ — ਸਲਾਹ ਨਹੀਂ।",crumb:"ਮੁੱਖ ਪੰਨਾ / ਨਿਵੇਸ਼ਕ ਸੁਰੱਖਿਆ / ਦਾਅਵਾ ਮੁਲਾਂਕਣ",h1:"ਔਨਲਾਈਨ ਦਾਅਵਾ ਮੁਲਾਂਕਣ ਸਹੂਲਤ",intro:"WhatsApp, Telegram, YouTube ਜਾਂ Instagram ’ਤੇ ਮਿਲੀ ਕਿਸੇ ਵੀ ਟਿਪ, ਸੁਨੇਹੇ ਜਾਂ ਵੀਡੀਓ ਕੈਪਸ਼ਨ ਦਾ ਪਾਠ ਚਿਪਕਾਓ। ਇਹ ਸਹੂਲਤ ਦੱਸੇਗੀ ਕਿ ਸਮੱਗਰੀ ਤੁਹਾਨੂੰ <strong>ਸਿਖਾ</strong> ਰਹੀ ਹੈ ਜਾਂ <strong>ਵੇਚ</strong> ਰਹੀ ਹੈ, ਇਸ ਪਿੱਛੇ ਕੀ ਸਬੂਤ ਹੈ ਅਤੇ ਸਿੱਧਾ ਅਰਥ ਕੀ ਹੈ।",form_title:"ਅਰਜ਼ੀ ਫਾਰਮ — ਦਾਅਵੇ ਦਾ ਵੇਰਵਾ",form_label:"ਦਾਅਵੇ / ਟਿਪ / ਕੈਪਸ਼ਨ ਦਾ ਪਾਠ",req:"(ਲਾਜ਼ਮੀ)",form_hint:"OTP, ਬੈਂਕ ਪਾਸਵਰਡ ਜਾਂ ਪੂਰਾ ਖਾਤਾ ਨੰਬਰ ਨਾ ਲਿਖੋ। ਸਿਰਫ਼ ਦਾਅਵੇ ਦਾ ਪਾਠ ਚਾਹੀਦਾ ਹੈ।",btn_check:"ਮੁਲਾਂਕਣ ਲਈ ਭੇਜੋ",btn_speak:"ਵਿਆਖਿਆ ਸੁਣੋ",btn_clear:"ਫਾਰਮ ਸਾਫ਼ ਕਰੋ",rep_title:"ਮੁਲਾਂਕਣ ਰਿਪੋਰਟ",empty:"ਅਜੇ ਕੋਈ ਮੁਲਾਂਕਣ ਨਹੀਂ ਹੋਇਆ। ਭੇਜਣ ਤੋਂ ਬਾਅਦ ਰਿਪੋਰਟ ਇੱਥੇ ਦਿਖੇਗੀ।",loading:"ਮੁਲਾਂਕਣ ਚੱਲ ਰਿਹਾ ਹੈ…",th_class:"ਵਰਗੀਕਰਨ",th_ev:"ਸਬੂਤ ਦਾ ਪੱਧਰ",th_mean:"ਸਰਲ ਭਾਸ਼ਾ ਵਿੱਚ ਅਰਥ",th_sim:"ਨਤੀਜਾ ਉਦਾਹਰਨ (₹5,000/ਮਹੀਨਾ × 12)",th_sig:"ਮਿਲੇ ਸੰਕੇਤ",disclaimer:"ਨੋਟ: ਕੰਪਿਊਟਰ-ਨਿਰਮਿਤ ਵਿਦਿਅਕ ਮੁਲਾਂਕਣ, ਨਿਵੇਸ਼ ਸਲਾਹ ਜਾਂ ਕਾਨੂੰਨੀ ਸਿੱਟਾ ਨਹੀਂ। ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ SEBI / SCORES / NSE ’ਤੇ ਖ਼ੁਦ ਪੁਸ਼ਟੀ ਕਰੋ।",learn_title:"ਨਿਵੇਸ਼ਕ ਸਿੱਖਿਆ",learn1:"NAV ਕੀ ਹੈ — ਮਿਊਚੁਅਲ ਫੰਡ ਦੇ ਇੱਕ ਯੂਨਿਟ ਦੀ ਕੀਮਤ, ਰੋਜ਼ ਬਦਲਦੀ ਹੈ।",learn2:"SIP — ਹਰ ਮਹੀਨੇ ਨਿਸ਼ਚਿਤ ਆਦਤ; ਚੱਕਰਵਾਧ ਧੀਰਜ ਦਾ ਫਲ ਦਿੰਦਾ ਹੈ, ਟਿਪ ਦਾ ਨਹੀਂ।",learn3:"ਉਤਰਾਅ-ਚੜ੍ਹਾਅ — ਕੀਮਤ ਉੱਪਰ-ਹੇਠਾਂ ਹੁੰਦੀ ਹੈ; ਪੱਕਾ ਮੁਨਾਫ਼ਾ ਹੁੰਦਾ ਹੀ ਨਹੀਂ।",learn4:"ਸ਼ਿਕਾਇਤ — SCORES ’ਤੇ ਸ਼ਿਕਾਇਤ ਕਰੋ; ਨਾਮਜ਼ਦਗੀ ਅਤੇ IEPF ਸਥਿਤੀ ਵੇਖੋ।",help_title:"ਹੈਲਪਲਾਈਨ",news_title:"ਨਵਾਂ ਕੀ",news1:"ਫਾਰਵਰਡ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਟਿਪ-ਗਰੁੱਪ ਸਕ੍ਰੀਨਸ਼ਾਟ ਜਾਂਚੋ।",news2:"ਡੀਮੈਟ ਲਈ ਨਾਮਜ਼ਦਗੀ ਹੁਣ ਲਾਜ਼ਮੀ।",news3:"IEPF ਰਾਹੀਂ ਬੇਦਾਅਵਾ ਲਾਭਅੰਸ਼ ਵਾਪਸ ਮਿਲ ਸਕਦਾ ਹੈ।",links_title:"ਸਬੰਧਿਤ ਲਿੰਕ",hist_title:"ਪਿਛਲੇ ਮੁਲਾਂਕਣ",hist_empty:"ਇਸ ਡਿਵਾਈਸ ’ਤੇ ਅਜੇ ਕੁਝ ਨਹੀਂ।",footer:"ਪ੍ਰਦਰਸ਼ਨ ਲਈ ਸਮੱਗਰੀ SANGYAN ਹੈਕਾਥਨ ਟੀਮ ਦੀ। ਸਰੋਤ: SEBI · NSE · SCORES.",f_acc:"ਪਹੁੰਚਯੋਗਤਾ",f_terms:"ਵਰਤੋਂ ਸ਼ਰਤਾਂ",f_priv:"ਗੋਪਨੀਯਤਾ (ਕੋਈ PII ਨਹੀਂ)",f_upd:"ਅਪਡੇਟ: ਅਕਤੂ 2026"}}
 
 const HTML_LANG = {en: "en", hinglish: "hi", hi: "hi", mr: "mr", ta: "ta", bn: "bn", te: "te", kn: "kn", ml: "ml", gu: "gu", pa: "pa"};
+
+// Optional-input labels (kept separate so the big dicts stay untouched).
+const EXTRA = {
+form_img: {en: "Screenshot image URL (optional)", hinglish: "Screenshot image ka URL (optional)", hi: "स्क्रीनशॉट चित्र का URL (वैकल्पिक)", mr: "स्क्रीनशॉट प्रतिमेची URL (ऐच्छिक)", ta: "ஸ்கிரீன்ஷாட் பட URL (விருப்பம்)", bn: "স্ক্রিনশট ছবির URL (ঐচ্ছিক)", te: "స్క్రీన్‌షాట్ చిత్ర URL (ఐచ్ఛికం)", kn: "ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಚಿತ್ರದ URL (ಐಚ್ಛಿಕ)", ml: "സ്ക്രീൻഷോട്ട് ചിത്ര URL (ഓപ്ഷണൽ)", gu: "સ્ક્રીનશોટ છબીનું URL (વૈકલ્પિક)", pa: "ਸਕ੍ਰੀਨਸ਼ਾਟ ਚਿੱਤਰ URL (ਵਿਕਲਪਿਕ)"},
+form_yt: {en: "YouTube video link (optional)", hinglish: "YouTube video ka link (optional)", hi: "YouTube वीडियो लिंक (वैकल्पिक)", mr: "YouTube व्हिडिओ लिंक (ऐच्छिक)", ta: "YouTube வீடியோ இணைப்பு (விருப்பம்)", bn: "YouTube ভিডিও লিংক (ঐচ্ছিক)", te: "YouTube వీడియో లింక్ (ఐచ్ఛికం)", kn: "YouTube ವೀಡಿಯೊ ಲಿಂಕ್ (ಐಚ್ಛಿಕ)", ml: "YouTube വീഡിയോ ലിങ്ക് (ഓപ്ഷണൽ)", gu: "YouTube વિડિયો લિંક (વૈકલ્પિક)", pa: "YouTube ਵੀਡੀਓ ਲਿੰਕ (ਵਿਕਲਪਿਕ)"}};
+for (const [k, m] of Object.entries(EXTRA)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
 const SPEECH_LANG = {hi: "hi-IN", mr: "mr-IN", ta: "ta-IN", bn: "bn-IN", te: "te-IN", kn: "kn-IN", ml: "ml-IN", gu: "gu-IN", pa: "pa-IN"};
 
 function applyLang() {
@@ -48,13 +54,19 @@ $("lang-more").addEventListener("change", (e) => {
 
 async function doCheck() {
   const text = $("claim").value.trim();
+  const imgurl = $("imgurl").value.trim();
+  const yturl = $("yturl").value.trim();
   $("form-err").hidden = true;
-  if (!text) { const e = $("form-err"); e.textContent = "Paste some text first — a tip, message, or caption."; e.hidden = false; return; }
+  if (!text && !imgurl && !yturl) { const e = $("form-err"); e.textContent = "Give some text, an image link, or a YouTube link first."; e.hidden = false; return; }
   $("empty").hidden = true; $("out").hidden = true; $("loading").hidden = false; $("speak").disabled = true;
   try {
+    const body = {lang: LANG};
+    if (text) body.input_text = text;
+    if (imgurl) body.image_url = imgurl;
+    if (yturl) body.youtube_url = yturl;
     const r = await fetch(`${API}/api/analyze`, {
       method: "POST", headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({input_text: text, lang: LANG}),
+      body: JSON.stringify(body),
     });
     if (!r.ok) throw new Error(`Server said ${r.status}`);
     LAST = await r.json();
@@ -124,7 +136,8 @@ function saveHist(d) {
 }
 
 $("clear").addEventListener("click", () => {
-  $("claim").value = ""; $("out").hidden = true; $("empty").hidden = false;
+  $("claim").value = ""; $("imgurl").value = ""; $("yturl").value = "";
+  $("out").hidden = true; $("empty").hidden = false;
   $("form-err").hidden = true; LAST = null; $("speak").disabled = true;
 });
 

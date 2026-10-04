@@ -41,6 +41,7 @@ label{font-weight:700}
 .req{color:var(--red-tx)}
 .hint,.muted{color:var(--muted);font-size:.9rem}
 textarea{width:100%;min-height:120px;border:1px solid #999;border-radius:2px;padding:10px;font:inherit;resize:vertical}
+.urlinput{width:100%;border:1px solid #999;border-radius:2px;padding:10px;font:inherit;margin-top:.25rem}
 textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
 .row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
 .btn{background:var(--navy);color:#fff;border:1px solid var(--navy2);border-radius:2px;padding:10px 20px;font-size:1rem;cursor:pointer;min-height:44px}
