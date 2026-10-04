@@ -95,6 +95,17 @@ step_verify3: {en: "Show it to a trusted person before you decide.", hinglish: "
 step_learn1: {en: "Safe to learn from. Explore the lessons below.", hinglish: "Seekhne ke liye safe. Neeche paath padho.", hi: "सीखने हेतु सुरक्षित। नीचे पाठ पढ़ें।", mr: "शिकण्यासाठी सुरक्षित. खालील धडे वाचा.", ta: "கற்கப் பாதுகாப்பானது. கீழே பாடங்களைப் படியுங்கள்.", bn: "শেখার জন্য নিরাপদ। নিচের পাঠ পড়ুন।", te: "నేర్చుకోవడానికి సురక్షితం. కింద పాఠాలు చదవండి.", kn: "ಕಲಿಯಲು ಸುರಕ್ಷಿತ. ಕೆಳಗಿನ ಪಾಠಗಳನ್ನು ಓದಿ.", ml: "പഠിക്കാൻ സുരക്ഷിതം. താഴെയുള്ള പാഠങ്ങൾ വായിക്കൂ.", gu: "શીખવા માટે સલામત. નીચે પાઠ વાંચો.", pa: "ਸਿੱਖਣ ਲਈ ਸੁਰੱਖਿਅਤ। ਹੇਠਾਂ ਪਾਠ ਪੜ੍ਹੋ।"},
 step_learn2: {en: "Still, never share OTPs or bank passwords with anyone.", hinglish: "Phir bhi OTP ya bank password kisi se share mat karo.", hi: "फिर भी OTP या बैंक पासवर्ड किसी से साझा न करें।", mr: "तरी OTP किंवा बँक पासवर्ड कोणालाही देऊ नका.", ta: "ஆனாலும் OTP/வங்கி கடவுச்சொல்லை யாரிடமும் பகிர வேண்டாம்.", bn: "তবু OTP বা ব্যাংক পাসওয়ার্ড কাউকে দেবেন না।", te: "అయినా OTP/బ్యాంక్ పాస్‌వర్డ్ ఎవరికీ ఇవ్వవద్దు.", kn: "ಆದರೂ OTP/ಬ್ಯಾಂಕ್ ಪಾಸ್‌ವರ್ಡ್ ಯಾರಿಗೂ ನೀಡಬೇಡಿ.", ml: "എന്നാലും OTP/ബാങ്ക് പാസ്‌വേഡ് ആർക്കും നൽകരുത്.", gu: "છતાં OTP/બેંક પાસવર્ડ કોઈને ન આપો.", pa: "ਫਿਰ ਵੀ OTP/ਬੈਂਕ ਪਾਸਵਰਡ ਕਿਸੇ ਨੂੰ ਨਾ ਦਿਓ।"}};
 for (const [k, m] of Object.entries(EXTRA7)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
+
+const EXTRA8 = {
+mic_btn: {en: "Speak instead", hinglish: "Bolkar likho", hi: "बोलकर लिखें", mr: "बोलून लिहा", ta: "பேசி எழுது", bn: "বলে লিখুন", te: "మాట్లాడి రాయండి", kn: "ಮಾತನಾಡಿ ಬರೆಯಿರಿ", ml: "പറഞ്ഞ് എഴുതൂ", gu: "બોલીને લખો", pa: "ਬੋਲ ਕੇ ਲਿਖੋ"},
+file_label: {en: "Attach screenshot", hinglish: "Screenshot lagao", hi: "स्क्रीनशॉट लगाएं", mr: "स्क्रीनशॉट जोडा", ta: "ஸ்கிரீன்ஷாட் இணை", bn: "স্ক্রিনশট লাগান", te: "స్క్రీన్‌షాట్ జోడించండి", kn: "ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಲಗತ್ತಿಸಿ", ml: "സ്ക്രീൻഷോട്ട് ചേർക്കൂ", gu: "સ્ક્રીનશોટ જોડો", pa: "ਸਕ੍ਰੀਨਸ਼ਾਟ ਲਾਓ"},
+share_btn: {en: "Share result", hinglish: "Result share karo", hi: "परिणाम साझा करें", mr: "निकाल शेअर करा", ta: "முடிவைப் பகிர்", bn: "ফল শেয়ার করুন", te: "ఫలితం పంచుకోండి", kn: "ಫಲಿತಾಂಶ ಹಂಚಿಕೊಳ್ಳಿ", ml: "ഫലം പങ്കിടൂ", gu: "પરિણામ શેર કરો", pa: "ਨਤੀਜਾ ਸਾਂਝਾ ਕਰੋ"},
+copied: {en: "Copied — paste it in WhatsApp to warn others.", hinglish: "Copy ho gaya — WhatsApp par chipka kar sabko chetao.", hi: "कॉपी हो गया — WhatsApp पर चिपकाकर सबको चेताएं।", mr: "कॉपी झाले — WhatsApp वर चिकटवून सर्वांना सावध करा.", ta: "நகலெடுக்கப்பட்டது — WhatsApp-இல் ஒட்டி எச்சரிக்கவும்.", bn: "কপি হয়েছে — WhatsApp-এ পেস্ট করে সবাইকে সতর্ক করুন।", te: "కాపీ అయింది — WhatsAppలో అతికించి అందరినీ హెచ్చరించండి.", kn: "ನಕಲಿಸಲಾಗಿದೆ — WhatsApp ನಲ್ಲಿ ಅಂಟಿಸಿ ಎಲ್ಲರಿಗೂ ಎಚ್ಚರಿಸಿ.", ml: "പകർത്തി — WhatsApp-ൽ ഒട്ടിച്ച് എല്ലാവരെയും മുന്നറിയിപ്പ് നൽകൂ.", gu: "કોપી થયું — WhatsApp પર ચોંટાડીને સૌને ચેતવો.", pa: "ਕਾਪੀ ਹੋ ਗਿਆ — WhatsApp ’ਤੇ ਚਿਪਕਾ ਕੇ ਸਭ ਨੂੰ ਚੇਤਾਵਨੀ ਦਿਓ।"},
+ask_title: {en: "Ask & learn — search investor knowledge", hinglish: "Poocho aur seekho — gyaan khojo", hi: "पूछें व सीखें — निवेश ज्ञान खोजें", mr: "विचारा व शिका — ज्ञान शोधा", ta: "கேள் & கற்க — அறிவைத் தேடு", bn: "জিজ্ঞেস করুন ও শিখুন — জ্ঞান খুঁজুন", te: "అడగండి & నేర్చుకోండి — జ్ఞానం వెతకండి", kn: "ಕೇಳಿ ಮತ್ತು ಕಲಿಯಿರಿ — ಜ್ಞಾನ ಹುಡುಕಿ", ml: "ചോദിക്കൂ & പഠിക്കൂ — അറിവ് തിരയൂ", gu: "પૂછો અને શીખો — જ્ઞાન શોધો", pa: "ਪੁੱਛੋ ਤੇ ਸਿੱਖੋ — ਗਿਆਨ ਲੱਭੋ"},
+ask_hint: {en: "Ask anything — NAV, SIP, UPI fraud, F&O risks, nomination — answered from our curated library with official sources.", hinglish: "Kuch bhi poocho — NAV, SIP, UPI thagi, F&O jokhim — hamari library se jawab, sarkari sources ke saath.", hi: "कुछ भी पूछें — NAV, SIP, UPI ठगी, F&O जोखिम, नामांकन — हमारी लाइब्रेरी से उत्तर, आधिकारिक स्रोतों सहित।", mr: "काहीही विचारा — NAV, SIP, UPI फसवणूक, F&O धोके — आमच्या लायब्ररीतून उत्तर.", ta: "எதையும் கேளுங்கள் — NAV, SIP, UPI மோசடி — நூலகத்திலிருந்து பதில்.", bn: "যা খুশি জিজ্ঞেস করুন — NAV, SIP, UPI প্রতারণা — লাইব্রেরি থেকে উত্তর।", te: "ఏదైనా అడగండి — NAV, SIP, UPI మోసం — లైబ్రరీ నుంచి సమాధానం.", kn: "ಏನಾದರೂ ಕೇಳಿ — NAV, SIP, UPI ವಂಚನೆ — ಗ್ರಂಥಾಲಯದಿಂದ ಉತ್ತರ.", ml: "എന്തും ചോദിക്കൂ — NAV, SIP, UPI തട്ടിപ്പ് — ലൈബ്രറിയിൽ നിന്ന് ഉത്തരം.", gu: "કંઈ પણ પૂછો — NAV, SIP, UPI છેતરપિંડી — લાઇબ્રેરીમાંથી જવાબ.", pa: "ਕੁਝ ਵੀ ਪੁੱਛੋ — NAV, SIP, UPI ਠੱਗੀ — ਲਾਇਬ੍ਰੇਰੀ ਤੋਂ ਜਵਾਬ।"},
+ask_ph: {en: "e.g. how to avoid UPI fraud?", hinglish: "e.g. UPI thagi se kaise bache?", hi: "जैसे: UPI ठगी से कैसे बचें?", mr: "उदा: UPI फसवणूक कशी टाळावी?", ta: "எ.கா: UPI மோசடியைத் தவிர்ப்பது எப்படி?", bn: "যেমন: UPI প্রতারণা এড়াব কীভাবে?", te: "ఉదా: UPI మోసం నివారించడం ఎలా?", kn: "ಉದಾ: UPI ವಂಚನೆ ತಪ್ಪಿಸುವುದು ಹೇಗೆ?", ml: "ഉദാ: UPI തട്ടിപ്പ് എങ്ങനെ ഒഴിവാക്കാം?", gu: "દા.ત. UPI છેતરપિંડીથી કેવી રીતે બચવું?", pa: "ਜਿਵੇਂ: UPI ਠੱਗੀ ਤੋਂ ਕਿਵੇਂ ਬਚੀਏ?"},
+ask_go: {en: "Search", hinglish: "Khojo", hi: "खोजें", mr: "शोधा", ta: "தேடு", bn: "খুঁজুন", te: "వెతకండి", kn: "ಹುಡುಕಿ", ml: "തിരയൂ", gu: "શોધો", pa: "ਲੱਭੋ"}};
+for (const [k, m] of Object.entries(EXTRA8)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
 const SPEECH_LANG = {hi: "hi-IN", mr: "mr-IN", ta: "ta-IN", bn: "bn-IN", te: "te-IN", kn: "kn-IN", ml: "ml-IN", gu: "gu-IN", pa: "pa-IN"};
 
 function applyLang() {
@@ -104,6 +115,10 @@ function applyLang() {
     if (v !== undefined) el.innerHTML = v;
   });
   document.documentElement.lang = HTML_LANG[LANG] || "en";
+  document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+    const v = d[el.dataset.i18nPh];
+    if (v !== undefined) el.setAttribute("placeholder", v);
+  });
   document.querySelectorAll(".langs button").forEach((x) =>
     x.setAttribute("aria-pressed", String(x.dataset.lang === LANG)));
 }
@@ -153,7 +168,7 @@ async function doCheck() {
 $("check").addEventListener("click", doCheck);
 
 function render(d) {
-  $("out").hidden = false; $("speak").disabled = false;
+  $("out").hidden = false; $("speak").disabled = false; $("share").disabled = false;
   const D = (I18N[LANG] && I18N[LANG].v_edu) ? I18N[LANG] : I18N.en;
   const vlabel = d.promo_label === "education" ? D.v_edu : (d.promo_label === "mixed" ? D.v_mix : D.v_pro);
   const vev = d.evidence.level === "strong" ? D.v_strong : (d.evidence.level === "weak" ? D.v_weak : D.v_none);
@@ -239,9 +254,9 @@ function saveHist(d) {
 }
 
 $("clear").addEventListener("click", () => {
-  $("claim").value = ""; $("imgurl").value = ""; $("yturl").value = "";
+  $("claim").value = ""; $("imgurl").value = ""; $("yturl").value = ""; $("imgfile").value = ""; $("file-note").textContent = "";
   $("out").hidden = true; $("empty").hidden = false;
-  $("form-err").hidden = true; LAST = null; $("speak").disabled = true;
+  $("form-err").hidden = true; LAST = null; $("speak").disabled = true; $("share").disabled = true;
 });
 
 let FS = 16;
@@ -480,3 +495,60 @@ function drawSeries(cvId, series) {
   ctx.fillStyle = "#0B3C5D"; ctx.font = "12px sans-serif";
   ctx.fillText("₹" + Math.round(series[series.length - 1]).toLocaleString("en-IN"), 38, 24);
 }
+
+// ---- Uploads, mic, share, knowledge search, offline ----
+$("imgfile").addEventListener("change", async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  $("file-note").textContent = "…";
+  try {
+    const fd = new FormData();
+    fd.append("file", f);
+    const r = await fetch(`${API}/api/ocr`, {method: "POST", body: fd});
+    const d = await r.json();
+    if (d.text) { $("claim").value = d.text; $("file-note").textContent = ""; }
+    else $("file-note").textContent = d.note || "No text found.";
+  } catch { $("file-note").textContent = "Upload failed. Is the backend on :8001?"; }
+});
+
+$("mic").addEventListener("click", () => {
+  const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!Rec) { $("claim").focus(); return; }
+  const rec = new Rec();
+  rec.lang = SPEECH_LANG[LANG] || "en-IN";
+  rec.onresult = (e) => { $("claim").value += ( $("claim").value ? " " : "") + e.results[0][0].transcript; };
+  rec.start();
+});
+
+$("share").addEventListener("click", async () => {
+  if (!LAST) return;
+  const steps = [...document.querySelectorAll("#acts li")].map((li) => "- " + li.textContent).join("\n");
+  const text = `SANGYAN check:\n${$("stamp").textContent}\n${$("verdict").textContent}\n${steps}\nHelpline: 1930 | SCORES: scores.sebi.gov.in`;
+  if (navigator.share) { try { await navigator.share({text}); return; } catch {} }
+  try {
+    await navigator.clipboard.writeText(text);
+    $("share").textContent = (I18N[LANG] && I18N[LANG].copied) || I18N.en.copied;
+    setTimeout(applyLang, 2500);
+  } catch {}
+});
+
+async function doAsk() {
+  const q = $("ask-q").value.trim();
+  if (!q) return;
+  $("ask-out").hidden = false;
+  $("ask-answer").textContent = "…";
+  $("ask-src").innerHTML = "";
+  try {
+    const r = await fetch(`${API}/api/search`, {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({q, lang: LANG}),
+    });
+    const d = await r.json();
+    $("ask-answer").textContent = d.answer || "—";
+    $("ask-flag").textContent = d.grounded_ai ? "AI answer, grounded in library notes." : "";
+    $("ask-src").innerHTML = (d.sources || []).map((s) =>
+      `<li><strong>${s.title}</strong>${(s.links || []).map((u) => ` — <a href="${u}" target="_blank" rel="noopener">${u.replace("https://", "").replace("www.", "")}</a>`).join("")}</li>`).join("");
+  } catch { $("ask-answer").textContent = "Search needs the backend on :8001."; }
+}
+$("ask-go").addEventListener("click", doAsk);
+$("ask-q").addEventListener("keydown", (e) => { if (e.key === "Enter") doAsk(); });

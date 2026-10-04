@@ -74,6 +74,11 @@
       <label for="claim"><span data-i18n="form_label">Text of claim / tip / caption</span> <span class="req" data-i18n="req">(required)</span></label>
       <p class="hint" data-i18n="form_hint">Do not enter OTPs, bank passwords, or full account numbers. Only the claim text is needed.</p>
       <textarea id="claim">Guaranteed 5% monthly returns, join telegram now</textarea>
+      <div class="row">
+        <button class="btn-ghost" id="mic" data-i18n="mic_btn">Speak instead</button>
+        <label class="filelabel"><span data-i18n="file_label">Attach screenshot</span><input type="file" id="imgfile" accept="image/*" hidden></label>
+        <span class="muted" id="file-note"></span>
+      </div>
       <label for="imgurl" style="margin-top:.6rem;display:block"><span data-i18n="form_img">Screenshot image URL (optional)</span></label>
       <input type="url" id="imgurl" class="urlinput" placeholder="https://…/screenshot.png">
       <label for="yturl" style="margin-top:.6rem;display:block"><span data-i18n="form_yt">YouTube video link (optional)</span></label>
@@ -81,6 +86,7 @@
       <div class="row">
         <button class="btn" id="check" data-i18n="btn_check">Submit for assessment</button>
         <button class="btn-ghost" id="speak" disabled data-i18n="btn_speak">Listen to explanation</button>
+        <button class="btn-ghost" id="share" disabled data-i18n="share_btn">Share result</button>
         <button class="btn-ghost" id="clear" data-i18n="btn_clear">Reset form</button>
       </div>
       <div id="form-err" class="err" hidden></div>
@@ -136,6 +142,20 @@
       <canvas id="chart2" width="640" height="220"></canvas>
       <div class="verdict" id="sim-verdict" hidden></div>
       <p class="muted" id="sim-note2"></p>
+    </section>
+
+    <section class="panel" id="asksec" aria-labelledby="ask-h">
+      <h2 id="ask-h"><span class="hnum">6</span> <span data-i18n="ask_title">Ask &amp; learn — search investor knowledge</span></h2>
+      <p class="muted" data-i18n="ask_hint">Ask anything — NAV, SIP, UPI fraud, F&amp;O risks, nomination — answered from our curated library with official sources.</p>
+      <div class="row">
+        <input type="search" id="ask-q" class="urlinput" style="flex:1" data-i18n-ph="ask_ph" placeholder="e.g. UPI fraud se kaise bache?">
+        <button class="btn" id="ask-go" data-i18n="ask_go">Search</button>
+      </div>
+      <div id="ask-out" hidden>
+        <p id="ask-answer"></p>
+        <p class="muted" id="ask-flag"></p>
+        <ul id="ask-src" class="links"></ul>
+      </div>
     </section>
 
     <section class="panel" id="calcsec" aria-labelledby="calc-h">
@@ -204,5 +224,6 @@
   </div>
 </footer>
 <script src="app.js" defer></script>
+<script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {})); }</script>
 </body>
 </html>

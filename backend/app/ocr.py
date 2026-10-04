@@ -48,7 +48,8 @@ def extract_image_text(url: str) -> tuple[str | None, str | None]:
     if not path:
         return None, "Image could not be downloaded; assessment used the link text only."
     try:
-        text = _run_tesseract(path)
+        with open(path, "rb") as f:
+            text = ocr_bytes(f.read())
     finally:
         try:
             import os
@@ -58,3 +59,21 @@ def extract_image_text(url: str) -> tuple[str | None, str | None]:
     if not text:
         return None, "No readable text found in the image (OCR empty or unavailable)."
     return text, None
+
+
+def ocr_bytes(data: bytes) -> str | None:
+    """OCR raw image bytes (upload path). None when engine missing/empty."""
+    import os
+    import tempfile
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".img")
+    try:
+        tmp.write(data)
+        tmp.close()
+        return _run_tesseract(tmp.name)
+    except Exception:
+        return None
+    finally:
+        try:
+            os.unlink(tmp.name)
+        except Exception:
+            pass

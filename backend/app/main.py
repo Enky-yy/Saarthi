@@ -1,7 +1,7 @@
 import hashlib
 import uuid
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 from .bhashini import tts as bhashini_tts
@@ -20,6 +20,9 @@ from .schemas import (
     ClaimType,
     LearnRequest,
     LearnResponse,
+    SearchRequest,
+    SearchResponse,
+    SearchSource,
     SimRequest,
     Simulator,
 )
@@ -176,7 +179,6 @@ def calc_specs():
     from .calcs import SPECS
     return SPECS
 
-
 @app.post("/api/calc", response_model=CalcResponse)
 def calc(req: CalcRequest):
     from .calcs import SPECS, TOOL_FN, describe
@@ -192,6 +194,107 @@ def calc(req: CalcRequest):
         clean[name] = min(max(v, lo), hi)
     results, series = TOOL_FN[req.tool](clean)
     return CalcResponse(tool=req.tool, results=results, series=[float(x) for x in series], explain=describe(req.tool, req.lang))
+
+
+@app.post("/api/search", response_model=SearchResponse)
+def search(req: SearchRequest):
+    from .llm import rag_answer
+    from .rag import count, search as rag_search
+    if not (req.q or "").strip():
+        raise HTTPException(status_code=422, detail="empty query")
+    docs = rag_search(req.q, req.lang.value if req.lang.value != "hinglish" else "hi")
+    if not docs:
+        docs = rag_search(req.q, "en")
+    if not docs:
+        return SearchResponse(answer="", sources=[])
+    grounded = False
+    answer = None
+    try:
+        answer = rag_answer(req.q, docs, req.lang.value)
+        grounded = bool(answer)
+    except Exception:
+        pass
+    if not answer:
+        answer = " ".join(d["body"] for d in docs[:2])[:1200]
+    return SearchResponse(
+        answer=answer,
+        sources=[SearchSource(id=d["id"], title=d["title"], links=d["links"]) for d in docs],
+        grounded_ai=grounded,
+    )
+
+
+@app.post("/api/ocr")
+async def ocr_upload(file: UploadFile = File(...)):
+    from .ocr import extract_image_text, ocr_bytes
+    data = await file.read(6 * 1024 * 1024)
+    if not data:
+        raise HTTPException(status_code=422, detail="empty file")
+    text = ocr_bytes(data)
+    if not text:
+        return {"text": None, "note": "No readable text found in the image."}
+    return {"text": text[:6000], "note": None}
+
+
+@app.post("/api/ingest-url")
+def ingest_url(req: dict):
+    from .ingest import extract_article_text, kind_of
+    from .ocr import extract_image_text
+    from .youtube import extract_youtube_text
+    url = (req.get("url") or "").strip()
+    if not url:
+        raise HTTPException(status_code=422, detail="empty url")
+    kind = kind_of(url)
+    if kind == "youtube":
+        text, note = extract_youtube_text(url)
+    elif kind == "image":
+        text, note = extract_image_text(url)
+    elif kind == "article":
+        text, note = extract_article_text(url)
+    else:
+        text, note = None, "Link type not recognised; paste the message text instead."
+    return {"kind": kind, "text": (text or "")[:6000], "note": note}
+
+
+_transcriber = None
+
+
+@app.post("/api/transcribe")
+async def transcribe(file: UploadFile = File(...), language_hint: str = "auto"):
+    global _transcriber
+    data = await file.read(26 * 1024 * 1024)
+    if not data:
+        raise HTTPException(status_code=422, detail="empty file")
+    # 1) Gemini audio transcription when keyed
+    try:
+        from .llm import gemini_transcribe
+        text = gemini_transcribe(data, language_hint)
+        if text:
+            return {"text": text, "engine": "gemini"}
+    except Exception:
+        pass
+    # 2) local faster-whisper (offline, multilingual incl. Hindi)
+    try:
+        if _transcriber is None:
+            from faster_whisper import WhisperModel
+            _transcriber = WhisperModel("tiny", device="cpu", compute_type="int8")
+        import tempfile
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".audio") as f:
+            f.write(data)
+            path = f.name
+        try:
+            segs, info = _transcriber.transcribe(path, language=None if language_hint == "auto" else language_hint, beam_size=1)
+            text = " ".join(s.text for s in segs).strip()
+        finally:
+            import os
+            os.unlink(path)
+        if text:
+            return {"text": text[:6000], "engine": "local-whisper", "language": info.language}
+        return {"text": None, "note": "No speech detected in the recording. Try again closer to the mic."}
+    except HTTPException:
+        raise
+    except Exception:
+        pass
+    raise HTTPException(status_code=503, detail="no transcription engine available (use the mic button instead)")
 
 
 @app.get("/api/audio/{job_id}")

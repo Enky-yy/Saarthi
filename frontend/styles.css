@@ -48,6 +48,9 @@ textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid va
 .btn:hover{background:var(--navy2)}
 .btn:active{transform:scale(.98)}
 .btn-ghost{background:#fff;color:var(--navy);border:1px solid var(--navy);border-radius:2px;padding:10px 16px;cursor:pointer;min-height:44px}
+.filelabel{display:inline-block;background:#fff;color:var(--navy);border:1px solid var(--navy);border-radius:2px;padding:10px 16px;cursor:pointer;min-height:44px;font-size:1rem}
+#file-note{font-size:.85rem}
+input[type="search"].urlinput{flex:1;min-width:200px}
 .err{border:1px solid var(--red-tx);background:var(--red-bg);color:var(--red-tx);padding:8px 10px;margin-top:10px}
 .skel{min-height:90px;background:linear-gradient(90deg,#E0E0E0 25%,#F2F2F2 50%,#E0E0E0 75%);background-size:200% 100%;animation:sh 1.2s infinite}
 @keyframes sh{to{background-position:-200% 0}}

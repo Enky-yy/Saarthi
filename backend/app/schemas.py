@@ -136,3 +136,21 @@ class CalcResponse(BaseModel):
     series: list[float] = Field(default_factory=list)
     explain: str
     disclaimer: str = "Education only, not investment advice."
+
+
+class SearchRequest(BaseModel):
+    q: str
+    lang: Lang = Lang.hinglish
+
+
+class SearchSource(BaseModel):
+    id: str
+    title: str
+    links: list[str] = Field(default_factory=list)
+
+
+class SearchResponse(BaseModel):
+    answer: str
+    sources: list[SearchSource] = Field(default_factory=list)
+    grounded_ai: bool = False
+    disclaimer: str = "Education only, not investment advice."

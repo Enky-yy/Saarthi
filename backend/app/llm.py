@@ -98,3 +98,48 @@ def llm_translate(texts: list[str], lang: str) -> list[str] | None:
         return [str(s)[:500] for s in out][: len(texts)] if isinstance(out, list) else None
     except Exception:
         return None
+
+
+_RAG_SYS = (
+    "Answer the investor's question in {lang} using ONLY the notes below. "
+    "Plain words, grade-6 level, max 5 sentences. Never give investment advice, "
+    "tips, or predictions. End with one caution line. Respond with ONLY JSON: "
+    '{"answer": "..."}'
+)
+
+
+def rag_answer(query: str, chunks: list[dict], lang: str) -> str | None:
+    """Grounded abstractive answer; None => caller uses extractive chunks."""
+    notes = "\n".join(f"- {c['title']}: {c['body']}" for c in chunks[:3])
+    langname = _LANG_NAMES.get(lang, "English")
+    out = _generate(_RAG_SYS.format(lang=langname) + f"\n\nNotes:\n{notes}\n\nQuestion: {query[:500]}")
+    try:
+        return str(out["answer"])[:1200]
+    except Exception:
+        return None
+
+
+def gemini_transcribe(audio: bytes, language_hint: str = "auto") -> str | None:
+    """Transcribe a voice note via Gemini inline audio. None when unkeyed/failing."""
+    import base64
+    key = _key()
+    if not key or not audio:
+        return None
+    try:
+        body = json.dumps({
+            "contents": [{"parts": [
+                {"text": "Transcribe this audio exactly as spoken. Reply with ONLY JSON: {\"text\": \"...\"}"},
+                {"inline_data": {"mime_type": "audio/webm", "data": base64.b64encode(audio).decode()}},
+            ]}],
+            "generationConfig": {"responseMimeType": "application/json", "temperature": 0.0},
+        }).encode()
+        req = urllib.request.Request(
+            f"https://generativelanguage.googleapis.com/v1beta/models/{_MODEL}:generateContent?key={key}",
+            data=body, headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=60) as r:
+            data = json.load(r)
+        text = data["candidates"][0]["content"]["parts"][0]["text"]
+        return str(json.loads(text).get("text") or "")[:6000] or None
+    except Exception:
+        return None

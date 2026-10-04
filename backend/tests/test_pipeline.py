@@ -72,6 +72,18 @@ def test_action_calls():
     assert safe["action"] == "learn" and "educational" in safe["tags"]
 
 
+def test_search_rag():
+    from app.main import app
+    from fastapi.testclient import TestClient
+    c = TestClient(app)
+    r = c.post("/api/search", json={"q": "UPI fraud PIN", "lang": "en"}).json()
+    assert "upi_fraud" in [s["id"] for s in r["sources"]] and r["answer"]
+    r = c.post("/api/search", json={"q": "  ", "lang": "en"})
+    assert r.status_code == 422
+    r = c.post("/api/ingest-url", json={"url": "https://x.com/a.png"}).json()
+    assert r["kind"] == "image"
+
+
 def test_calcs_math():
     from app.calcs import TOOL_FN
     sip, _ = TOOL_FN["sip"]({"pmt": 5000, "rate": 12, "years": 10})
