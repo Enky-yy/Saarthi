@@ -104,12 +104,30 @@
 
     <section class="panel" id="learn" aria-labelledby="learn-h">
       <h2 id="learn-h"><span class="hnum">3</span> <span data-i18n="learn_title">Investor education</span></h2>
-      <ul class="links">
-        <li data-i18n="learn1">What is NAV — per-share value of a mutual fund, changes daily.</li>
-        <li data-i18n="learn2">SIP — a fixed monthly habit; compounding rewards patience, not tips.</li>
-        <li data-i18n="learn3">Volatility — prices move up and down; guaranteed returns do not exist.</li>
-        <li data-i18n="learn4">Grievance — lodge complaints on SCORES; check nominee and IEPF status.</li>
-      </ul>
+      <p class="muted" data-i18n="learn_pick">Choose a topic to learn in plain words:</p>
+      <div class="chips" id="chips" role="group" aria-label="Topics"></div>
+      <div id="lesson" hidden>
+        <p id="lesson-plain"></p>
+        <p class="muted" id="lesson-analogy"></p>
+        <ul id="lesson-terms"></ul>
+        <div class="row"><button class="btn-ghost" id="lesson-speak" data-i18n="learn_listen">Listen to lesson</button></div>
+      </div>
+    </section>
+
+    <section class="panel" id="simsec" aria-labelledby="sim-h">
+      <h2 id="sim-h"><span class="hnum">4</span> <span data-i18n="sim_title">Try it yourself — consequence simulator</span></h2>
+      <div class="simgrid">
+        <div><label for="sim-pmt"><span data-i18n="sim_pmt">Monthly amount (₹)</span>: <output id="sim-pmt-v">5000</output></label>
+        <input type="range" id="sim-pmt" min="500" max="50000" step="500" value="5000"></div>
+        <div><label for="sim-yrs"><span data-i18n="sim_yrs">Years</span>: <output id="sim-yrs-v">1</output></label>
+        <input type="range" id="sim-yrs" min="1" max="10" step="1" value="1"></div>
+        <div><label for="sim-hype"><span data-i18n="sim_hype">Claimed growth (%/month)</span>: <output id="sim-hype-v">5</output></label>
+        <input type="range" id="sim-hype" min="0" max="20" step="0.5" value="5"></div>
+        <div><label><input type="checkbox" id="sim-crash"> <span data-i18n="sim_crash">Add a 30% market crash at the end</span></label></div>
+      </div>
+      <div class="row"><button class="btn" id="sim-go" data-i18n="sim_go">Show outcome</button></div>
+      <canvas id="chart2" width="640" height="220"></canvas>
+      <p class="muted" id="sim-note2"></p>
     </section>
   </div>
 

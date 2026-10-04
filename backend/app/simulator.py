@@ -32,28 +32,46 @@ def _sip_series(pmt: float, months: int, monthly_r: float) -> list[float]:
     return out
 
 
-def build_sim(text: str) -> Simulator:
-    claimed = _parse_claimed_monthly(text)
+def simulate(pmt: float = 5000, months: int = 12, claimed_monthly_pct: float | None = None, crash_pct: float = 0.0) -> Simulator:
+    """Interactive consequence simulator: steady 10% p.a. habit vs hype claim,
+    with an optional end-crash so users *feel* volatility with zero real money."""
+    pmt = min(max(pmt, 100), 100000)
+    months = min(max(months, 3), 360)
+    crash = min(max(crash_pct, 0), 90) / 100.0
     monthly_real = _REALISTIC_ANNUAL / 12
-    realistic = _sip_series(_DEFAULT_PMT, _DEFAULT_MONTHS, monthly_real)
-    if claimed is None:
-        return Simulator(
-            type="sip-vs-hype",
-            inputs={"pmt": _DEFAULT_PMT, "months": _DEFAULT_MONTHS, "realistic_annual_pct": 10, "note": "No return claim detected; showing steady-habit illustration only."},
-            projection=realistic,
-        )
-    hype = _sip_series(_DEFAULT_PMT, _DEFAULT_MONTHS, claimed)
-    return Simulator(
-        type="sip-vs-hype",
-        inputs={
-            "pmt": _DEFAULT_PMT,
-            "months": _DEFAULT_MONTHS,
+    realistic = _sip_series(pmt, months, monthly_real)
+    inputs: dict = {"pmt": pmt, "months": months, "realistic_annual_pct": 10}
+    if claimed_monthly_pct is not None:
+        claimed = min(max(claimed_monthly_pct / 100.0, 0), 0.5)
+        hype = _sip_series(pmt, months, claimed)
+        inputs.update({
             "claimed_monthly_pct": round(claimed * 100, 2),
-            "realistic_annual_pct": 10,
             "hype_final": hype[-1],
             "realistic_final": realistic[-1],
             "hype_series": hype,
-            "note": "Hype vs steady illustration, not a prediction. Crash/drawdown not shown — real path is bumpier.",
-        },
-        projection=realistic,
+        })
+    else:
+        inputs["realistic_final"] = realistic[-1]
+    if crash:
+        realistic = [round(v * (1 - crash * (i + 1) / len(realistic) * 0.5), 2) for i, v in enumerate(realistic)]
+        if "hype_series" in inputs:
+            n = len(inputs["hype_series"])
+            inputs["hype_series"] = [round(v * (1 - crash * (i + 1) / n), 2) for i, v in enumerate(inputs["hype_series"])]
+            inputs["hype_final"] = inputs["hype_series"][-1]
+        inputs["realistic_final"] = realistic[-1]
+        inputs["crash_pct"] = round(crash * 100, 1)
+        inputs["note"] = "Crash applied: even steady habits dip — hype promises break harder. Illustration, not a prediction."
+    elif "note" not in inputs:
+        inputs["note"] = "Hype vs steady illustration, not a prediction. Real paths are bumpier."
+    return Simulator(type="sip-vs-hype", inputs=inputs, projection=realistic)
+
+
+def build_sim(text: str) -> Simulator:
+    claimed = _parse_claimed_monthly(text)
+    sim = simulate(
+        _DEFAULT_PMT, _DEFAULT_MONTHS,
+        round(claimed * 100, 2) if claimed is not None else None,
     )
+    if claimed is None:
+        sim.inputs["note"] = "No return claim detected; showing steady-habit illustration only."
+    return sim

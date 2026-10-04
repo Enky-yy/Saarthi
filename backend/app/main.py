@@ -16,8 +16,13 @@ from .schemas import (
     AnalyzeResponse,
     Claim,
     ClaimType,
+    LearnRequest,
+    LearnResponse,
+    SimRequest,
+    Simulator,
 )
 from .simulator import build_sim
+from .simulator import simulate as run_simulation
 from .store import recent as history_recent
 from .store import save as history_save
 from .voice import stub_audio_url
@@ -115,6 +120,32 @@ def analyze(req: AnalyzeRequest):
 @app.get("/api/history")
 def history():
     return history_recent()
+
+
+TOPICS = ["NAV", "SIP", "volatility", "compounding", "diversification", "leverage", "demat", "nomination", "SCORES", "guaranteed returns"]
+
+
+@app.get("/api/topics")
+def topics():
+    return TOPICS
+
+
+@app.post("/api/learn", response_model=LearnResponse)
+def learn(req: LearnRequest):
+    topic = req.topic if req.topic in TOPICS else "NAV"
+    explainer = explain(topic, [], req.lang)
+    try:
+        upgraded = llm_explain(topic, req.lang.value)
+        if upgraded:
+            explainer = upgraded
+    except Exception:
+        pass
+    return LearnResponse(topic=topic, lang=req.lang, explainer=explainer)
+
+
+@app.post("/api/simulate", response_model=Simulator)
+def simulate(req: SimRequest):
+    return run_simulation(req.pmt, req.months, req.claimed_monthly_pct, req.crash_pct)
 
 
 @app.get("/api/audio/{job_id}")

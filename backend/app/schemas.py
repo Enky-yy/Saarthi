@@ -101,3 +101,22 @@ class HistoryItem(BaseModel):
     input_hash: str
     promo_label: PromoLabel
     evidence_level: EvidenceLevel
+
+
+class LearnRequest(BaseModel):
+    topic: str
+    lang: Lang = Lang.hinglish
+
+
+class LearnResponse(BaseModel):
+    topic: str
+    lang: Lang
+    explainer: Explainer
+    disclaimer: str = "Education only, not investment advice."
+
+
+class SimRequest(BaseModel):
+    pmt: float = 5000
+    months: int = 12
+    claimed_monthly_pct: Optional[float] = None
+    crash_pct: float = 0.0

@@ -22,6 +22,17 @@ const EXTRA = {
 form_img: {en: "Screenshot image URL (optional)", hinglish: "Screenshot image ka URL (optional)", hi: "स्क्रीनशॉट चित्र का URL (वैकल्पिक)", mr: "स्क्रीनशॉट प्रतिमेची URL (ऐच्छिक)", ta: "ஸ்கிரீன்ஷாட் பட URL (விருப்பம்)", bn: "স্ক্রিনশট ছবির URL (ঐচ্ছিক)", te: "స్క్రీన్‌షాట్ చిత్ర URL (ఐచ్ఛికం)", kn: "ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಚಿತ್ರದ URL (ಐಚ್ಛಿಕ)", ml: "സ്ക്രീൻഷോട്ട് ചിത്ര URL (ഓപ്ഷണൽ)", gu: "સ્ક્રીનશોટ છબીનું URL (વૈકલ્પિક)", pa: "ਸਕ੍ਰੀਨਸ਼ਾਟ ਚਿੱਤਰ URL (ਵਿਕਲਪਿਕ)"},
 form_yt: {en: "YouTube video link (optional)", hinglish: "YouTube video ka link (optional)", hi: "YouTube वीडियो लिंक (वैकल्पिक)", mr: "YouTube व्हिडिओ लिंक (ऐच्छिक)", ta: "YouTube வீடியோ இணைப்பு (விருப்பம்)", bn: "YouTube ভিডিও লিংক (ঐচ্ছিক)", te: "YouTube వీడియో లింక్ (ఐచ్ఛికం)", kn: "YouTube ವೀಡಿಯೊ ಲಿಂಕ್ (ಐಚ್ಛಿಕ)", ml: "YouTube വീഡിയോ ലിങ്ക് (ഓപ്ഷണൽ)", gu: "YouTube વિડિયો લિંક (વૈકલ્પિક)", pa: "YouTube ਵੀਡੀਓ ਲਿੰਕ (ਵਿਕਲਪਿਕ)"}};
 for (const [k, m] of Object.entries(EXTRA)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
+
+const EXTRA2 = {
+learn_pick: {en: "Choose a topic to learn in plain words:", hinglish: "Simple shabdon me seekhne ke liye vishay chunein:", hi: "सरल शब्दों में सीखने हेतु विषय चुनें:", mr: "सोप्या शब्दांत शिकण्यासाठी विषय निवडा:", ta: "எளிய சொற்களில் கற்க தலைப்பைத் தேர்வு:", bn: "সহজ ভাষায় শিখতে বিষয় বেছে নিন:", te: "సులభ భాషలో నేర్చుకోవడానికి అంశం ఎంచుకోండి:", kn: "ಸರಳ ಭಾಷೆಯಲ್ಲಿ ಕಲಿಯಲು ವಿಷಯ ಆರಿಸಿ:", ml: "ലളിത ഭാഷയിൽ പഠിക്കാൻ വിഷയം തിരഞ്ഞെടുക്കൂ:", gu: "સરળ ભાષામાં શીખવા વિષય પસંદ કરો:", pa: "ਸਰਲ ਭਾਸ਼ਾ ਵਿੱਚ ਸਿੱਖਣ ਲਈ ਵਿਸ਼ਾ ਚੁਣੋ:"},
+learn_listen: {en: "Listen to lesson", hinglish: "Paath sunein", hi: "पाठ सुनें", mr: "धडा ऐका", ta: "பாடத்தைக் கேள்", bn: "পাঠ শুনুন", te: "పాఠం వినండి", kn: "ಪಾಠ ಕೇಳಿ", ml: "പാഠം കേൾക്കൂ", gu: "પાઠ સાંભળો", pa: "ਪਾਠ ਸੁਣੋ"},
+sim_title: {en: "Try it yourself — consequence simulator", hinglish: "Khud aazmao — parinaam simulator", hi: "खुद आज़माएं — परिणाम सिम्युलेटर", mr: "स्वतः करून पहा — परिणाम सिम्युलेटर", ta: "நீங்களே முயலுங்கள் — விளைவு உருவகம்", bn: "নিজে চেষ্টা করুন — ফলাফল সিমুলেটর", te: "మీరే ప్రయత్నించండి — పరిణామ అనుకరణ", kn: "ನೀವೇ ಪ್ರಯತ್ನಿಸಿ — ಪರಿಣಾಮ ಅನುಕರಣೆ", ml: "നിങ്ങൾ തന്നെ പരീക്ഷിക്കൂ — ഫല സിമുലേറ്റർ", gu: "જાતે અજમાવો — પરિણામ સિમ્યુલેટર", pa: "ਖ਼ੁਦ ਅਜ਼ਮਾਓ — ਨਤੀਜਾ ਸਿਮੁਲੇਟਰ"},
+sim_pmt: {en: "Monthly amount (₹)", hinglish: "Mahine ki rakam (₹)", hi: "मासिक राशि (₹)", mr: "मासिक रक्कम (₹)", ta: "மாதத் தொகை (₹)", bn: "মাসিক টাকা (₹)", te: "నెలవారీ మొత్తం (₹)", kn: "ಮಾಸಿಕ ಮೊತ್ತ (₹)", ml: "പ്രതിമാസ തുക (₹)", gu: "માસિક રકમ (₹)", pa: "ਮਹੀਨਾਵਾਰ ਰਕਮ (₹)"},
+sim_yrs: {en: "Years", hinglish: "Saal", hi: "वर्ष", mr: "वर्षे", ta: "ஆண்டுகள்", bn: "বছর", te: "సంవత్సరాలు", kn: "ವರ್ಷಗಳು", ml: "വർഷം", gu: "વર્ષ", pa: "ਸਾਲ"},
+sim_hype: {en: "Claimed growth (%/month)", hinglish: "Dawa wali growth (%/mahina)", hi: "दावाकृत वृद्धि (%/माह)", mr: "सांगितलेली वाढ (%/महिना)", ta: "கூறப்படும் வளர்ச்சி (%/மாதம்)", bn: "দাবি করা বৃদ্ধি (%/মাস)", te: "చెప్పిన వృద్ధి (%/నెల)", kn: "ಹೇಳಿಕೊಂಡ ಬೆಳವಣಿಗೆ (%/ತಿಂಗಳು)", ml: "അവകാശപ്പെടുന്ന വളർച്ച (%/മാസം)", gu: "દાવા કરેલ વૃદ્ધિ (%/મહિને)", pa: "ਦਾਅਵਾ ਵਾਧਾ (%/ਮਹੀਨਾ)"},
+sim_crash: {en: "Add a 30% market crash at the end", hinglish: "Aakhir me 30% bazaar giravat jodein", hi: "अंत में 30% बाज़ार गिरावट जोड़ें", mr: "शेवटी 30% बाजार घसरण जोडा", ta: "முடிவில் 30% சந்தை வீழ்ச்சியைச் சேர்", bn: "শেষে 30% বাজার ধস যোগ করুন", te: "చివర్లో 30% మార్కెట్ పతనం జోడించండి", kn: "ಕೊನೆಯಲ್ಲಿ 30% ಮಾರುಕಟ್ಟೆ ಕುಸಿತ ಸೇರಿಸಿ", ml: "ഒടുവിൽ 30% വിപണി ഇടിവ് ചേർക്കൂ", gu: "અંતે 30% બજાર ઘટાડો ઉમેરો", pa: "ਅੰਤ ਵਿੱਚ 30% ਮਾਰਕੀਟ ਡਿੱਗ ਸ਼ਾਮਲ ਕਰੋ"},
+sim_go: {en: "Show outcome", hinglish: "Parinaam dikhao", hi: "परिणाम दिखाएं", mr: "निकाल दाखवा", ta: "முடிவைக் காட்டு", bn: "ফল দেখান", te: "ఫలితం చూపించు", kn: "ಫಲಿತಾಂಶ ತೋರಿಸಿ", ml: "ഫലം കാണിക്കൂ", gu: "પરિણામ બતાવો", pa: "ਨਤੀਜਾ ਦਿਖਾਓ"}};
+for (const [k, m] of Object.entries(EXTRA2)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
 const SPEECH_LANG = {hi: "hi-IN", mr: "mr-IN", ta: "ta-IN", bn: "bn-IN", te: "te-IN", kn: "kn-IN", ml: "ml-IN", gu: "gu-IN", pa: "pa-IN"};
 
 function applyLang() {
@@ -98,8 +109,8 @@ function render(d) {
   $("sim-note").textContent = d.simulator.inputs.note || "";
 }
 
-function drawChart(sim) {
-  const cv = $("chart"), ctx = cv.getContext("2d");
+function drawChart(sim, cvId) {
+  const cv = $(cvId || "chart"), ctx = cv.getContext("2d");
   ctx.clearRect(0, 0, cv.width, cv.height);
   const real = sim.projection, hype = sim.inputs.hype_series || null;
   const max = Math.max(...real, ...(hype || [0])) || 1;
@@ -148,3 +159,58 @@ $("f-dec").addEventListener("click", () => setFS(FS - 1));
 $("f-reset").addEventListener("click", () => setFS(16));
 
 applyLang();
+
+// ---- Track C: voice-first lesson browser + hands-on simulator ----
+let LESSON = null;
+fetch(`${API}/api/topics`).then((r) => r.json()).then((topics) => {
+  $("chips").innerHTML = topics.map((t) => `<button data-topic="${t}" aria-pressed="false">${t}</button>`).join("");
+  document.querySelectorAll("#chips button").forEach((b) =>
+    b.addEventListener("click", () => {
+      document.querySelectorAll("#chips button").forEach((x) => x.setAttribute("aria-pressed", "false"));
+      b.setAttribute("aria-pressed", "true");
+      learnTopic(b.dataset.topic);
+    }));
+}).catch(() => { $("chips").innerHTML = "<span class='muted'>Topics need the backend on :8001.</span>"; });
+
+async function learnTopic(topic) {
+  $("lesson").hidden = false;
+  $("lesson-plain").textContent = "…";
+  try {
+    const r = await fetch(`${API}/api/learn`, {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({topic, lang: LANG}),
+    });
+    LESSON = await r.json();
+    $("lesson-plain").textContent = LESSON.explainer.plain_text;
+    $("lesson-analogy").textContent = LESSON.explainer.analogy;
+    $("lesson-terms").innerHTML = (LESSON.explainer.terms || []).map((t) => `<li><strong>${t.term}:</strong> ${t.meaning}</li>`).join("");
+  } catch { $("lesson-plain").textContent = "Could not load. Is the backend on :8001?"; }
+}
+
+$("lesson-speak").addEventListener("click", () => {
+  if (!LESSON) return;
+  const u = new SpeechSynthesisUtterance(LESSON.explainer.plain_text + " " + LESSON.explainer.analogy);
+  u.lang = SPEECH_LANG[LANG] || "en-IN";
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+});
+
+for (const [id, out] of [["sim-pmt", "sim-pmt-v"], ["sim-yrs", "sim-yrs-v"], ["sim-hype", "sim-hype-v"]])
+  $(id).addEventListener("input", (e) => $(out).textContent = e.target.value);
+
+$("sim-go").addEventListener("click", async () => {
+  const body = {
+    pmt: parseFloat($("sim-pmt").value),
+    months: parseInt($("sim-yrs").value, 10) * 12,
+    claimed_monthly_pct: parseFloat($("sim-hype").value),
+    crash_pct: $("sim-crash").checked ? 30 : 0,
+  };
+  try {
+    const r = await fetch(`${API}/api/simulate`, {
+      method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body),
+    });
+    const sim = await r.json();
+    drawChart(sim, "chart2");
+    const f = (v) => "₹" + Math.round(v).toLocaleString("en-IN");
+    $("sim-note2").textContent = `${sim.inputs.note || ""} Hype: ${f(sim.inputs.hype_final)} vs steady: ${f(sim.inputs.realistic_final)}.`;
+  } catch { $("sim-note2").textContent = "Could not simulate. Is the backend on :8001?"; }
+});
