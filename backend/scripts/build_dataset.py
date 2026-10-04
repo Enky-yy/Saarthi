@@ -133,6 +133,17 @@ def main() -> None:
     for lang in ("en", "hi", "hinglish", "mr", "ta"):
         rows += gen(lang, 3600)
     rows += wall_rows()
+    # Real public scam rows: keep every one (already deduped), then trim
+    # synthetic promotion so real patterns dominate the scam side.
+    try:
+        with open(os.path.join(DATA, "real_promotion.jsonl"), encoding="utf-8") as f:
+            real = [json.loads(l) for l in f]
+    except Exception:
+        real = []
+    synth_promo = [r for r in rows if r["label"] == "promotion"]
+    rest = [r for r in rows if r["label"] != "promotion"]
+    keep = 4200 - len(real)
+    rows = rest + random.sample(synth_promo, max(0, min(len(synth_promo), keep))) + real
     random.shuffle(rows)
     path = os.path.join(DATA, "train.jsonl")
     with open(path, "w", encoding="utf-8") as f:

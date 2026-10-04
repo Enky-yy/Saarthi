@@ -26,6 +26,11 @@ def main() -> None:
 
     tok = AutoTokenizer.from_pretrained("google/muril-base-cased")
     model = AutoModelForSequenceClassification.from_pretrained("google/muril-base-cased", num_labels=3)
+    # LoRA: train ~1% of weights so training fits beside the live server on 6GB VRAM.
+    from peft import LoraConfig, TaskType, get_peft_model
+    model = get_peft_model(model, LoraConfig(task_type=TaskType.SEQ_CLS, r=32, lora_alpha=64, lora_dropout=0.05,
+                                             target_modules=["query", "key", "value", "dense"]))
+    model.print_trainable_parameters()
 
     def enc(batch):
         return tok(batch["text"], truncation=True, padding="max_length", max_length=128)
@@ -36,8 +41,9 @@ def main() -> None:
 
     import torch
     args = TrainingArguments(
-        output_dir=OUT + "-ckpt", num_train_epochs=3, per_device_train_batch_size=16,
-        per_device_eval_batch_size=32, learning_rate=2e-5, weight_decay=0.01,
+        output_dir=OUT + "-ckpt", num_train_epochs=5, per_device_train_batch_size=8,
+        gradient_accumulation_steps=2,
+        per_device_eval_batch_size=32, learning_rate=1e-4, weight_decay=0.01,
         eval_strategy="epoch", save_strategy="epoch", load_best_model_at_end=True,
         fp16=torch.cuda.is_available(), seed=7, report_to="none", save_total_limit=1,
     )
@@ -50,6 +56,7 @@ def main() -> None:
 
     Trainer(model=model, args=args, train_dataset=train_ds, eval_dataset=eval_ds,
             compute_metrics=metrics).train()
+    model = model.merge_and_unload()
     model.save_pretrained(OUT)
     tok.save_pretrained(OUT)
     print("saved ->", OUT)

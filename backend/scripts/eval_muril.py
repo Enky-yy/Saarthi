@@ -22,6 +22,17 @@ TRICKY = [
 ]
 
 
+def ham_regression() -> list[str]:
+    import json as _json
+    import os as _os
+    p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "data", "real_ham_eval.jsonl")
+    try:
+        with open(p, encoding="utf-8") as f:
+            return [_json.loads(l)["text"] for l in f][:100]
+    except Exception:
+        return []
+
+
 def main() -> None:
     from app.classifier import _ml_predict
     from app.schemas import PromoLabel
@@ -38,6 +49,13 @@ def main() -> None:
             scam_total += 1
             scam_ok += label == want
     print(f"tricky accuracy: {ok}/{total} | scam recall: {scam_ok}/{scam_total}")
+    stops = 0
+    for text in ham_regression():
+        got = _ml_predict(text)
+        if got and got[0].value == "promotion":
+            stops += 1
+            print(f"FALSE-STOP :: {text[:70]}")
+    print(f"ham false-stop rate: {stops}/{len(ham_regression())} (personal chatter must never read promotion)")
 
 
 if __name__ == "__main__":
