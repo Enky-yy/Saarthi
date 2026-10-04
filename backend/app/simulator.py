@@ -39,8 +39,11 @@ def simulate(pmt: float = 5000, months: int = 12, claimed_monthly_pct: float | N
     months = min(max(months, 3), 360)
     crash = min(max(crash_pct, 0), 90) / 100.0
     monthly_real = _REALISTIC_ANNUAL / 12
+    monthly_inf = 0.06 / 12
     realistic = _sip_series(pmt, months, monthly_real)
-    inputs: dict = {"pmt": pmt, "months": months, "realistic_annual_pct": 10}
+    # purchasing power of the steady path in today's rupees
+    real_terms = [round(v / ((1 + monthly_inf) ** (i + 1)), 2) for i, v in enumerate(realistic)]
+    inputs: dict = {"pmt": pmt, "months": months, "realistic_annual_pct": 10, "inflation_pct": 6}
     if claimed_monthly_pct is not None:
         claimed = min(max(claimed_monthly_pct / 100.0, 0), 0.5)
         hype = _sip_series(pmt, months, claimed)
@@ -48,19 +51,26 @@ def simulate(pmt: float = 5000, months: int = 12, claimed_monthly_pct: float | N
             "claimed_monthly_pct": round(claimed * 100, 2),
             "hype_final": hype[-1],
             "realistic_final": realistic[-1],
+            "real_terms_final": real_terms[-1],
             "hype_series": hype,
+            "real_terms_series": real_terms,
+            "hype_multiple": round(hype[-1] / max(1, pmt * months), 2),
+            "gap": round(hype[-1] - realistic[-1], 2),
+            "gap_months_of_saving": round((hype[-1] - realistic[-1]) / max(1, pmt), 1),
         })
     else:
-        inputs["realistic_final"] = realistic[-1]
+        inputs.update({"realistic_final": realistic[-1], "real_terms_final": real_terms[-1], "real_terms_series": real_terms})
     if crash:
         realistic = [round(v * (1 - crash * (i + 1) / len(realistic) * 0.5), 2) for i, v in enumerate(realistic)]
         if "hype_series" in inputs:
             n = len(inputs["hype_series"])
             inputs["hype_series"] = [round(v * (1 - crash * (i + 1) / n), 2) for i, v in enumerate(inputs["hype_series"])]
             inputs["hype_final"] = inputs["hype_series"][-1]
+            inputs["gap"] = round(inputs["hype_final"] - realistic[-1], 2)
+            inputs["gap_months_of_saving"] = round((inputs["hype_final"] - realistic[-1]) / max(1, pmt), 1)
         inputs["realistic_final"] = realistic[-1]
         inputs["crash_pct"] = round(crash * 100, 1)
-        inputs["note"] = "Crash applied: even steady habits dip — hype promises break harder. Illustration, not a prediction."
+        inputs["note"] = "Crash applied: steady habits dip but survive — hype promises snap. Illustration, not a prediction."
     elif "note" not in inputs:
         inputs["note"] = "Hype vs steady illustration, not a prediction. Real paths are bumpier."
     return Simulator(type="sip-vs-hype", inputs=inputs, projection=realistic)

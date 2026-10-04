@@ -125,8 +125,14 @@
         <input type="range" id="sim-hype" min="0" max="20" step="0.5" value="5"></div>
         <div><label><input type="checkbox" id="sim-crash"> <span data-i18n="sim_crash">Add a 30% market crash at the end</span></label></div>
       </div>
-      <div class="row"><button class="btn" id="sim-go" data-i18n="sim_go">Show outcome</button></div>
+      <div class="row"><button class="btn" id="sim-go" data-i18n="sim_go">Show outcome</button>
+        <span class="presets" role="group" aria-label="Scam patterns">
+          <button class="btn-ghost preset" data-hype="5">5%/month tip</button>
+          <button class="btn-ghost preset" data-hype="12.25">Double in 6 months</button>
+          <button class="btn-ghost preset" data-hype="20">10x tip</button>
+        </span></div>
       <canvas id="chart2" width="640" height="220"></canvas>
+      <div class="verdict" id="sim-verdict" hidden></div>
       <p class="muted" id="sim-note2"></p>
     </section>
   </div>

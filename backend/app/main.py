@@ -8,7 +8,7 @@ from .bhashini import tts as bhashini_tts
 from .classifier import classify
 from .evidence import check_evidence
 from .explainer import explain
-from .llm import llm_classify, llm_explain
+from .llm import llm_classify, llm_explain, llm_translate
 from .ocr import extract_image_text
 from .youtube import extract_youtube_text
 from .schemas import (
@@ -71,6 +71,14 @@ def _stub_pipeline(req: AnalyzeRequest, job_id: str) -> AnalyzeResponse:
     evidence = check_evidence(text, claims)
     if source_note:
         evidence = evidence.model_copy(update={"uncertainty": evidence.uncertainty + " " + source_note})
+    # Evidence strings are authored in English; Gemini translates them when keyed.
+    if req.lang.value not in ("en", "hinglish"):
+        try:
+            tr = llm_translate([evidence.summary, evidence.uncertainty], req.lang.value)
+            if tr and len(tr) == 2 and all(tr):
+                evidence = evidence.model_copy(update={"summary": tr[0], "uncertainty": tr[1]})
+        except Exception:
+            pass
     explainer = explain(text, claims, req.lang)
     try:
         upgraded_ex = llm_explain(text, req.lang.value)

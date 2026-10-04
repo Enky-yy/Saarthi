@@ -33,6 +33,10 @@ sim_hype: {en: "Claimed growth (%/month)", hinglish: "Dawa wali growth (%/mahina
 sim_crash: {en: "Add a 30% market crash at the end", hinglish: "Aakhir me 30% bazaar giravat jodein", hi: "अंत में 30% बाज़ार गिरावट जोड़ें", mr: "शेवटी 30% बाजार घसरण जोडा", ta: "முடிவில் 30% சந்தை வீழ்ச்சியைச் சேர்", bn: "শেষে 30% বাজার ধস যোগ করুন", te: "చివర్లో 30% మార్కెట్ పతనం జోడించండి", kn: "ಕೊನೆಯಲ್ಲಿ 30% ಮಾರುಕಟ್ಟೆ ಕುಸಿತ ಸೇರಿಸಿ", ml: "ഒടുവിൽ 30% വിപണി ഇടിവ് ചേർക്കൂ", gu: "અંતે 30% બજાર ઘટાડો ઉમેરો", pa: "ਅੰਤ ਵਿੱਚ 30% ਮਾਰਕੀਟ ਡਿੱਗ ਸ਼ਾਮਲ ਕਰੋ"},
 sim_go: {en: "Show outcome", hinglish: "Parinaam dikhao", hi: "परिणाम दिखाएं", mr: "निकाल दाखवा", ta: "முடிவைக் காட்டு", bn: "ফল দেখান", te: "ఫలితం చూపించు", kn: "ಫಲಿತಾಂಶ ತೋರಿಸಿ", ml: "ഫലം കാണിക്കൂ", gu: "પરિણામ બતાવો", pa: "ਨਤੀਜਾ ਦਿਖਾਓ"}};
 for (const [k, m] of Object.entries(EXTRA2)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
+
+const EXTRA3 = {
+sim_verdict: {en: "Promise: {hype} (×{mult} of what you paid). Steady habit: {real} (₹{realterms} in today's money). Gap ₹{gap} ≈ {months} months of your savings.", hinglish: "Vaada: {hype} (jama ka ×{mult}). Sabr wali aadat: {real} (aaj ke paise me ₹{realterms}). Antar ₹{gap} ≈ {months} mahine ki bachat.", hi: "वादा: {hype} (जमा का ×{mult})। धैर्य वाली आदत: {real} (आज के पैसे में ₹{realterms})। अंतर ₹{gap} ≈ {months} माह की बचत।", mr: "आश्वासन: {hype} (भरलेल्याच्या ×{mult})। संयमी सवय: {real} (आजच्या पैशांत ₹{realterms})। तफावत ₹{gap} ≈ {months} महिन्यांची बचत।", ta: "வாக்குறுதி: {hype} (செலுத்தியதில் ×{mult}). நிதானப் பழக்கம்: {real} (இன்றைய பணத்தில் ₹{realterms}). இடைவெளி ₹{gap} ≈ {months} மாத சேமிப்பு.", bn: "প্রতিশ্রুতি: {hype} (জমার ×{mult})। ধৈর্যের অভ্যাস: {real} (আজকের টাকায় ₹{realterms})। ফারাক ₹{gap} ≈ {months} মাসের সঞ্চয়।", te: "హామీ: {hype} (చెల్లించినదానికి ×{mult}). ఓర్పు అలవాటు: {real} (నేటి డబ్బులో ₹{realterms}). తేడా ₹{gap} ≈ {months} నెలల పొదుపు.", kn: "ಭರವಸೆ: {hype} (ಪಾವತಿಸಿದ್ದರ ×{mult}). ತಾಳ್ಮೆಯ ಅಭ್ಯಾಸ: {real} (ಇಂದಿನ ಹಣದಲ್ಲಿ ₹{realterms}). ಅಂತರ ₹{gap} ≈ {months} ತಿಂಗಳ ಉಳಿತಾಯ.", ml: "വാഗ്ദാനം: {hype} (അടച്ചതിന്റെ ×{mult}). ക്ഷമാശീലം: {real} (ഇന്നത്തെ പണത്തിൽ ₹{realterms}). വിടവ് ₹{gap} ≈ {months} മാസത്തെ സമ്പാദ്യം.", gu: "વચન: {hype} (ભરેલાના ×{mult}). ધીરજની ટેવ: {real} (આજના પૈસામાં ₹{realterms}). તફાવત ₹{gap} ≈ {months} મહિનાની બચત.", pa: "ਵਾਅਦਾ: {hype} (ਭਰੇ ਦੇ ×{mult})। ਧੀਰਜ ਵਾਲੀ ਆਦਤ: {real} (ਅੱਜ ਦੇ ਪੈਸੇ ਵਿੱਚ ₹{realterms})। ਫ਼ਰਕ ₹{gap} ≈ {months} ਮਹੀਨਿਆਂ ਦੀ ਬਚਤ।"}};
+for (const [k, m] of Object.entries(EXTRA3)) for (const [l, v] of Object.entries(m)) I18N[l][k] = v;
 const SPEECH_LANG = {hi: "hi-IN", mr: "mr-IN", ta: "ta-IN", bn: "bn-IN", te: "te-IN", kn: "kn-IN", ml: "ml-IN", gu: "gu-IN", pa: "pa-IN"};
 
 function applyLang() {
@@ -113,15 +117,25 @@ function drawChart(sim, cvId) {
   const cv = $(cvId || "chart"), ctx = cv.getContext("2d");
   ctx.clearRect(0, 0, cv.width, cv.height);
   const real = sim.projection, hype = sim.inputs.hype_series || null;
-  const max = Math.max(...real, ...(hype || [0])) || 1;
-  const X = (i, n) => 30 + (i / Math.max(1, n - 1)) * (cv.width - 50);
-  const Y = (v) => cv.height - 20 - (v / max) * (cv.height - 50);
-  ctx.strokeStyle = "#D5D5D5"; ctx.beginPath(); ctx.moveTo(30, 10); ctx.lineTo(30, cv.height - 20); ctx.lineTo(cv.width - 10, cv.height - 20); ctx.stroke();
-  const line = (arr, col, dash) => { ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.setLineDash(dash || []); ctx.beginPath(); arr.forEach((v, i) => i ? ctx.lineTo(X(i, arr.length), Y(v)) : ctx.moveTo(X(0, arr.length), Y(v))); ctx.stroke(); ctx.setLineDash([]); };
-  line(real, "#0B3C5D");
-  if (hype) line(hype, "#C62828", [6, 4]);
-  ctx.fillStyle = "#5A5A5A"; ctx.font = "12px sans-serif";
-  ctx.fillText("steady", 34, 22); if (hype) { ctx.fillStyle = "#C62828"; ctx.fillText("hype claim", 90, 22); }
+  const terms = sim.inputs.real_terms_series || null;
+  const max = Math.max(...real, ...(hype || [0]), ...(terms || [0])) || 1;
+  const X = (i, n) => 34 + (i / Math.max(1, n - 1)) * (cv.width - 54);
+  const Y = (v) => cv.height - 24 - (v / max) * (cv.height - 58);
+  if (sim.inputs.crash_pct) { // shade the crash zone
+    ctx.fillStyle = "rgba(198,40,40,.08)";
+    ctx.fillRect(X(Math.floor(real.length * 0.7), real.length), 10, cv.width - X(Math.floor(real.length * 0.7), real.length) - 10, cv.height - 34);
+    ctx.fillStyle = "#C62828"; ctx.font = "12px sans-serif"; ctx.fillText(`crash -${sim.inputs.crash_pct}%`, X(Math.floor(real.length * 0.7), real.length) + 4, 24);
+  }
+  ctx.strokeStyle = "#D5D5D5"; ctx.beginPath(); ctx.moveTo(34, 10); ctx.lineTo(34, cv.height - 24); ctx.lineTo(cv.width - 10, cv.height - 24); ctx.stroke();
+  const line = (arr, col, dash, width) => { ctx.strokeStyle = col; ctx.lineWidth = width || 2; ctx.setLineDash(dash || []); ctx.beginPath(); arr.forEach((v, i) => i ? ctx.lineTo(X(i, arr.length), Y(v)) : ctx.moveTo(X(0, arr.length), Y(v))); ctx.stroke(); ctx.setLineDash([]); };
+  if (terms) line(terms, "#9E9E9E", [2, 3], 1.5);
+  line(real, "#0B3C5D", [], 2.5);
+  if (hype) line(hype, "#C62828", [6, 4], 2);
+  const f = (v) => "₹" + Math.round(v / 1000) + "k";
+  ctx.font = "12px sans-serif";
+  ctx.fillStyle = "#0B3C5D"; ctx.fillText("steady " + f(real[real.length - 1]), 38, 24);
+  if (hype) { ctx.fillStyle = "#C62828"; ctx.fillText("hype " + f(hype[hype.length - 1]), 130, 24); }
+  if (terms) { ctx.fillStyle = "#757575"; ctx.fillText("today's money " + f(terms[terms.length - 1]), 230, 24); }
 }
 
 $("speak").addEventListener("click", () => {
@@ -134,9 +148,21 @@ $("speak").addEventListener("click", () => {
 });
 
 function deviceSpeech() {
-  const u = new SpeechSynthesisUtterance(LAST.explainer.plain_text + " " + LAST.explainer.analogy);
-  u.lang = SPEECH_LANG[LANG] || "en-IN";
-  speechSynthesis.cancel(); speechSynthesis.speak(u);
+  const text = LAST.explainer.plain_text + " " + LAST.explainer.analogy;
+  const want = (SPEECH_LANG[LANG] || "en-IN").toLowerCase().slice(0, 2);
+  const voices = speechSynthesis.getVoices();
+  const voice = voices.find((v) => v.lang.toLowerCase().startsWith(want) && v.localService) || voices.find((v) => v.lang.toLowerCase().startsWith(want)) || null;
+  speechSynthesis.cancel();
+  // chunk: some engines cut long utterances
+  const chunks = text.match(/.{1,200}(?:\s|$)/g) || [text];
+  chunks.forEach((part, i) => {
+    const u = new SpeechSynthesisUtterance(part);
+    u.lang = SPEECH_LANG[LANG] || "en-IN";
+    u.rate = 0.95;
+    if (voice) u.voice = voice;
+    if (i === 0 && typeof speechSynthesis.getVoices === "function") speechSynthesis.getVoices();
+    speechSynthesis.speak(u);
+  });
 }
 
 function saveHist(d) {
@@ -197,6 +223,9 @@ $("lesson-speak").addEventListener("click", () => {
 for (const [id, out] of [["sim-pmt", "sim-pmt-v"], ["sim-yrs", "sim-yrs-v"], ["sim-hype", "sim-hype-v"]])
   $(id).addEventListener("input", (e) => $(out).textContent = e.target.value);
 
+document.querySelectorAll(".preset").forEach((b) =>
+  b.addEventListener("click", () => { $("sim-hype").value = b.dataset.hype; $("sim-hype-v").textContent = b.dataset.hype; $("sim-go").click(); }));
+
 $("sim-go").addEventListener("click", async () => {
   const body = {
     pmt: parseFloat($("sim-pmt").value),
@@ -211,6 +240,13 @@ $("sim-go").addEventListener("click", async () => {
     const sim = await r.json();
     drawChart(sim, "chart2");
     const f = (v) => "₹" + Math.round(v).toLocaleString("en-IN");
-    $("sim-note2").textContent = `${sim.inputs.note || ""} Hype: ${f(sim.inputs.hype_final)} vs steady: ${f(sim.inputs.realistic_final)}.`;
+    const t = (I18N[LANG] && I18N[LANG].sim_verdict) || I18N.en.sim_verdict;
+    const paid = sim.inputs.pmt * sim.inputs.months;
+    $("sim-verdict").hidden = false;
+    $("sim-verdict").textContent = t
+      .replace("{hype}", f(sim.inputs.hype_final)).replace("{mult}", sim.inputs.hype_multiple)
+      .replace("{real}", f(sim.inputs.realistic_final)).replace("{realterms}", Math.round(sim.inputs.real_terms_final).toLocaleString("en-IN"))
+      .replace("{gap}", Math.round(sim.inputs.gap).toLocaleString("en-IN")).replace("{months}", sim.inputs.gap_months_of_saving);
+    $("sim-note2").textContent = sim.inputs.note || "";
   } catch { $("sim-note2").textContent = "Could not simulate. Is the backend on :8001?"; }
 });

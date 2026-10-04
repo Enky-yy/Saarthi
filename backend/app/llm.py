@@ -79,3 +79,22 @@ def llm_explain(text: str, lang: str):
         return Explainer(plain_text=str(out["plain_text"])[:800], analogy=str(out["analogy"])[:300], terms=out.get("terms", [])[:3])
     except Exception:
         return None
+
+
+_TRANSLATE_SYS = (
+    "Translate each of these short investor-protection strings into {lang}. "
+    "Keep SEBI, SCORES, NSE, NAV, SIP untranslated. Keep it plain and short. "
+    "Respond with ONLY a JSON array of translated strings in the same order."
+)
+
+
+def llm_translate(texts: list[str], lang: str) -> list[str] | None:
+    """Translate UI/evidence strings; None => keep English."""
+    if lang in ("en", "hinglish") or not texts:
+        return None
+    langname = _LANG_NAMES.get(lang, "English")
+    out = _generate(_TRANSLATE_SYS.format(lang=langname) + "\n\n" + json.dumps(texts[:8]))
+    try:
+        return [str(s)[:500] for s in out][: len(texts)] if isinstance(out, list) else None
+    except Exception:
+        return None
